@@ -1,0 +1,93 @@
+\documentclass{amsart}
+\usepackage[margin = 2cm]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage[usefamily=sage]{pythontex} 
+\usepackage{colortbl} 
+\usepackage{xcolor}
+
+\newtheorem{ejer}{Ejercicio}
+
+\title{Tarea 1. Álgebra y Matemática Discreta}
+\author{Escribe tu Nombre y Grupo}
+
+\begin{document}
+\maketitle
+
+\begin{ejer}
+Vamos a construir la matriz 
+
+$$\left(\begin{array}{cccc|cc}
+1 & \frac{1}{2} & 0 & 2  &         1 & 2 \\
+0 &   0 & 1 & 3 &        -1 & 0 \\ \hline
+0 &   1 & 0 & 0  &  \alpha_0 & \beta_0 \\
+0 &   0 & 0 & 1  &  \alpha_1 & \beta_1 \\
+\end{array}\right)$$
+
+suponiendo que tenemos definida en {\tt sage} la matriz 
+\begin{sageblock}
+A = matrix(QQ,[[1,1/2,0,2,1,2],[0,0,1,3,-1,0]])
+\end{sageblock}
+$$ A = \sage{A}$$
+y las variables $\alpha_0,\alpha_1,\beta_0,\beta_1$ son variables libres que
+operan con los números racionales sobre los que está definida la matriz $A$.
+En esta tarea vamos a usar un método ligeramente diferente al que hemos usado
+en la práctica de clase. Seguiremos los siguientes pasos:
+
+Empezaremos construyendo el anillo de polinomios con variables $\alpha_0,
+\alpha_1, \beta_0$ y $\beta_1$ con coeficientes en ${\mathbb Q}$. 
+Construiremos una matriz \verb|M| sobre este anillo de polinomios indicando 
+Únicamente las dimensiones, por lo que la matriz estará llena de ceros.
+Vamos a rellenar las tres partes de la matriz usando la asignación múltiple
+que podemos ver en {\tt In [31]:} del archivo de comandos de {\tt sage} usado
+para las prácticas de esta semana:
+
+$$
+\left(\begin{array}{cccc|cc} 
+\cellcolor{red!40!white} 1 & \cellcolor{red!40!white}  \frac{1}{2} & \cellcolor{red!40!white} 0 & \cellcolor{red!40!white}  2 & \cellcolor{red!40!white} 1 & \cellcolor{red!40!white} 2 \\
+\cellcolor{red!40!white} 0 & \cellcolor{red!40!white}            0 & \cellcolor{red!40!white} 1 & \cellcolor{red!40!white}  3 & \cellcolor{red!40!white} -1 & \cellcolor{red!40!white} 0 \\ \hline
+\cellcolor{green!40!white} 0 & \cellcolor{green!40!lightgray} 1 & \cellcolor{green!40!white} 0 & \cellcolor{green!40!white} 0  & \cellcolor{yellow!60!white} \alpha_0 & \cellcolor{yellow!60!white} \beta_0 \\
+\cellcolor{green!40!white} 0 & \cellcolor{green!40!white} 0 & \cellcolor{green!40!white} 0 & \cellcolor{green!40!lightgray} 1  & \cellcolor{yellow!60!white} \alpha_1 & \cellcolor{yellow!60!white} \beta_1 \\
+\end{array}\right)
+$$
+
+La parte roja es la matriz $A$ que nos han dado, por lo que podemos asignar 
+estos valores con \verb|M[:2,:] = A|. Para entender lo que significan estos Índices
+fíjate en los ejemplos que aparecen en {\tt In [30]:} del archivo de comandos
+de \verb|sage|.
+
+Para poner los unos de la parte verde, como sólo son dos, asigna los valores 
+directamente. Por Último para la parte amarilla, construye la matriz 
+$$ B = \left(\begin{array}{cc} \alpha_0 & \beta_0 \\ \alpha_1 & \beta_1 
+\end{array}\right)$$
+y ponla en la posición correcta de la matriz \verb|M| del mismo modo que pusimos
+la matriz $A$ con las coordenadas correctas. Si quieres completar la construcción
+poniendo las líneas separadoras, utiliza el comando \verb|subdivide|.
+\end{ejer}
+{\it Solución: }
+
+% Escribe tu solución para el Ejercicio 1.
+
+\begin{sageblock}
+P.<alpha0, alpha1, beta0, beta1> = QQ[]
+A = matrix(QQ,[[1,1/2,0,2,1,2],[0,0,1,3,-1,0]])
+B = matrix(P, [ [alpha0, beta0], [alpha1, beta1] ])
+M = matrix(P, 4, 6)
+M[:2,:] = A
+p
+M[3, 3] = 1
+M[2:4, 4:6] = B
+M.subdivide(2, 4)
+\end{sageblock}
+
+La matriz M es: $$\sage{M}$$
+
+La matriz M está construida por las matrices A y B, siendo A y B respectivamente $$\sage{A} \sage{B}$$
+
+Las variables $\alpha_0,\alpha_1,\beta_0,\beta_1$ son variables libres
+
+
+% Fin del ejercicio.
+
+\end{document}
+
+

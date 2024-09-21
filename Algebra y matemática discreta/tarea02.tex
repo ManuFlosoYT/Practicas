@@ -1,0 +1,72 @@
+\documentclass{amsart}
+\usepackage[margin = 2cm]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage[usefamily=sage]{pythontex} 
+\usepackage{colortbl} 
+\usepackage{xcolor}
+
+\newtheorem{ejer}{Ejercicio}
+
+\title{Tarea 2. Álgebra y Matemática Discreta}
+\author{Escribe tu Nombre y Grupo}
+
+\begin{document}
+\maketitle
+
+\begin{ejer}
+Encuentra todas las matrices $X$ tales que $AX = B$ siendo $A$ y $B$ las
+siguientes matrices sobre los números reales dependientes de los parámetros
+reales $a$ y $b$, 
+
+\[
+A = \left(\begin{array}{rrr}
+2 & 0 & 2 \\
+1 & 2 & -5 \\
+-1 & -1 & 2 \\
+0 & \frac{1}{2} & -\frac{3}{2}
+\end{array}\right) \qquad
+B = \left(\begin{array}{rrr}
+b  & -2 & -4 \\
+-a & 9 & 12 \\
+a  & 2b & a+3b \\
+0 & \frac{5}{2} & \frac{7}{2}
+\end{array}\right)
+\]
+\end{ejer}
+{\it Solución: }
+
+% Escribe tu solución para el Ejercicio 1.
+\begin{sageblock}
+P.<a,b> = QQ[]
+A = matrix(QQ, [[2, 0, 2], [1, 2, -5], [-1, -1, 2], [0, 1/2, -3/2]])
+B = matrix(P, [[b, -2, -4], [-a, 9, 12], [a, 2*b, a + 3*b], [0, 5/2, 7/2]])
+AB = block_matrix([ [A, B] ])
+R = AB.echelon_form()
+R1 = R(a = 1, b = -2)
+R1.subdivide(2, 3)
+R2 = R1[:2, :]
+R2.subdivide([], 3)
+P.<alpha1, alpha2, alpha3> = QQ[]
+M = matrix(P, 3, 6)
+M[:2, :] = R2
+M[2, 2] = 1
+M[2, 3] = alpha1
+M[2, 4] = alpha2
+M[2, 5] = alpha3
+M.subdivide([], 3)
+MR = M.echelon_form()
+X = MR.subdivision(0, 1)
+\end{sageblock}
+
+Creamos la matriz ampliada y la reducimos por filas
+$$ AB = \sage{AB} $$
+$$ X = \sage{R} $$
+Las dos últimas filas de la matriz nos dicen que para que se cumpla el sistema
+$$ 2b + 4 = 0 $$
+$$ \frac{a}{2} + \frac{b}{4} = \frac{a}{4} + \frac{b}{8} = 0 $$
+$$ a + 3b + 5 = 0 $$
+Ahora asignamos los valores a = 1 y b = 2 y sustituimos en la matriz
+$$ \sage{R1} $$
+% Fin del ejercicio.
+
+\end{document}

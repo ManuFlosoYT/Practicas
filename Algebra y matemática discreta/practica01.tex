@@ -1,0 +1,198 @@
+\documentclass{amsart}
+\usepackage[margin = 2cm]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage[usefamily=sage]{pythontex}
+\usepackage{colortbl} 
+\usepackage{xcolor}
+
+\newtheorem{ejer}{Ejercicio}
+
+\title{Práctica 1. Álgebra y Matemática Discreta}
+\author{Escribe tu Nombre y Grupo}
+
+\begin{document}
+\maketitle
+
+\begin{ejer}
+Introduce las siguientes matrices sobre el cuerpo de los números racionales
+$\mathbb Q$ usando un {\tt sageblock}:
+$$ 
+A = \left(\begin{array}{ccc} 1 & \frac{1}{2} & -1 \\ 2 & 0 & \frac{1}{3} \end{array}\right) 
+\qquad
+B = \left(\begin{array}{ccc} -1 & 2 & 0 \\ \frac{1}{2} & 0 & -\frac{1}{3} \\ 2 & 0 & -1 \end{array}\right)
+$$
+De los siguientes productos, determina cuales se pueden hacer y cuales no. En el 
+caso de los que se puedan hacer, calcúlalos usando {\tt sage} y pon el resultado
+en el archivo de la práctica.
+$$AB, A^t B, A B^t, A^t B^t, BA, B^t A, B A^t, B^t A^t$$
+\end{ejer}
+{\it Solución: }
+
+% Escribe tu solución para el Ejercicio 1.
+\begin{sageblock}
+A = matrix(QQ, [ [1, 1/2, -1], [2, 0, 1/3] ])
+B = matrix(QQ, [ [-1, 2, 0], [1/2, 0, -1/3], [2, 0, -1] ])
+\end{sageblock}
+ 
+$$ AB = \sage{A*B} $$
+$$ AB^t = \sage{A*B.T} $$
+
+La operación $ A^tB $ no se puede realizar
+
+% Fin del Ejercicio 1.
+
+\begin{ejer}
+Vamos a construir la matriz 
+
+
+$$\left(\begin{array}{cccc|cc}
+1 & \frac{1}{2} & 0 & 2  &         1 & 2 \\
+0 &   0 & 1 & 3 &        -1 & 0 \\ \hline
+0 &   1 & 0 & 0  &  \alpha_0 & \beta_0 \\
+0 &   0 & 0 & 1  &  \alpha_1 & \beta_1 \\
+\end{array}\right)$$
+
+suponiendo que tenemos definida en {\tt sage} la matriz 
+\begin{sageblock}
+A = matrix(QQ,[[1,1/2,0,2,1,2],[0,0,1,3,-1,0]])
+\end{sageblock}
+$$ A = \sage{A}$$
+y las variables $\alpha_0,\alpha_1,\beta_0,\beta_1$ son variables libres que
+operan con los números racionales sobre los que está definida la matriz $A$.
+Aunque hay varias formas de hacerlo, en este ejercicio te pedimos que lo hagas
+siguiendo los pasos que se te indican:
+
+Vamos a construir la matriz por bloques utilizando \verb|block_matrix|. Para 
+ello nos damos cuenta de que los dos bloques de arriba (el rojo y el azul) están 
+juntos en la matriz $A$. 
+
+$$
+\left(\begin{array}{cccc|cc} 
+\cellcolor{red!40!white} 1 & \cellcolor{red!40!white}  \frac{1}{2} & \cellcolor{red!40!white} 0 & \cellcolor{red!40!white}  2 & \cellcolor{blue!40!white} 1 & \cellcolor{blue!40!white} 2 \\
+\cellcolor{red!40!white} 0 & \cellcolor{red!40!white}            0 & \cellcolor{red!40!white} 1 & \cellcolor{red!40!white}  3 & \cellcolor{blue!40!white} -1 & \cellcolor{blue!40!white} 0 \\ \hline
+\cellcolor{green!40!white} 0 & \cellcolor{green!40!lightgray} 1 & \cellcolor{green!40!white} 0 & \cellcolor{green!40!white} 0  & \cellcolor{yellow!60!white} \alpha_0 & \cellcolor{yellow!60!white} \beta_0 \\
+\cellcolor{green!40!white} 0 & \cellcolor{green!40!white} 0 & \cellcolor{green!40!white} 0 & \cellcolor{green!40!lightgray} 1  & \cellcolor{yellow!60!white} \alpha_1 & \cellcolor{yellow!60!white} \beta_1 \\
+\end{array}\right)
+$$
+
+Utilizaremos \verb|subdivide| para partir la matriz $A$ que nos han dado en las
+dos partes (la roja y la azul) que llamaremos respectivamente {\tt A1} y {\tt A2} 
+y que sacaremos una vez subdividida la matriz $A$ usando \verb|subdivision|.
+
+Para construir el bloque verde, que llamaremos \verb|B1| vamos a construir una
+matriz indicando únicamente su dimensión para que nos la llene con ceros y asignaremos
+$1$ a las dos posiciones que tienen este valor.
+
+Para construir la parte amarilla, que llamaremos \verb|B2| vamos a construir
+el anillo de polinomios con variables $\alpha_0,\alpha_1,\beta_0,\beta_1$ sobre
+el cuerpo ${\mathbb Q}$ y construiremos la matriz \verb|B2| sobre este anillo
+de polinomios.
+
+Finalmente, uniremos las cuatro matrices que hemos construido usando 
+\verb|block_matrix|.
+\end{ejer}
+{\it Solución: }
+
+% Escribe tu solución para el Ejercicio 2.
+\begin{sageblock}
+A = matrix(QQ, [[1,1/2,0,2,1,2], [0,0,1,3,-1,0]])
+A.subdivide([], 4)
+A1 = A.subdivision(0, 0)
+A2 = A.subdivision(0, 1)
+B = matrix(QQ, 2, 4)
+B[0,1] = 1
+B[1,3] = 1
+P.<alpha0, alpha1, beta0, beta1> = QQ[]
+B2 = matrix(P, [ [alpha0, beta0], [alpha1, beta1] ])
+M = block_matrix([ [A1, A2], [B, B2] ])
+\end{sageblock}
+
+Las submatrices que me piden son
+$$ A1 = \sage{A1}, A2 = \sage{A2}, B = \sage{B}, B2 = \sage{B2} $$
+La matriz resultante es 
+$$ M = \sage{M} $$
+% Fin del Ejercicio 2.
+
+\begin{ejer}
+Construye la matriz 
+$$
+A = \left(\begin{array}{rrrr}
+5 & 4 & -3 & 1 \\
+10 & 7 & -1 & 0 \\
+26 & 14 & 17 & -8 \\
+1 & 3 & -10 & 4
+\end{array}\right)
+$$
+sobre los números racionales. Amplíala con la matriz identidad usando \verb|block_matrix|
+y reduce la matriz ampliada por filas usando \verb|echelon_form|. La parte que 
+queda a la derecha de la matriz reducida es lo que se llama la matriz de paso. 
+Llama $P$ a esta matriz de paso y comprueba que si multiplicas $P$ por $A$ obtienes
+la matriz reducida por filas de la matriz $A$. En este caso, como la matriz
+reducida es la matriz identidad, la matriz de paso es la inversa de $A$. 
+Comprueba que esto es cierto imprimiendo la matriz inversa de $A$ usando
+\verb|$$\sage{A^-1}$$|.
+\end{ejer}
+{\it Solución: }
+
+% Escribe tu solución para el Ejercicio 3.
+\begin{sageblock}
+A = matrix(QQ, [[5, 4, -3, 1], [10, 7, -1, 0], [26, 14, 17, -8], [1, 3, -10, 4]])
+A1 = block_matrix([[A, 1]])
+R = A1.echelon_form()
+P = R.subdivision(0, 1)
+\end{sageblock}
+
+La matriz ampliada es $$ A1 = \sage{A} $$,
+La matriz reducida por filas es $$ R = \sage{R} $$
+La matriz de paso es $$ P = \sage{P} $$
+Como se puede comprobar $$ P = \sage{P} = \sage{A^-1} = A^{-1}$$
+% Fin del Ejercicio 3.
+
+
+\begin{ejer}
+Consideremos el sistema de ecuaciones sobre ${\mathbb Q}$ dado por
+$$ 3 x_1 + 2 x_2 - x_3 = 3 $$
+$$ -x_1 + x_2 + 2 x_3 = 1 $$
+$$ x_1 + 4 x_2 + 3 x_3 = 2a+1 $$
+donde $a$ es un parámetro libre. 
+\begin{enumerate}
+\item  Construye la matriz de los coeficientes
+sobre el anillo de los polinomios sobre ${\mathbb Q}$ con variable $a$, así como 
+la matriz columna de los términos independientes sobre el mismo anillo de 
+polinomios. 
+\item Construye la matriz ampliada del sistema utilizando \verb|block_matrix|.
+\item Determina para qué valores de $a$ el sistema tiene solución mediante una
+reducción de matrices.
+\item Para el valor o valores en los cuales el sistema sea compatible (tenga
+solución) realiza la reducción completa de la matriz ampliada y determina todas
+las soluciones del sistema.
+\end{enumerate}
+\end{ejer}
+{\it Solución: }
+
+% Escribe tu solución para el Ejercicio 4.
+
+\begin{sageblock}
+A = matrix(QQ, [ [3, 2, -1], [-1, 1, 2], [1, 4, 3] ])
+P.<a> = QQ[]
+B = matrix(P, [[3], [1], [2*a+1]])
+AB = block_matrix([ [A, B] ])
+C = AB.echelon_form()
+C1 = C(a=2)
+C2 = C1.echelon_form()
+\end{sageblock}
+
+% Fin del Ejercicio 4.
+
+Hay que reducir la matriz ampliada del sistema y reducirla por filas
+$$ \sage{AB} \to \sage{C} $$
+Se deduce que el parámetro $a$ tiene que valer $2$ para que el sistema sea compatible. Sustituimos su valor y seguimos reduciendo.
+$$ \sage{C1} \to \sage{C2} $$
+
+Esto nos dice que $x_1 - x_3 = \frac{1}{5}$ y que $x_2 + x_3 = \frac{6}{5}$.
+
+Tomando $x_3$ como parametro libre $\alpha$ tenemos que las soluciones son $x_1 = \alpha + \frac{1}{5}$, $x_2 = -\alpha + \frac{6}{5}$, $x_3 = \alpha$
+
+Siendo $\alpha$ cualquier número racional.
+
+\end{document}

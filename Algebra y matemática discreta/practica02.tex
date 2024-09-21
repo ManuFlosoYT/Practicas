@@ -1,0 +1,765 @@
+\documentclass{amsart}
+\usepackage[margin = 2cm]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage[usefamily=sage]{pythontex}
+\usepackage{colortbl} 
+\usepackage{xcolor}
+
+\newtheorem{ejer}{Ejercicio}
+\newtheorem{ejem}{Ejemplo}
+
+\title{Práctica 2. Ecuaciones Lineales y Matriciales}
+\author{Escribe tu Nombre y Grupo}
+
+\def\n{\mathbb{N}}
+\def\r{\mathbb{R}}
+\def\z{\mathbb{Z}}
+\def\q{\mathbb{Q}}
+\def\c{\mathbb{C}}
+
+\begin{document}
+\maketitle
+
+La forma más simple de lo que entendemos como una ecuación es una expresión 
+del tipo 
+$$ 3x = 12 $$
+donde $x$ es lo que llamamos incógnita. Lo que multiplica a la $x$ se denomina
+coeficiente y la parte derecha se llamará término independiente. Resolver una
+ecuación consiste en hacer transformaciones hasta conseguir que el coeficiente
+se convierta en $1$ y obtengamos el valor de $x$. En el caso de la ecuación 
+anterior, lo que hacemos es multiplicar por $\frac{1}{3}$ los dos miembros de
+la ecuación. Con eso tenemos 
+$$ x = 1 \cdot x = \frac{1}{3} \cdot 3 \cdot x = \frac{1}{3} \cdot 12 = 4. $$
+Un sistema de ecuaciones lineales es una expresión de la forma 
+\begin{align*}
+x_{1} - x_{2} - 5 x_{3} - 5 x_{4} &= 6 \\
+-x_{1} - x_{2} + 2 x_{3} + x_{4} &= 1 \\
+-x_{2} - 2 x_{3} - 3 x_{4} &= 5 \\
+x_{4} &= -2 \\
+\end{align*}
+Esta expresión nos puede parecer muy distinta a la ecuación anterior, pero
+podemos escribir en forma matricial como 
+$$ AX = B $$
+donde ahora $A,X$ y $B$ son matrices. Concretamente 
+$$ A = \left(\begin{array}{rrrr}
+1 & -1 & -5 & -5 \\
+-1 & -1 & 2 & 1 \\
+0 & -1 & -2 & -3 \\
+0 & 0 & 0 & 1
+\end{array}\right) \quad
+X = \left(\begin{array}{r} x_1 \\ x_2 \\ x_3 \\ x_4 \end{array}\right) \quad
+B = \left(\begin{array}{r} 6 \\ 1 \\ 5 \\ -2 \end{array}\right)$$
+La forma matricial será la preferida por nosotros a lo largo de este curso. 
+La matriz $A$ se llama {\bf matriz de los coeficientes}, $X$ la {\bf matriz de
+incógnitas} y $B$ la {\bf matriz de términos independientes}. Para representar
+esta ecuación matricial se utiliza la {\bf matriz ampliada del sistema} que 
+denotaremos $[A|B]$ y es la formada por dos bloques, uno con la matriz $A$ y 
+otro con la matriz $B$. En este caso 
+
+$$[A|B] = \left(\begin{array}{rrrr|r}
+1 & -1 & -5 & -5 & 6 \\
+-1 & -1 & 2 & 1 & 1 \\
+0 & -1 & -2 & -3 & 5 \\
+0 & 0 & 0 & 1 & -2
+\end{array}\right)$$
+
+El objetivo de la matriz ampliada del sistema es simplificar las operaciones 
+que tenemos que hacer para resolver la ecuación. La idea es la misma que en la
+ecuación $3x = 12$, vamos a hacer operaciones en ambos miembros de la ecuación
+hasta que consigamos que lo que multiplica a $X$ sea $1$ (o en este caso la 
+matriz identidad). Las operaciones que podemos hacer deben ser operaciones que
+nos mantengan el mismo conjunto de soluciones. Dicho de otra forma, si hacemos
+alguna operación a la matriz $[A|B]$ y obtenemos la matriz $[A'|B']$, las 
+matrices $X$ tales que $AX = B$ deben ser las mismas que las que hacen $A'X = B'$.
+Esto sucede por ejemplo cuando hacemos una operación elemental por filas $E$
+porque tal y como hemos visto en teoría eso es lo mismo que multiplicar por
+la matriz elemental $E$ y todas las matrices elementales son invertibles. 
+Entonces $AX = B$ si y solo si $EAX = EB$. El proceso que simplifica la matriz
+$A$ utilizando operaciones elementales es la {\bf reducción por filas}. El caso
+más sencillo es que ese proceso termine dejando a la izquierda la matriz identidad
+$$[A|B] \mapsto [I|B']$$
+porque entonces tenemos que $X = IX = B'$ y ha hemos resuelto la ecuación. 
+En este caso diremos que el sistema es {\bf compatible determinado}.
+Veámoslo en el primer ejemplo:
+
+\begin{ejem} Estudia y resuelve si es posible el siguiente sistema de ecuaciones 
+sobre $\r $ :
+\begin{align*}
+x_{1} - x_{2} - 5 x_{3} - 5 x_{4} &= 6 \\
+-x_{1} - x_{2} + 2 x_{3} + x_{4} &= 1 \\
+-x_{2} - 2 x_{3} - 3 x_{4} &= 5 \\
+x_{4} &= -2 \\
+\end{align*}
+\end{ejem}
+
+{\it Solución:}
+% Inicio del ejemplo 1
+
+Aunque el enunciado habla de $\r$, vamos a usar los números racionales $\q$ 
+para conseguir resultados exactos y evitar decimales. 
+
+\begin{sageblock}
+A = matrix(QQ,[[1,-1,-5,-5],[-1,-1,2,1],[0,-1,-2,-3],[0,0,0,1]])
+B = matrix(QQ,[[6],[1],[5],[-2]])
+AB = block_matrix([[A,B]])
+R = AB.echelon_form()
+\end{sageblock}
+
+La matriz ampliada del sistema es:
+
+\[[A|B] = \sage{AB} \]
+
+Reducimos por filas obteniendo la matriz
+
+\[ \sage{R} \]
+
+Como la matriz que nos queda a la izquierda es la matriz identidad, la que nos
+queda a la derecha es la solución $X$ que estamos buscando. Es decir, 
+
+$$ X = \sage{R.subdivision(0,1)} $$
+
+o lo que es lo mismo, 
+
+\[ x_1 = 0, \ \ x_2 = -1,  \ \ x_3 = 1,  \ \ x_4 = -2.\]
+
+% fin del ejemplo 1
+
+Resuelve el siguiente ejercicio siguiendo el mismo método del ejemplo anterior.
+
+\begin{ejer}
+Estudia y resuelve si es posible el siguiente sistema de ecuaciones sobre el 
+cuerpo ${\mathbb Z}_5$.
+
+\begin{align*}
+3 x_{2} + x_{3} &= 0\\
+x_{1} - x_{2} + 3 x_{3} + 3 x_{4} &= 3\\
+3 x_{2} - x_{3} + 3 x_{4} &= 4 \\
+3 x_{1} + x_{2} + x_{3} + x_{4} &= 3\\
+\end{align*}
+\end{ejer}
+{\it Solución:}
+
+% Escribe tu solución al Ejercicio 1
+\begin{sageblock}
+A = matrix(Zmod(5),[[0, 3, 1, 0],[1, -1, 3, 3],[0, 3, -1, 3],[3, 1, 1, 1]])
+B = matrix(Zmod(5),[[0],[3],[4],[3]])
+AB = block_matrix([[A,B]])
+R = AB.echelon_form()
+X = R.subdivision(0, 1)
+\end{sageblock}
+% Fin del Ejercicio 1
+
+\vspace{1cm}
+
+Vamos a ver otros casos que nos pueden aparecer cuando hacemos la reducción
+de la matriz ampliada el sistema. Concretamente vamos a ver qué pasa cuando 
+aparecen filas de ceros.  
+
+\begin{ejem} Estudia y resuelve si es posible el siguiente sistema de 
+ecuaciones sobre $\r $
+\begin{align*}
+2 x_{1} - x_{2} &= 8 \\
+x_{1} - x_{3} &= -3 \\
+x_{2} &= -5 \\
+x_{1} &= 2 \\
+x_{3} &= 8 \\
+\end{align*}
+\end{ejem}
+
+{\it Solución:}
+
+% Inicio del Ejemplo 2
+
+\begin{sageblock}
+A = matrix(QQ,[[2,-1,0],[1,0,-1],[0,1,0],[1,0,0],[0,0,1]])
+B = matrix(QQ,[[8],[-3],[-5],[2],[8]])
+AB = block_matrix(1,2,[A,B])
+R = copy(AB.echelon_form())
+R.subdivide(3,3)
+\end{sageblock}
+
+Construimos la matriz ampliada del sistema y la reducimos por filas
+
+\[[A|B] = \sage{AB} \to \sage{R} \]
+
+Como la columna de términos independientes es una columna pivote, el 
+sistema es {\bf incompatible}, pero vamos a interpretar esta matriz reducida
+desde el punto de vista de las operaciones con matrices.
+
+\begin{sageblock}
+A1 = R.subdivision(0,0)
+A2 = R.subdivision(1,0)
+B1 = R.subdivision(0,1)
+B2 = R.subdivision(1,1)
+\end{sageblock}
+
+La matriz reducida indica que buscamos las matrices $X$ tales que
+\[ \sage{R[:,:3]} X = \sage{R[:,3]} \]
+esta ecuación se puede dividir en dos ecuaciones
+\[ \sage{A1} X = \sage{B1} \qquad \sage{A2} X = \sage{B2}\]
+La primera ecuación no da ningún problema, pero la segunda sí porque 
+$0$ multiplicado por cualquier cosa es $0$, por lo tanto la segunda 
+igualdad es imposible y por eso el sistema no puede tener solución.
+
+% Fin del Ejemplo 2
+
+El sistema será incompatible en cuanto tengamos que algo multiplicado
+por $0$ tiene un valor distinto de cero, independientemente de lo que
+nos digan el resto de las ecuaciones. Esto se refleja en que siempre
+que la parte derecha de la matriz tiene algún pivote, entonces el sistema
+es incompatible como se puede ver en este ejemplo:
+
+\begin{ejem} Estudia y resuelve si es posible el siguiente sistema de ecuaciones sobre $\z _5$:
+\[ 0 = 0 \]
+\[ x_{1} + 3 x_{2} + 2 x_{3} = 0 \]
+\[ -x_{1} + x_{2} + x_{3} = 1 \]
+\[ -x_{1} + 3 x_{2} = 3 \]
+\[ -x_{1} + 3 x_{2} = 0 \]
+\end{ejem}
+
+{\it Soluci\'on: }
+% Inicio del Ejemplo 3
+
+\begin{sageblock}
+A = matrix(Zmod(5),[[0,0,0],[1,3,2],[4,1,1],[4,3,0],[4,3,0]])
+B = matrix(Zmod(5),[[0],[0],[1],[3],[0]])
+AB = block_matrix(1,2,[A,B])
+R = AB.echelon_form()
+\end{sageblock}
+
+Determinamos la matriz ampliada del sistema 
+
+\[[A|B] = \sage{AB} \]
+
+Reducimos por filas obteniendo la matriz
+
+\[ \sage{R} \]
+
+Como la columna de t\'erminos independientes es una columna pivote, el sistema es incompatible.
+
+% Fin del Ejemplo 3
+
+También podemos tener filas de ceros pero con la parte derecha igualada
+a $0$ como en el siguiente ejemplo:
+
+\begin{ejem} Estudia y resuelve si es posible el siguiente sistema de ecuaciones sobre $\r $ :
+\begin{align*}
+-x_{2} + 3 x_{3} &= 3 \\
+x_{1} - 2 x_{2} + 5 x_{3} &= 3 \\
+x_{1} - 3 x_{2} + 9 x_{3} &= 7 \\
+x_{1} - 2 x_{2} + 3 x_{3} &= 1 \\
+2 x_{1} - 3 x_{2} + 9 x_{3} &= 5 \\
+\end{align*}
+\end{ejem}
+
+{\it Soluci\'on:}
+% Inicio del Ejemplo 4
+
+\begin{sageblock}
+A = matrix(QQ,[[0,-1,3],[1,-2,5],[1,-3,9],[1,-2,3],[2,-3,9]])
+B = matrix(QQ,[[3],[3],[7],[1],[5]])
+AB = block_matrix(1,2,[A,B])
+R = AB.echelon_form()
+\end{sageblock}
+
+Determinamos la matriz ampliada del sistema 
+
+\[[A|B] = \sage{AB} \]
+
+Reducimos por filas obteniendo la matriz
+
+\[ \sage{R} \]
+
+Como todas las columnas de la parte de los coeficientes resultan ser columnas pivote, 
+el sistema es compatible determinado. Las dos filas de ceros que tenemos 
+debajo lo único que nos dicen es que 
+
+\[ \sage{R[3:,:3]} X = \sage{R[3:,3]}\]
+lo cual no aporta nada, por eso esta matriz reducida es totalmente equivalente a 
+
+\[ \sage{R[:3,:]} \] y por eso el sistema es compatible determinado. 
+La solución es
+
+\[ X = \sage{R[:3,3]}. \]
+
+o lo que es lo mismo
+
+\[ x_1 = -2, \ \ x_2 = 0,  \ \ x_3 = 1.\]
+
+% Fin del Ejemplo 4
+
+Realiza los siguientes ejercicios del mismo modo que los ejemplos
+mostrados.
+
+\begin{ejer}
+Estudia y resuelve si es posible el siguiente sistema de ecuaciones 
+sobre el cuerpo ${\mathbb Z}_5$.
+
+\begin{align*}
+3 x_{2} - x_{3} &= 4\\
+-x_{1} + x_{2} &= 4\\
+3 x_{1} + 3 x_{2} + 2 x_{3} &= 3\\
+x_{1} - x_{3} &= 3\\
+-x_{1} - x_{2} + x_{3} &= 2\\
+3 x_{1} - x_{2} + x_{3} &= 1 \\
+\end{align*}
+\end{ejer}
+
+{\it Soluci\'on:}
+% Escribe tu solución al Ejercicio 2
+
+% Fin del Ejercicio 2
+
+\begin{ejer}
+Estudia y resuelve si es posible el siguiente sistema de ecuaciones 
+sobre el cuerpo ${\mathbb Z}_5$. (Fíjate en que la matriz de los coeficientes
+es la misma que en el ejercicio anterior y puedes reutilizar la definición
+de la matriz)
+
+\begin{align*}
+3 x_{2} - x_{3} &= 1\\
+-x_{1} + x_{2} &= 2\\
+3 x_{1} + 3 x_{2} + 2 x_{3} &= 4\\
+x_{1} - x_{3} &= 2\\
+-x_{1} - x_{2} + x_{3} &= 2\\
+3 x_{1} - x_{2} + x_{3} &= 3 \\
+\end{align*}
+\end{ejer}
+
+{\it Soluci\'on:}
+% Escribe tu solución al Ejercicio 3
+
+% Fin del Ejercicio 3
+
+\vspace{1cm}
+
+Cuando el sistema no es incompatible, pero al reducir no tenemos que 
+todas las columnas sean pivote, tenemos los que se denominan 
+{\bf sistemas compatibles indeterminados}. Para solucionarlos podemos añadir
+los pivotes que nos faltan junto con parámetros libres. Veámoslo en 
+un ejemplo. 
+
+\begin{ejem} Estudia y resuelve si es posible el siguiente sistema de ecuaciones sobre $\z _7$ :
+\begin{align*}
+3x_{1} + x_{2} + 3x_{3} + 5x_{4} + 2x_{5} &= 3 \\
+3x_{3} + 3x_{4} + x_{5} &= 1 \\
+4x_{5} &= 12 \\
+\end{align*}
+\end{ejem}
+
+{\it Solución:}
+
+% Inicio del Ejemplo 5
+
+\begin{sageblock}
+A=matrix(Zmod(7),[[3,1,3,5,2],[0,0,3,3,1],[0,0,0,0,4]])
+B=column_matrix(Zmod(7),[3,1,12])
+AB = block_matrix([[A,B]])
+R = AB.echelon_form()
+\end{sageblock}
+
+Determinamos la matriz ampliada del sistema 
+
+\[[A|B] = \sage{AB} \]
+
+Reducimos por filas obteniendo la matriz
+
+\[ \sage{R} \]
+
+En esta matriz vemos que hay tres columnas pivote y nos faltan dos pivotes. 
+
+% Esta parte con colores sólo está puesta para aclarar el ejemplo. No la tenéis que poner vosotros.
+\[
+\left(\begin{array}{rrrrr|r}
+\cellcolor{orange!60!white} 1 & 5 & \cellcolor{orange!30!white} 0 & 3 & \cellcolor{orange!30!white} 0 & 2 \\
+\cellcolor{orange!30!white} 0 & 0 & \cellcolor{orange!60!white} 1 & 1 & \cellcolor{orange!30!white} 0 & 4 \\
+\cellcolor{orange!30!white} 0 & 0 & \cellcolor{orange!30!white} 0 & 0 & \cellcolor{orange!60!white} 1 & 3
+\end{array}\right)
+\]
+
+\begin{sageblock}
+P.<alpha,beta> = Zmod(7)[]
+M = matrix(P,5,6)
+M[:3,:] = R
+M[3,1] = 1
+M[4,3] = 1
+M[3,5] = alpha
+M[4,5] = beta
+M.subdivide([],5)
+MR = M.echelon_form()
+X = MR.subdivision(0,1)
+\end{sageblock}
+
+Añadimos los pivotes que nos faltan en la parte izquierda y ponemos parámetros
+libres en la parte derecha de las filas que hemos añadido. 
+
+% Esta parte con colores sólo está puesta para aclarar el ejemplo. No la tenéis que poner vosotros.
+\[
+\left(\begin{array}{rrrrr|r}
+\cellcolor{orange!60!white} 1 & \cellcolor{yellow!30!white} 5 & \cellcolor{orange!30!white} 0 & \cellcolor{yellow!30!white} 3 & \cellcolor{orange!30!white} 0 & 2 \\
+\cellcolor{orange!30!white} 0 & \cellcolor{yellow!30!white} 0 & \cellcolor{orange!60!white} 1 & \cellcolor{yellow!30!white} 1 & \cellcolor{orange!30!white} 0 & 4 \\
+\cellcolor{orange!30!white} 0 & \cellcolor{yellow!30!white} 0 & \cellcolor{orange!30!white} 0 & \cellcolor{yellow!30!white} 0 & \cellcolor{orange!60!white} 1 & 3 \\ \hline
+\cellcolor{orange!30!white} 0 & \cellcolor{yellow!60!white} 1 & \cellcolor{orange!30!white} 0 & \cellcolor{yellow!30!white} 0 & \cellcolor{orange!30!white} 0 & \alpha \\
+\cellcolor{orange!30!white} 0 & \cellcolor{yellow!30!white} 0 & \cellcolor{orange!30!white} 0 & \cellcolor{yellow!60!white} 1 & \cellcolor{orange!30!white} 0 & \beta
+\end{array}\right)
+\]
+
+Continuamos la reducción con esta matriz:
+
+\[ \sage{M} \to \sage{MR} \]
+
+Como ya tenemos la matriz identidad en la parte izquierda, la parte derecha
+es la solución que buscamos
+\[ X = \sage{X}. \]
+donde los parámetros $\alpha,\beta$ son elementos cualesquiera de $\z_7$. Como 
+en $\z_7$ hay $7$ elementos, tenemos $7$ opciones para $\alpha$ y $7$ para $\beta$
+lo que nos da un total de $7^2 = 49$ soluciones. 
+
+% Esta parte no la tenéis que escribir vosotros. El problema ya está terminado. 
+\[
+\begin{array}{ccccccc} 
+\sage{X(alpha=0,beta=0)} & \sage{X(alpha=0,beta=1)} & \sage{X(alpha=0,beta=2)} & \sage{X(alpha=0,beta=3) }& \sage{X(alpha=0,beta=4)} & \sage{X(alpha=0,beta=5)} & \sage{X(alpha=0,beta=6)} \\ [1cm]
+\sage{X(alpha=1,beta=0)} & \sage{X(alpha=1,beta=1)} & \sage{X(alpha=1,beta=2)} & \sage{X(alpha=1,beta=3) }& \sage{X(alpha=1,beta=4)} & \sage{X(alpha=1,beta=5)} & \sage{X(alpha=1,beta=6)} \\ [1cm]
+\sage{X(alpha=2,beta=0)} & \sage{X(alpha=2,beta=1)} & \sage{X(alpha=2,beta=2)} & \sage{X(alpha=2,beta=3) }& \sage{X(alpha=2,beta=4)} & \sage{X(alpha=2,beta=5)} & \sage{X(alpha=2,beta=6)} \\ [1cm]
+\sage{X(alpha=3,beta=0)} & \sage{X(alpha=3,beta=1)} & \sage{X(alpha=3,beta=2)} & \sage{X(alpha=3,beta=3) }& \sage{X(alpha=3,beta=4)} & \sage{X(alpha=3,beta=5)} & \sage{X(alpha=3,beta=6)} \\ [1cm]
+\sage{X(alpha=4,beta=0)} & \sage{X(alpha=4,beta=1)} & \sage{X(alpha=4,beta=2)} & \sage{X(alpha=4,beta=3) }& \sage{X(alpha=4,beta=4)} & \sage{X(alpha=4,beta=5)} & \sage{X(alpha=4,beta=6)} \\ [1cm]
+\sage{X(alpha=5,beta=0)} & \sage{X(alpha=5,beta=1)} & \sage{X(alpha=5,beta=2)} & \sage{X(alpha=5,beta=3) }& \sage{X(alpha=5,beta=4)} & \sage{X(alpha=5,beta=5)} & \sage{X(alpha=5,beta=6)} \\ [1cm]
+\sage{X(alpha=6,beta=0)} & \sage{X(alpha=6,beta=1)} & \sage{X(alpha=6,beta=2)} & \sage{X(alpha=6,beta=3) }& \sage{X(alpha=6,beta=4)} & \sage{X(alpha=6,beta=5)} & \sage{X(alpha=6,beta=6)} \\
+\end{array}
+\]
+
+% Fin del Ejemplo 5
+
+\begin{ejer} Estudia y resuelve si es posible el siguiente sistema de ecuaciones sobre $\r $ :
+\begin{align*}
+x_{1} - x_{2} + x_{3} + 2 x_{4} &= 2 \\
+x_{2} - 2 x_{3} - 5 x_{4} &= -1 \\
+x_{2} - x_{3} - 2 x_{4} &= 0 \\
+\end{align*}
+\end{ejer}
+
+{\it Soluci\'on:}
+
+% Escribe tu solución al Ejercicio  4
+
+% Fin del Ejercicio 4
+
+\vspace{1cm}
+
+En la resolución de este tipo de ecuaciones también podemos tener parámetros
+que dependiendo de los valores que tengan, nos pueden dar un tipo de sistema
+o de otro. Veámoslo en un ejemplo:
+
+\begin{ejem}
+Estudia y resuelve cuando sea posible el siguiente sistema de ecuaciones
+sobre $\r$ dependiendo de los parámetros $a$ y $b$.
+
+\begin{align*}
+x_{1} + x_{2} + x_{3} -2 x_{5} &= a-b\\
+3 x_{1} + x_{2} + 2 x_{3} -4 x_{5} &= -13\\
+-3 x_{1} - x_{3} + x_{5} &= b\\
+-3 x_{1} + x_{2} -2 x_{5} &= -11\\
+-2 x_{1} - x_{3} + 2 x_{5} &= -a\\
+\end{align*}
+
+\end{ejem}
+{\it Solución:}
+
+% Inicio del Ejemplo 6
+
+\begin{sageblock}
+P.<a,b> = QQ[]
+A =  matrix(P,[[1,1,1,0,-2],
+[3,1,2,0,-4],
+[-3,0,-1,0,1],
+[-3,1,0,0,-2],
+[-2,0,-1,0,2]])
+B =  matrix(P,[[a-b],[-13],[b],[-11],[-a]])
+AB = block_matrix([[A,B]])
+R = AB.echelon_form()
+\end{sageblock}
+
+Construimos la matriz ampliada del sistema y la reducimos por filas
+\[ \sage{AB} \to \sage{R} \]
+
+Las dos últimas filas de esta matriz reducida nos dicen que
+\[ \sage{R[3:,:5]} X = \sage{R[3:,5]}. \]
+Independientemente del valor de $X$, $0X = 0$ por lo que la única posibilidad
+para que este sistema tenga solución es que $\sage{R[3:,5]} = 0$. Si esto no 
+sucede el sistema es incompatible. De la igualdad $\sage{R[3,5]} = 0$
+deducimos que $b = 1$ y de $\sage{R[4,5]} = 0$ deducimos que $a = -6$. 
+Si sustituimos el la matriz ampliada estos valores obtenemos
+
+\begin{sageblock}
+R1 = R(a=-6,b=1)
+R1.subdivide(3,5)
+R2 = R1[:3,:]
+R2.subdivide([],5)
+\end{sageblock}
+ 
+\[ \sage{R1} \]
+
+Las filas de ceros ya no nos dan ninguna información (sólo dicen $0=0$) y si 
+las eliminamos no cambiamos las soluciones del sistema. 
+
+\[ \sage{R2} \]
+
+El sistema ahora tiene tres columnas pivote y nos faltan dos. Para resolverlo
+añadiremos estos dos pivotes que nos faltan y en la parte derecha 
+introduciremos dos parámetros libres
+
+\begin{sageblock}
+Q.<alpha,beta> = QQ[]
+M = matrix(Q,5,6)
+M.subdivide([],5)
+M[:3,:] = R2
+M[3,3] = 1
+M[4,4] = 1
+M[3,5] = alpha
+M[4,5] = beta
+MR = M.echelon_form()
+\end{sageblock}
+ 
+Reducimos la matriz y ahora obtenemos la identidad a la izquierda
+
+\[ \sage{M} \to \sage{MR} \]
+
+y por lo tanto ya tenemos la solución $X = \sage{MR[:,5]}$.
+
+% Fin del Ejemplo 6
+
+Este método de resolver sistemas de ecuaciones planteándolos como 
+ecuaciones matriciales se puede generalizar también al caso en que 
+la matriz de términos independientes tiene más de una columna. 
+
+\begin{ejem}
+Encuentra todas las matrices $X$ que cumplen la ecuación matricial $AX = B$
+sobre el cuerpo ${\mathbb Z}_5$ siendo 
+\[ A =  \left(\begin{array}{rrr}
+1 & 3 & 0 \\
+3 & 3 & 0 \\
+1 & 3 & 2 \\
+2 & 1 & 0 \\
+3 & 0 & 3 \end{array}\right) \qquad 
+B = \left(\begin{array}{rr}
+a & 4 \\
+3 & 4 \\
+0 & b \\
+2a & b \\
+4 & a
+\end{array}\right)
+\]
+dependiendo de los parámetros $a$ y $b$.
+\end{ejem}
+{\it Solución:}
+
+% Inicio del Ejemplo 7
+
+\begin{sageblock}
+P.<a,b> = Zmod(5)[]
+A = matrix(P,[[1,3,0],[3,3,0],[1,3,2],[2,1,0],[3,0,3]])
+B = matrix(P,[[a,4],[3,4],[0,b],[2*a,b],[4,a]])
+AB = block_matrix([[A,B]])
+R = AB.echelon_form()
+\end{sageblock}
+
+Construimos la matriz ampliada del sistema y la reducimos por filas
+\[ \sage{AB} \to \sage{R} \]
+
+Las dos últimas filas de esta matriz reducida nos dicen que para que
+el sistema sea compatible se tiene que cumplir
+\[ b+2 = 0 \quad 3a+2 = 0 \quad a+b+1 = 0 \]
+De ahí deducimos que $b = 3$ y que $a = 1$. 
+
+\begin{sageblock}
+R1 = R(a = 1, b = 3)
+R1.subdivide(3,3)
+R2 = R1[:3,:]
+R2.subdivide(3,3)
+X = R2.subdivision(0,1)
+\end{sageblock}
+
+Sustituyendo estos valores en la matriz reducida tenemos 
+\[ \sage{R1} \]
+y al eliminar las filas de ceros tenemos
+$\sage{R2}$
+y eso nos da la solución $X = \sage{X}$.
+
+% Fin del Ejemplo 7
+
+\begin{ejem}
+Encuentra todas las matrices $X$ que cumplen la ecuación matricial $AX = B$
+sobre el cuerpo $\r$ siendo 
+\[ 
+A = \left(\begin{array}{rrrrr}
+-2 & 2 & 2 & -2 & -1 \\
+0 & \frac{1}{2} & 1 & 1 & 1 \\
+0 & 1 & -1 & 2 & 0
+\end{array}\right) 
+\qquad 
+B = \left(\begin{array}{rr}
+-5 & 5 \\
+2 & 3 \\
+-3 & -2
+\end{array}\right)
+\]
+\end{ejem}
+{\it Solución:}
+
+% Inicio del Ejemplo 8
+
+\begin{sageblock}
+A = matrix(QQ,[[-2,2,2,-2,-1],[0,1/2,1,1,1],[0,1,-1,2,0]])
+B = matrix(QQ,[[-5,5],[2,3],[-3,-2]])
+AB = block_matrix([[A,B]])
+R = AB.echelon_form()
+\end{sageblock}
+
+Construimos la matriz ampliada y la reducimos
+
+\[ \sage{AB} \to \sage{R} \]
+
+Para completar los pivotes que nos faltan debemos introducir dos
+filas con los pivotes. En la parte derecha introduciremos parámetros
+libres. La matriz ampliada se reduce para obtener la solución
+
+\begin{sageblock}
+P.<alpha1,alpha2,alpha3,alpha4> = QQ[]
+M = matrix(P,5,7)
+M[:3,:] = R
+M[3,3] = 1
+M[4,4] = 1
+M[3,5] = alpha1
+M[3,6] = alpha2
+M[4,5] = alpha3
+M[4,6] = alpha4
+M.subdivide([],5)
+MR = M.echelon_form()
+X = MR.subdivision(0,1)
+\end{sageblock}
+
+\[ \sage{M} \to \sage{MR} \]
+
+La solución es $X = \sage{X}$ siendo $\alpha_1, \alpha_2, \alpha_3, \alpha_4$
+números reales cualesquiera. 
+
+% Fin del Ejemplo 8
+
+\begin{ejer}
+Encuentra todas las matrices $X$ que cumplen la ecuación matricial $AX = B$
+sobre el cuerpo ${\mathbb Z}_5$ siendo 
+\[ 
+A = \left(\begin{array}{rrr}
+4 & 1 & 2 \\
+4 & 4 & 1 \\
+3 & 4 & 0 \\
+0 & 4 & 2 \\
+2 & 0 & 2
+\end{array}\right)
+\qquad 
+B = \left(\begin{array}{rrr}
+0 & 2 & 0 \\
+1 & 3 & 3 \\
+4 & 3 & 2 \\
+3 & 3 & 4 \\
+4 & 0 & 2
+\end{array}\right)
+\]
+\end{ejer}
+{\it Solución:}
+
+% Escribe tu solución al Ejercicio  5
+
+% Fin del Ejercicio 5
+
+\newpage 
+
+\begin{center}
+{\bf Ejercicios Adicionales}
+\end{center}
+
+\begin{ejer} Estudia y resuelve si es posible el siguiente sistema de ecuaciones sobre $\z _5$:
+\begin{align*}
+x_{1} - x_{2} + 3 x_{4} &= 0 \\
+x_{2} - x_{4} &= 3 \\
+2 x_{1} + 2 x_{2} + x_{3} + 2 x_{4} &= 4 \\
+2 x_{1} + 2 x_{2} + 3 x_{3} + 3 x_{4} &= 3 \\
+2 x_{1} + 2 x_{2} + 3 x_{3} &= 3 \\
+\end{align*}
+\end{ejer}
+
+{\it Soluci\'on:}
+
+% Escribe tu solución al Ejercicio  6
+
+% Fin del Ejercicio 6
+
+\begin{ejer} Estudia y resuelve si es posible el siguiente sistema de ecuaciones 
+sobre $\z_{11}$
+\begin{align*}
+2x_{1} - x_{2} + x_{3} + x_{4} &= 1 \\
+2x_{1} + x_{} - x_{4} &= 2 \\
+x_{2} + 2x_{3} + 3x_{4} &= 0 \\
+\end{align*}
+\end{ejer}
+{\it Soluci\'on:}
+
+% Escribe tu solución al Ejercicio  7
+
+% Fin del Ejercicio 7
+
+\begin{ejer} Estudia y resuelve si es posible el siguiente sistema de ecuaciones sobre $\z _7$:
+\begin{align*}
+x_{1} + x_{3} - x_{4} &= 2 \\
+-x_{1} + x_{2} - x_{3} + x_{4} &= 2 \\
+x_{2} + x_{3} - x_{4} &= 2 \\
+x_{1} - x_{3} - x_{4} &= 2 \\
+\end{align*}
+\end{ejer}
+
+{\it Soluci\'on:}
+
+% Escribe tu solución al Ejercicio  8
+
+% Fin del Ejercicio 8
+
+\begin{ejer} Estudia y resuelve si es posible el siguiente sistema de ecuaciones sobre $\r $:
+\begin{align*}
+-x_{1} - 5x_{3} + x_{6} &= -1 \\
+3x_{1} + x_{2} - x_{3} + x_{5} &= 0 \\
+-2x_{1} + x_{4} &= 3 \\
+\end{align*}
+\end{ejer}
+
+{\it Soluci\'on:}
+
+% Escribe tu solución al Ejercicio  9
+
+% Fin del Ejercicio 9
+
+
+\end{document}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
