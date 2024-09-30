@@ -1,0 +1,106 @@
+\documentclass{amsart}
+\usepackage[margin = 2cm]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage[usefamily=sage]{pythontex} 
+\usepackage{colortbl} 
+\usepackage{xcolor}
+
+\newtheorem{ejer}{Ejercicio}
+
+\title{Tarea 3. Álgebra y Matemática Discreta}
+\author{Manuel Bernal Hernández, Grupo 2.1}
+
+\begin{document}
+\maketitle
+
+\begin{ejer}
+Calcula los valores de $n$ enteros que cumplen simultáneamente las siguientes
+tres relaciones:
+\begin{align*}
+15n-1 &\equiv 9 \pmod{125} \\
+n     &\equiv 18 \pmod{64} \\
+37n   &\equiv 58 \pmod{100}
+\end{align*}
+\end{ejer}
+
+{\it Solución: }
+
+% Escribe tu solución para el Ejercicio 1.
+\begin{sageblock}
+A = column_matrix(ZZ, [15, 125])
+B = matrix(ZZ, [[1, 0], [0, 1]])
+AB = block_matrix([ [A, B] ])
+ABr = AB.echelon_form()
+
+C = column_matrix(ZZ, [-25, 64])
+D = matrix(ZZ, [[1, 0], [0, 1]])
+CD = block_matrix([ [C, D] ])
+CDr = CD.echelon_form()
+CDr2 = CDr[:, 1:3]
+CDr2t = CDr2.T
+Pol.<t> = ZZ[]
+E = column_matrix(Pol,[16 ,t])
+D = CDr2t * E
+\end{sageblock}
+% Fin del ejercicio.
+	
+Simplificamos la ecuación y se queda
+\begin{align*}
+15n &= 10 \pmod{125}\\
+\end{align*}
+
+Para eliminar el 15 hay que comprobar que sea invertible en modulo 125, es decir que su maximo comun divisor sea 1.
+
+\[\sage{AB} \to \sage{ABr} \]
+
+Observamos que el maximo comun divisor es 5, por lo que dividimos ambas partes de la ecuacion entre 5.
+\begin{align*}
+\frac{15n}{5} = \frac{10 \pmod{125} }{5} \to 3n = 2 \pmod{25} \to n = 2 * 3^-1 \pmod{25} \to n = 2*17 \pmod{25} \to n = 9 \pmod{25}\\
+\end{align*}
+
+En la tercera ecuación
+
+
+\begin{align*}
+37n = 58 \pmod{100}\\
+\end{align*}
+
+Simplificamos y despejamos
+
+\begin{align*}
+n = 58 * 37^-1 \pmod{100} \to n = 58*73 \pmod{100} \to n = 46 \pmod{100}\\
+\end{align*}
+
+Ahora igualamos las ecuaciones 2 a 2.
+
+Igualando la primera y la segunda ecuacion nos da
+
+\begin{align*}
+n = 9 \pmod{25} = 18 \pmod{64}\\
+n = 9 + 25x1\\
+n = 18 + 64x2\\
+-25x1 + 64x2 = 34 - 18 = 16
+\end{align*}
+
+Reducimos por filas
+
+\[\sage{CD} \to \sage{CDr} \]
+
+Eso es igual a
+
+\[\sage{CDr2t} \to \sage{E} \to \sage{D} = 64\]
+
+Sustituimos
+
+\begin{align*}
+n = 34 + 25(64*t + 368) = 1600*t + 9234\\
+n = 18 + 64(25*t + 144) = 1600*t + 9234\\
+\end{align*}
+
+El resultado final es
+
+\begin{align*}
+n = 9234 \pmod{1600} = 1234 \pmod{1600} 
+\end{align*}
+
+\end{document}
