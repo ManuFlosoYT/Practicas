@@ -1,0 +1,52 @@
+=>PYTHONTEX#sage#default#default#0#block#####39#
+P.<a,b> = QQ[]
+A = matrix(QQ, [[2, 0, 2], [1, 2, -5], [-1, -1, 2], [0, 1/2, -3/2]])
+B = matrix(P, [[b, -2, -4], [-a, 9, 12], [a, 2*b, a + 3*b], [0, 5/2, 7/2]])
+AB = block_matrix([ [A, B] ])
+R = AB.echelon_form()
+R1 = R(a = 1, b = -2)
+R1.subdivide(2, 3)
+R2 = R1[:2, :]
+R2.subdivide([], 3)
+P.<alpha1, alpha2, alpha3> = QQ[]
+M = matrix(P, 3, 6)
+M[:2, :] = R2
+M[2, 2] = 1
+M[2, 3] = alpha1
+M[2, 4] = alpha2
+M[2, 5] = alpha3
+M.subdivide([], 3)
+MR = M.echelon_form()
+X = MR.subdivision(0, 1)
+=>PYTHONTEX#sage#default#default#1#i#####62#
+AB
+=>PYTHONTEX#sage#default#default#2#i#####63#
+R
+=>PYTHONTEX#sage#default#default#3#i#####69#
+R1
+=>PYTHONTEX:SETTINGS#
+version=0.18
+outputdir=pythontex-files-tarea02
+workingdir=.
+workingdirset=false
+gobble=none
+rerun=default
+hashdependencies=default
+makestderr=false
+stderrfilename=full
+keeptemps=none
+pyfuture=default
+pyconfuture=none
+pygments=true
+pygglobal=:GLOBAL||
+fvextfile=-1
+pyconbanner=none
+pyconfilename=stdin
+depythontex=false
+pygfamily=py|python3|
+pygfamily=pycon|pycon|
+pygfamily=sympy|python3|
+pygfamily=sympycon|pycon|
+pygfamily=pylab|python3|
+pygfamily=pylabcon|pycon|
+pygfamily=sage|sage|

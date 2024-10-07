@@ -1,0 +1,313 @@
+=>PYTHONTEX#sage#default#default#0#block#####101#
+A = matrix(QQ,[[1,-1,-5,-5],[-1,-1,2,1],[0,-1,-2,-3],[0,0,0,1]])
+B = matrix(QQ,[[6],[1],[5],[-2]])
+AB = block_matrix([[A,B]])
+R = AB.echelon_form()
+=>PYTHONTEX#sage#default#default#1#i#####110#
+AB
+=>PYTHONTEX#sage#default#default#2#i#####114#
+R
+=>PYTHONTEX#sage#default#default#3#i#####119#
+R.subdivision(0,1)
+=>PYTHONTEX#sage#default#default#4#block#####167#
+A = matrix(QQ,[[2,-1,0],[1,0,-1],[0,1,0],[1,0,0],[0,0,1]])
+B = matrix(QQ,[[8],[-3],[-5],[2],[8]])
+AB = block_matrix(1,2,[A,B])
+R = copy(AB.echelon_form())
+R.subdivide(3,3)
+=>PYTHONTEX#sage#default#default#5#i#####177#
+AB
+=>PYTHONTEX#sage#default#default#6#i#####177#
+R
+=>PYTHONTEX#sage#default#default#7#block#####183#
+A1 = R.subdivision(0,0)
+A2 = R.subdivision(1,0)
+B1 = R.subdivision(0,1)
+B2 = R.subdivision(1,1)
+=>PYTHONTEX#sage#default#default#8#i#####191#
+R[:,:3]
+=>PYTHONTEX#sage#default#default#9#i#####191#
+R[:,3]
+=>PYTHONTEX#sage#default#default#10#i#####193#
+A1
+=>PYTHONTEX#sage#default#default#11#i#####193#
+B1
+=>PYTHONTEX#sage#default#default#12#i#####193#
+A2
+=>PYTHONTEX#sage#default#default#13#i#####193#
+B2
+=>PYTHONTEX#sage#default#default#14#block#####217#
+A = matrix(Zmod(5),[[0,0,0],[1,3,2],[4,1,1],[4,3,0],[4,3,0]])
+B = matrix(Zmod(5),[[0],[0],[1],[3],[0]])
+AB = block_matrix(1,2,[A,B])
+R = AB.echelon_form()
+=>PYTHONTEX#sage#default#default#15#i#####226#
+AB
+=>PYTHONTEX#sage#default#default#16#i#####230#
+R
+=>PYTHONTEX#sage#default#default#17#block#####252#
+A = matrix(QQ,[[0,-1,3],[1,-2,5],[1,-3,9],[1,-2,3],[2,-3,9]])
+B = matrix(QQ,[[3],[3],[7],[1],[5]])
+AB = block_matrix(1,2,[A,B])
+R = AB.echelon_form()
+=>PYTHONTEX#sage#default#default#18#i#####261#
+AB
+=>PYTHONTEX#sage#default#default#19#i#####265#
+R
+=>PYTHONTEX#sage#default#default#20#i#####271#
+R[3:,:3]
+=>PYTHONTEX#sage#default#default#21#i#####271#
+R[3:,3]
+=>PYTHONTEX#sage#default#default#22#i#####274#
+R[:3,:]
+=>PYTHONTEX#sage#default#default#23#i#####277#
+R[:3,3]
+=>PYTHONTEX#sage#default#default#24#block#####348#
+A=matrix(Zmod(7),[[3,1,3,5,2],[0,0,3,3,1],[0,0,0,0,4]])
+B=column_matrix(Zmod(7),[3,1,12])
+AB = block_matrix([[A,B]])
+R = AB.echelon_form()
+=>PYTHONTEX#sage#default#default#25#i#####357#
+AB
+=>PYTHONTEX#sage#default#default#26#i#####361#
+R
+=>PYTHONTEX#sage#default#default#27#block#####374#
+P.<alpha,beta> = Zmod(7)[]
+M = matrix(P,5,6)
+M[:3,:] = R
+M[3,1] = 1
+M[4,3] = 1
+M[3,5] = alpha
+M[4,5] = beta
+M.subdivide([],5)
+MR = M.echelon_form()
+X = MR.subdivision(0,1)
+=>PYTHONTEX#sage#default#default#28#i#####403#
+M
+=>PYTHONTEX#sage#default#default#29#i#####403#
+MR
+=>PYTHONTEX#sage#default#default#30#i#####407#
+X
+=>PYTHONTEX#sage#default#default#31#i#####415#
+X(alpha=0,beta=0)
+=>PYTHONTEX#sage#default#default#32#i#####415#
+X(alpha=0,beta=1)
+=>PYTHONTEX#sage#default#default#33#i#####415#
+X(alpha=0,beta=2)
+=>PYTHONTEX#sage#default#default#34#i#####415#
+X(alpha=0,beta=3) 
+=>PYTHONTEX#sage#default#default#35#i#####415#
+X(alpha=0,beta=4)
+=>PYTHONTEX#sage#default#default#36#i#####415#
+X(alpha=0,beta=5)
+=>PYTHONTEX#sage#default#default#37#i#####415#
+X(alpha=0,beta=6)
+=>PYTHONTEX#sage#default#default#38#i#####416#
+X(alpha=1,beta=0)
+=>PYTHONTEX#sage#default#default#39#i#####416#
+X(alpha=1,beta=1)
+=>PYTHONTEX#sage#default#default#40#i#####416#
+X(alpha=1,beta=2)
+=>PYTHONTEX#sage#default#default#41#i#####416#
+X(alpha=1,beta=3) 
+=>PYTHONTEX#sage#default#default#42#i#####416#
+X(alpha=1,beta=4)
+=>PYTHONTEX#sage#default#default#43#i#####416#
+X(alpha=1,beta=5)
+=>PYTHONTEX#sage#default#default#44#i#####416#
+X(alpha=1,beta=6)
+=>PYTHONTEX#sage#default#default#45#i#####417#
+X(alpha=2,beta=0)
+=>PYTHONTEX#sage#default#default#46#i#####417#
+X(alpha=2,beta=1)
+=>PYTHONTEX#sage#default#default#47#i#####417#
+X(alpha=2,beta=2)
+=>PYTHONTEX#sage#default#default#48#i#####417#
+X(alpha=2,beta=3) 
+=>PYTHONTEX#sage#default#default#49#i#####417#
+X(alpha=2,beta=4)
+=>PYTHONTEX#sage#default#default#50#i#####417#
+X(alpha=2,beta=5)
+=>PYTHONTEX#sage#default#default#51#i#####417#
+X(alpha=2,beta=6)
+=>PYTHONTEX#sage#default#default#52#i#####418#
+X(alpha=3,beta=0)
+=>PYTHONTEX#sage#default#default#53#i#####418#
+X(alpha=3,beta=1)
+=>PYTHONTEX#sage#default#default#54#i#####418#
+X(alpha=3,beta=2)
+=>PYTHONTEX#sage#default#default#55#i#####418#
+X(alpha=3,beta=3) 
+=>PYTHONTEX#sage#default#default#56#i#####418#
+X(alpha=3,beta=4)
+=>PYTHONTEX#sage#default#default#57#i#####418#
+X(alpha=3,beta=5)
+=>PYTHONTEX#sage#default#default#58#i#####418#
+X(alpha=3,beta=6)
+=>PYTHONTEX#sage#default#default#59#i#####419#
+X(alpha=4,beta=0)
+=>PYTHONTEX#sage#default#default#60#i#####419#
+X(alpha=4,beta=1)
+=>PYTHONTEX#sage#default#default#61#i#####419#
+X(alpha=4,beta=2)
+=>PYTHONTEX#sage#default#default#62#i#####419#
+X(alpha=4,beta=3) 
+=>PYTHONTEX#sage#default#default#63#i#####419#
+X(alpha=4,beta=4)
+=>PYTHONTEX#sage#default#default#64#i#####419#
+X(alpha=4,beta=5)
+=>PYTHONTEX#sage#default#default#65#i#####419#
+X(alpha=4,beta=6)
+=>PYTHONTEX#sage#default#default#66#i#####420#
+X(alpha=5,beta=0)
+=>PYTHONTEX#sage#default#default#67#i#####420#
+X(alpha=5,beta=1)
+=>PYTHONTEX#sage#default#default#68#i#####420#
+X(alpha=5,beta=2)
+=>PYTHONTEX#sage#default#default#69#i#####420#
+X(alpha=5,beta=3) 
+=>PYTHONTEX#sage#default#default#70#i#####420#
+X(alpha=5,beta=4)
+=>PYTHONTEX#sage#default#default#71#i#####420#
+X(alpha=5,beta=5)
+=>PYTHONTEX#sage#default#default#72#i#####420#
+X(alpha=5,beta=6)
+=>PYTHONTEX#sage#default#default#73#i#####421#
+X(alpha=6,beta=0)
+=>PYTHONTEX#sage#default#default#74#i#####421#
+X(alpha=6,beta=1)
+=>PYTHONTEX#sage#default#default#75#i#####421#
+X(alpha=6,beta=2)
+=>PYTHONTEX#sage#default#default#76#i#####421#
+X(alpha=6,beta=3) 
+=>PYTHONTEX#sage#default#default#77#i#####421#
+X(alpha=6,beta=4)
+=>PYTHONTEX#sage#default#default#78#i#####421#
+X(alpha=6,beta=5)
+=>PYTHONTEX#sage#default#default#79#i#####421#
+X(alpha=6,beta=6)
+=>PYTHONTEX#sage#default#default#80#block#####464#
+P.<a,b> = QQ[]
+A =  matrix(P,[[1,1,1,0,-2],
+[3,1,2,0,-4],
+[-3,0,-1,0,1],
+[-3,1,0,0,-2],
+[-2,0,-1,0,2]])
+B =  matrix(P,[[a-b],[-13],[b],[-11],[-a]])
+AB = block_matrix([[A,B]])
+R = AB.echelon_form()
+=>PYTHONTEX#sage#default#default#81#i#####477#
+AB
+=>PYTHONTEX#sage#default#default#82#i#####477#
+R
+=>PYTHONTEX#sage#default#default#83#i#####480#
+R[3:,:5]
+=>PYTHONTEX#sage#default#default#84#i#####480#
+R[3:,5]
+=>PYTHONTEX#sage#default#default#85#i#####482#
+R[3:,5]
+=>PYTHONTEX#sage#default#default#86#i#####483#
+R[3,5]
+=>PYTHONTEX#sage#default#default#87#i#####484#
+R[4,5]
+=>PYTHONTEX#sage#default#default#88#block#####487#
+R1 = R(a=-6,b=1)
+R1.subdivide(3,5)
+R2 = R1[:3,:]
+R2.subdivide([],5)
+=>PYTHONTEX#sage#default#default#89#i#####494#
+R1
+=>PYTHONTEX#sage#default#default#90#i#####499#
+R2
+=>PYTHONTEX#sage#default#default#91#block#####505#
+Q.<alpha,beta> = QQ[]
+M = matrix(Q,5,6)
+M.subdivide([],5)
+M[:3,:] = R2
+M[3,3] = 1
+M[4,4] = 1
+M[3,5] = alpha
+M[4,5] = beta
+MR = M.echelon_form()
+=>PYTHONTEX#sage#default#default#92#i#####519#
+M
+=>PYTHONTEX#sage#default#default#93#i#####519#
+MR
+=>PYTHONTEX#sage#default#default#94#i#####521#
+MR[:,5]
+=>PYTHONTEX#sage#default#default#95#block#####552#
+P.<a,b> = Zmod(5)[]
+A = matrix(P,[[1,3,0],[3,3,0],[1,3,2],[2,1,0],[3,0,3]])
+B = matrix(P,[[a,4],[3,4],[0,b],[2*a,b],[4,a]])
+AB = block_matrix([[A,B]])
+R = AB.echelon_form()
+=>PYTHONTEX#sage#default#default#96#i#####561#
+AB
+=>PYTHONTEX#sage#default#default#97#i#####561#
+R
+=>PYTHONTEX#sage#default#default#98#block#####568#
+R1 = R(a = 1, b = 3)
+R1.subdivide(3,3)
+R2 = R1[:3,:]
+R2.subdivide(3,3)
+X = R2.subdivision(0,1)
+=>PYTHONTEX#sage#default#default#99#i#####577#
+R1
+=>PYTHONTEX#sage#default#default#100#i#####579#
+R2
+=>PYTHONTEX#sage#default#default#101#i#####580#
+X
+=>PYTHONTEX#sage#default#default#102#block#####605#
+A = matrix(QQ,[[-2,2,2,-2,-1],[0,1/2,1,1,1],[0,1,-1,2,0]])
+B = matrix(QQ,[[-5,5],[2,3],[-3,-2]])
+AB = block_matrix([[A,B]])
+R = AB.echelon_form()
+=>PYTHONTEX#sage#default#default#103#i#####614#
+AB
+=>PYTHONTEX#sage#default#default#104#i#####614#
+R
+=>PYTHONTEX#sage#default#default#105#block#####620#
+P.<alpha1,alpha2,alpha3,alpha4> = QQ[]
+M = matrix(P,5,7)
+M[:3,:] = R
+M[3,3] = 1
+M[4,4] = 1
+M[3,5] = alpha1
+M[3,6] = alpha2
+M[4,5] = alpha3
+M[4,6] = alpha4
+M.subdivide([],5)
+MR = M.echelon_form()
+X = MR.subdivision(0,1)
+=>PYTHONTEX#sage#default#default#106#i#####635#
+M
+=>PYTHONTEX#sage#default#default#107#i#####635#
+MR
+=>PYTHONTEX#sage#default#default#108#i#####637#
+X
+=>PYTHONTEX:SETTINGS#
+version=0.18
+outputdir=pythontex-files-practica02
+workingdir=.
+workingdirset=false
+gobble=none
+rerun=default
+hashdependencies=default
+makestderr=false
+stderrfilename=full
+keeptemps=none
+pyfuture=default
+pyconfuture=none
+pygments=true
+pygglobal=:GLOBAL||
+fvextfile=-1
+pyconbanner=none
+pyconfilename=stdin
+depythontex=false
+pygfamily=py|python3|
+pygfamily=pycon|pycon|
+pygfamily=sympy|python3|
+pygfamily=sympycon|pycon|
+pygfamily=pylab|python3|
+pygfamily=pylabcon|pycon|
+pygfamily=sage|sage|

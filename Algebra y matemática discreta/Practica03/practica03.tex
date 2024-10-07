@@ -1,0 +1,688 @@
+\documentclass{amsart}
+\usepackage[margin = 2cm]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage[usefamily=sage]{pythontex}
+\usepackage{colortbl} 
+\usepackage{xcolor}
+\usepackage[most]{tcolorbox}
+
+\newtheorem{ejer}{Ejercicio}
+\newtheorem{ejem}{Ejemplo}
+
+\title{Práctica 3. Aritmética Entera y Modular}
+\author{Escribe tu Nombre y Grupo}
+
+\def\n{\mathbb{N}}
+\def\r{\mathbb{R}}
+\def\z{\mathbb{Z}}
+\def\q{\mathbb{Q}}
+\def\c{\mathbb{C}}
+
+\begin{document}
+\maketitle
+
+\section{Ecuaciones Diofánticas}
+
+Una ecuación diofántica es una ecuación en la que nos piden únicamente las
+soluciones enteras. Una ecuación puede tener soluciones, por ejemplo
+$$ 2x + 4y = 3 $$
+tiene infinitas soluciones, pero no tiene ninguna solución entera porque
+si $x$ e $y$ se sustituyen por valores enteros, el primer miembro será 
+siempre un número par y no podrá ser nunca igual a $3$, por eso las técnicas
+de resolución de las ecuaciones diofánticas son específicas y no nos valen
+muchos de los métodos de resolución de las ecuaciones habituales.
+
+\begin{tcolorbox}[title = Importante]
+En las ecuaciones diofánticas en las que nos piden soluciones en el 
+conjunto de los números enteros, las matrices y las reducciones se 
+tienen que hacer en \verb|ZZ|. Hacer reducciones en \verb|QQ| en este
+tipo de problemas cuando haya que hacerlas en \verb|ZZ| anula todo el
+ejercicio que será valorado con $0$.
+\end{tcolorbox} 
+
+El ejemplo fundamental de ecuaciones diofánticas al que reduciremos 
+muchos de los problemas del tema es el de una ecuación con dos incógnitas.
+Tal y como hemos visto en teoría, este tipo de ecuaciones tiene solución
+si y solo si el máximo común divisor de los coeficientes divide al término
+independiente. Vamos a ver cómo resolverlos usando \verb|sage|.
+
+\begin{ejem}
+Encuentra todas las soluciones enteras de la ecuación
+$$ 35 x_1 + 25 x_2 = 55 $$
+\end{ejem} 
+
+{\it Solución:}
+% Inicio del Ejemplo 1
+
+\begin{sageblock}
+A = matrix(ZZ,[35,25])
+At1 = block_matrix([[A.T,1]])
+At1R = At1.echelon_form()
+Q = At1R[:,1:].T
+\end{sageblock}
+
+Construimos la matriz de los coeficientes $A = \sage{A}$ que vamos a 
+reducir por columnas, para ello la trasponemos y ampliamos con la 
+matriz identidad, reducimos y obtenemos lo siguiente:
+$$ \sage{At1} \to \sage{At1R}$$
+El teorema fundamental de la reducción por filas, nos dice que 
+$$ \sage{At1R[:,1:]} \sage{A.T} = \sage{At1R[1,:]}$$
+que si trasponemos (recordemos que la traspuesta del producto es 
+el producto de las traspuestas cambiadas de orden) no dice que 
+$$ \sage{A} \sage{Q} = \sage{A*Q} $$
+que es el equivalente por columnas al teorema fundamental de la 
+reducción por filas. 
+
+Este producto nos da dos ecuaciones:
+\begin{align*}
+35 \cdot 3 + 25 \cdot (-4) &= 5 \\
+35 \cdot 5 + 25 \cdot (-7) &= 0 \\
+\end{align*}
+La primera relación es el máximo común divisor expresado como combinación
+de los coeficientes. Vamos a buscar valores enteros $u_1$ y $u_2$ de forma
+que multiplicando la primera ecucación por $u_1$ y la segunda por $u_2$
+y sumando, obtengamos la solución del problema. 
+
+\begin{align*}
+\Big( 35 \cdot 3 + 25 \cdot (-4) &= 5 \Big) \cdot u_1 \\
+\Big( 35 \cdot 5 + 25 \cdot (-7) &= 0 \Big) \cdot u_2 \\
+\end{align*}
+
+Para conseguir de esa ecuación una solución del 
+sistema tenemos que multiplicar toda la ecuación por $11$ para obtener
+el término independiente igual a $55$ (es decir, $u_1 = 55/5 = 11$). 
+Si el término independiente no 
+hubiera sido múltiplo de $5$ (el máximo común divisor de los coeficientes)
+la ecuación no tendría soluciones enteras porque para cualesquiera $x_1$ y 
+$x_2$ enteros, el primer miembro sería múltiplo de $5$. 
+
+La segunda ecuación la podemos multiplicar por un parámetro libre 
+$u_2 = t$ que sea un número entero y obtener las ecuaciones
+\begin{align*}
+35 \cdot \colorbox{orange!30!white}{$3 \cdot 11$} + 
+25 \cdot \colorbox{yellow!50!white}{$(-4) \cdot 11$} &= 5 \cdot 11 = 55 \\
+35 \cdot \colorbox{orange!30!white}{$5 \cdot t$} + 
+25 \cdot \colorbox{yellow!50!white}{$(-7) \cdot t$} &= 0 \cdot t = 0 \\
+\end{align*}
+
+Sumando y sacando factor común los coeficientes de la ecuación tenemos
+$$ 35\colorbox{orange!30!white}{$(33+5t)$} + 
+25\colorbox{yellow!50!white}{$(-44-7t)$} = 55$$
+con lo que obtenemos las soluciones
+\begin{align*}
+x_1 &= 33+5t \\
+x_2 &= -44-7t
+\end{align*}
+siendo $t$ un número entero cualquiera.
+
+\begin{sageblock}
+Pol.<t> = ZZ[]
+U = matrix([[11],[t]])
+\end{sageblock}
+
+Esto se podría también hacer automáticamente si partimos del teorema
+fundamental de la reducción por columnas y tomando $X = QU$ para un vector
+$U$ que representa los coeficientes por los que multiplicamos cada ecuación:
+
+$$ \sage{A} \sage{Q} = \sage{A*Q} $$
+con lo que tenemos para cualquier valor entero $t$ que 
+$$ \underbrace{\sage{A}}_{A} \underbrace{\sage{Q} \sage{U}}_{X} = \sage{A*Q} \sage{U} = \underbrace{\sage{A*Q*U}}_{B}$$
+y las soluciones son
+$$ X = QU = \sage{Q}\sage{U} = \sage{Q*U}.$$
+
+% Fin del Ejemplo 1
+
+\vspace{1cm}
+
+Resuelve el siguiente ejercicio siguiendo la muestra del ejemplo anterior.
+
+\begin{ejer}
+Encuentra todas las soluciones enteras de la ecuación
+$$ 3811 x_1 + 2923 x_2 = 8621$$
+\end{ejer}
+
+{\it Solución:}
+
+% Escribe tu solución para el Ejercicio 1
+
+% Fin del Ejercicio 1
+
+Lo que se hace para dos variables, también se puede hacer con más variables
+añadiendo más parámetros.
+
+\begin{ejem}
+Encuentra todas las soluciones enteras de $19x_1-57x_2+38x_3 = 95$.
+\end{ejem}
+
+{\it Solución:}
+% Inicio del Ejemplo 2
+
+\begin{sageblock}
+A = matrix(ZZ,[[19,-57,38]])
+At1 = block_matrix([[A.T,1]])
+R = At1.echelon_form()
+Q = R[:,1:].T
+\end{sageblock}
+
+Construimos la matriz de los coeficientes $\sage{A}$, la trasponemos 
+y ampliamos con la identidad.
+$$ \sage{At1}$$
+La reducimos y obtenemos la matriz de paso por la derecha
+$$ \sage{R} \quad Q = \sage{Q}$$
+Comprobamos el teorema fundamental de la reducción por columnas
+$$ AQ = \sage{A} \sage{Q} = \sage{A*Q} $$
+
+Esto nos da tres ecuaciones
+\begin{align*}
+19 \cdot 0 + (-57) \cdot 1 + 38 \cdot 2 &= 19 \\
+19 \cdot 1 + (-57) \cdot 1 + 38 \cdot 1 &= 0 \\
+19 \cdot 0 + (-57) \cdot 2 + 38 \cdot 3 &= 0 \\
+\end{align*}
+
+Vamos a multiplicar cada una de las ecuaciones por un valor $u_i$ y luego
+los sumaremos todos para obtener la solución general. 
+
+\begin{align*}
+\Big( 19 \cdot 0 + (-57) \cdot 1 + 38 \cdot 2 &= 19 \Big) \cdot u_1 \\
+\Big( 19 \cdot 1 + (-57) \cdot 1 + 38 \cdot 1 &= 0 \Big) \cdot u_2 \\
+\Big( 19 \cdot 0 + (-57) \cdot 2 + 38 \cdot 3 &= 0 \Big) \cdot u_3 \\
+\end{align*}
+
+La primera ecuación nos da el máximo común divisor de los coeficientes, $19$,
+que divide al término independiente $19 \cdot 5 = 95$ así que multiplicaremos
+la primera ecuación por $u_1 = 5$ y la segunda y la tercera por parámetros 
+libres $u_2 = s$ y $u_3 = t$ con lo que obtendremos
+
+\begin{align*}
+19 \cdot \colorbox{orange!30!white}{$0 \cdot 5$} + (-57) \cdot \colorbox{yellow!50!white}{$1 \cdot 5$} + 38 \cdot \colorbox{pink!40!white}{$2 \cdot 5$} &= 19 \cdot 5 = 95 \\
+19 \cdot \colorbox{orange!30!white}{$1 \cdot s$} + (-57) \cdot \colorbox{yellow!50!white}{$1 \cdot s$} + 38 \cdot \colorbox{pink!40!white}{$1 \cdot s$} &= 0s = 0 \\
+19 \cdot \colorbox{orange!30!white}{$0 \cdot t$} + (-57) \cdot \colorbox{yellow!50!white}{$2 \cdot t$} + 38 \cdot \colorbox{pink!40!white}{$3 \cdot t$} &= 0t = 0 \\
+\end{align*}
+
+Sumando y sacando factor común tenemos 
+
+$$ 19 \colorbox{orange!30!white}{$s$} -57 \colorbox{yellow!50!white}{$(5+s+2t)$} + 38 \colorbox{pink!40!white}{$(10+s+3t)$} = 95$$
+
+y de ahí sacamos el valor de las variables
+
+\begin{align*}
+x_1 &= s \\
+x_2 &= 5+s+2t \\
+x_3 &= 10+s+3t \\
+\end{align*}
+
+
+\begin{sageblock}
+Pol.<s,t> = ZZ[]
+U = matrix([[5],[s],[t]])
+\end{sageblock}
+
+También se puede hacer automáticamente partiendo de la relación fundamental 
+de la reducción por columnas
+$$ AQ = \sage{A} \sage{Q} = \sage{A*Q} $$
+y multiplicando por $U = \sage{U}$ (para parámetros libres $s$ y $t$ en el conjunto de los números enteros) tenemos
+$$ AX = \underbrace{\sage{A}}_A \underbrace{\sage{Q} \sage{U}}_X = \sage{A*Q} \sage{U} = \sage{A*Q*U} = B$$
+y por lo tanto tenemos las soluciones
+$$ X = QU = \sage{Q*U}.$$
+
+% Fin del Ejemplo 2
+
+\begin{ejer}
+Calcula todas las soluciones enteras de la ecuación diofántica
+$$ 741 x_1 + 1311 x_2 + 897 x_3 = 363$$
+\end{ejer}
+
+{\it Solución:}
+% Escribe tu Solución para el Ejercicio 2
+
+% Fin del Ejercicio 2
+
+\section{Teorema Chino de los Restos}
+
+El problema básico que resuelve el Teorema Chino de los Restos es encontrar los
+valores de $n$ tales que se cumplan simultáneamente las relaciones
+
+\begin{align*}
+n &\equiv a_1 \pmod{m_1} \\
+n &\equiv a_2 \pmod{m_2} \\
+\end{align*}
+
+Cuando este problema tiene solución, será de la forma
+
+$$ n \equiv a \pmod{mcm(m_1,m_2)} $$
+
+Este tipo de problemas los podemos reducir a una ecuación diofántica lineal. 
+Vamos a verlo con un ejemplo.
+
+\begin{ejem}
+\label{EjemDiof2}
+Encuentra todos los números enteros $n$ tales que 
+\begin{align*}
+n &\equiv 12 \pmod{35} \\
+n &\equiv 42 \pmod{55} \\
+\end{align*}
+\end{ejem}
+
+{\it Solución:}
+% Inicio del Ejemplo 3
+
+La primera relación nos dice que $n = 12+35x_1$ y la segunda $n = 42+55x_2$
+para valores enteror indeterminados $x_1$ y $x_2$. Igualando ambas ecuaciones
+tenemos que $$ 12+35x_1 = 42+55x_2$$
+Esto nos da la ecuación diofántica
+$$ 35x_1 - 55 x_2 = 42-12 = 30 $$
+
+\begin{sageblock}
+A = matrix(ZZ,[[35,-55]])
+At1 = block_matrix([[A.T,1]])
+At1R = At1.echelon_form()
+Q = At1R[:,1:].T
+\end{sageblock}
+
+Tomamos la matriz de los coeficientes $A = \sage{A}$ y vamos a reducir por
+columnas, para ello trasponemos y ampliamos con la identidad para reducir por
+filas
+$$ \sage{At1} \to \sage{At1R}$$
+La matriz que queda a la derecha es la traspuesta de la matriz de paso por la
+derecha, que podemos comprobar que cumple el teorema fundamental de la 
+reducción por columnas
+$$ Q = \sage{Q} \qquad \sage{A} \sage{Q} = \sage{A*Q}$$
+El máximo común divisor es $5$ que divide al término independiente que es $30$.
+Para conseguirlo tenemos que multiplicar por $6$. 
+
+\begin{sageblock}
+Pol.<t> = ZZ[]
+U = matrix(Pol,[[6],[t]])
+X = Q*U
+\end{sageblock}
+
+La solución es $X = \sage{Q} \sage{U} = \sage{X}$ para un valor entero
+cualquiera $t$ y que podemos comprobar
+viendo que $$AX = \sage{A} \sage{X} = \sage{A*X}.$$
+
+Con los valores $x_1$ y $x_2$ podemos obtener el valor de $n$. Cualquiera
+de las dos relaciones nos sirve
+$$ n = 12+35x_1 = 12+35(\sage{X[0,0]}) = \sage{12+35*X[0,0]} $$
+$$ n = 42+55x_2 = 42+55(\sage{X[1,0]}) = \sage{42+55*X[1,0]} $$
+
+Esto es equivalente a decir que $n$ es $1692$ salvo múltiplos de $385$, es
+decir
+$$ n \equiv 1692 \pmod{385}$$
+Podemos reducir módulo $385$ para obtener un valor de $n$ entre $0$ y $384$,
+$$ n \equiv 1692 \equiv \sage{Zmod(385)(1692)} \pmod{385} $$
+Podemos ver que el resultado nos ha salido módulo $385 = \sage{factor(385)}$
+que es el mínimo común múltiplo de $35 = \sage{factor(35)}$ y $55 = 
+\sage{factor(55)}$.
+
+Para entender un poco mejor lo que está pasando en este problema, vamos
+a replantearlo del siguiente modo: Llamemos $n = x_0$ y vamos a escribir
+de nuevo las ecuaciones
+
+\begin{align*}
+x_0 &= 12+35x_1 \\
+x_0 &= 42+55x_2 \\
+\end{align*}
+o lo que es lo mismo
+\begin{align*}
+x_0 - 35x_1 &= 12 \\
+x_0 - 55 x_2 &= 42 \\
+\end{align*}
+Lo que hacemos al igualar los valores de $n$ en realidad es resolver 
+este sistema de ecuaciones diofánticas restando a la segunda ecuación
+la primera para así eliminar $x_0$ (que es $n$) lo que nos deja
+\begin{align*}
+x_0 - 35x_1 &= 12 \\
+35x_1 - 55 x_2 &= 30 \\
+\end{align*}
+
+Resolvemos la segunda ecuación en dos variables y luego utilizamos la 
+primera para sacar el valor de $x_0$ que es el que necesitamos. Por lo
+tanto lo que estamos haciendo con este sistema no es más que resolver 
+un caso particular de sistema de ecuaciones diofánticas de dos ecuaciones
+y tres incógnitas. 
+
+% Fin del Ejemplo 3
+
+\vspace{1cm}
+
+\begin{ejer}
+Calcula todos los valores enteros $n$ tales que 
+\begin{align*}
+n &\equiv 20 \pmod{111} \\
+n &\equiv 56 \pmod{75} 
+\end{align*}
+\end{ejer}
+
+{\it Solución: }
+
+% Escribe tu solución para el Ejercicio 3
+
+% Fin del Ejercicio 3
+
+\vspace{1cm}
+
+Cuando en lugar de tener dos relaciones de congruencia, tenemos tres o más, lo
+más eficiente es ir agrupando de dos en dos las relaciones para ir reduciendo su
+número ya que la combinación de dos relaciones de congruencia es una nueva 
+relación de congruencia. Veámoslo con un ejemplo:
+
+\begin{ejem}
+Encuentra todos los valores enteros $n$ tales que 
+\begin{align*}
+n &\equiv 27 \pmod{102} \\
+n &\equiv 12 \pmod{35} \\
+n &\equiv 42 \pmod{55} \\
+\end{align*}
+\end{ejem}
+
+
+% Inicio del Ejemplo 4
+{\it Solución 1: }
+
+Lo primero que vamos a notar es que en el Ejemplo~\ref{EjemDiof2} encontramos 
+los valores $n$ que cumplían las dos últimas ecuaciones, por lo tanto las dos 
+relaciones de congruencia
+
+\begin{align*}
+n &\equiv 12 \pmod{35} \\
+n &\equiv 42 \pmod{55} \\
+\end{align*}
+
+son equivalentes a la relación de congruencia 
+
+\begin{align*}
+n &\equiv 152 \pmod{385} \\
+\end{align*}
+
+y por lo tanto nuestro problema lo podemos reducir a encontrar los valores $n$ tales
+que 
+\begin{align*}
+n &\equiv 27 \pmod{102} \\
+n &\equiv 152 \pmod{385} \\
+\end{align*}
+que resolveremos usando la técnica habitual de dos variables:
+$$ n = 27+102x_1 \qquad n = 152+385x_2 $$
+igualando las dos ecuaciones tenemos que $$27+102x_1 = 152+385x_2 $$
+de donde obtenemos la ecuación en la forma habitual $$ 102x_1 - 385 x_2 = 152-27 = \sage{152-27}$$
+
+\begin{sageblock}
+A = matrix(ZZ,[[102,-385]])
+At1 = block_matrix([[A.T,1]])
+At1R = copy(At1.echelon_form())
+At1R.subdivide([],[1])
+Q = At1R.subdivision(0,1).T
+Pol.<t,x1,x2> = ZZ[]
+U = matrix(Pol,[[125],[t]])
+XX = Q*U
+X = matrix(Pol,[[x1],[x2]])
+sol = 27+102*XX[0,0]
+\end{sageblock}
+
+Tomamos la matriz de los coeficientes $A = \sage{A}$ la trasponemos, ampliamos con la 
+identidad y reducimos sobre el conjunto de los números enteros
+$$ \sage{At1} \to \sage{At1R}$$
+La matriz de paso por la derecha es $Q = \sage{Q}$ y el teorema fundamental de la reducción
+por columnas nos dice que 
+$$ \sage{A} \sage{Q} = \sage{A*Q}$$
+En este caso el máximo común divisor de los coeficientes es $1$ y la ecuación seguro que tiene
+solución que podremos obtener tomando 
+$$ \sage{A} \sage{Q} \sage{U} = \sage{A} \sage{XX} = \sage{A*XX}$$
+lo que nos dice que las soluciones para $x_1$ y $x_2$ son 
+$$ X = \sage{X} = \sage{XX}$$
+De ahí, sustituyendo en el valor de $n$ tenemos que 
+$$ n = 27+102x_1 = 27+102(\sage{XX[0,0]}) = \sage{sol}$$
+El resultado nos lo da salvo múltiplos de 
+$\sage{sol.coefficients()[0]} = \sage{factor(sol.coefficients()[0])}$ 
+que es precisamente el $mcm(102,35,55) = 
+mcm(\sage{factor(102)},\sage{factor(35)},\sage{factor(55)})$. Podemos reducir y obtener 
+$$ n = \sage{sol.coefficients()[1]} \equiv 
+\sage{Zmod(sol.coefficients()[0])(sol.coefficients()[1])} 
+\pmod{\sage{sol.coefficients()[0]}}.$$
+
+{\it Solución 2: }
+
+\begin{tcolorbox}[title = Nota del Coordinador]
+Esta solución está puesta para que podáis ver un método alternativo, pero
+sólo necesitáis aprender a resolver este problema usando la primera solución que,
+aunque es más larga que la segunda (recordad que a la que está aquí escrita hay 
+que añadir la solución del Ejemplo~\ref{EjemDiof2}) reduce un problema complejo
+a dos problemas básicos pueden ser largos, pero son sencillos. 
+
+\flushright Leandro Marín
+\end{tcolorbox} 
+
+
+Vamos a ver una segunda solución a este problema planteándolo como sistema de 
+ecuaciones diofánticas. Vamos a llamar $n = x_0$ y reescribiremos las relaciones
+del enunciado como 
+\begin{align*}
+x_0 &= 27 + 102 x_1 \\
+x_0 &= 12 + 35 x_2 \\
+x_0 &= 42 + 55 x_3 \\ 
+\end{align*}
+
+\begin{sageblock}
+A = matrix(ZZ,[[1,-102,0,0],[1,0,-35,0],[1,0,0,-55]])
+B = matrix(ZZ,[[27],[12],[42]])
+Pol.<x0,x1,x2,x3,u0,u1,u2,u3,t> = ZZ[]
+X = matrix(Pol,[[x0],[x1],[x2],[x3]])
+AB = block_matrix([[A,B]])
+ABR = copy(AB.echelon_form())
+ABR.subdivide([],4)
+AA = ABR.subdivision(0,0)
+BB = ABR.subdivision(0,1)
+\end{sageblock}
+
+Escrito en forma matricial, estas relaciones son equivalentes a la ecuación
+matricial
+$$ \sage{A} \sage{X} = \sage{B}$$
+Construimos la ampliada del sistema y reducimos sobre el conjunto de los números
+enteros
+$$ \sage{AB} \to \sage{ABR}$$
+El sistema diofántico que tenemos que resolver en su forma reducida es 
+$$ \sage{AA} \sage{X} = \sage{BB}$$
+
+\begin{sageblock}
+AAt1 = block_matrix([[AA.T,1]])
+AAt1R = copy(AAt1.echelon_form())
+AAt1R.subdivide([],3)
+Q = AAt1R.subdivision(0,1).T
+U = matrix(Pol,[[u0],[u1],[u2],[u3]])
+\end{sageblock}
+
+Para reolverlo vamos a hacer lo mismo que cuando tenemos una sola ecuación, vamos
+a sacar la matriz de paso por la derecha con una reducción por columnas. Para ello
+trasponemos y reducimos por filas
+
+$$ \sage{AAt1} \to \sage{AAt1R} $$
+
+La matriz de paso por la derecha es 
+$$ Q = \sage{Q}$$
+y el teorema fundametal de la reducción por columnas
+nos dice que 
+$$\sage{AA} \sage{Q} = \sage{AA*Q} = R'$$
+
+Nuestro objetivo es encontar un vector $U$ tal que $X = QU$ sea la solución del 
+sistema. Vamos a ver qué condiciones tendría que cumplir
+
+$$ \sage{BB} = \sage{AA} \sage{X} = $$
+$$ \sage{AA} \overbrace{\left(\sage{Q} \sage{U}\right)}^X = $$
+$$ \underbrace{\left(\sage{AA} \sage{Q} \right)}_{R'} \sage{U} = $$
+$$ \sage{AA*Q} \sage{U} = \sage{AA*Q*U}$$
+
+Tomando el principio y el final tenemos que  $\sage{AA*Q*U} = \sage{BB}$
+y de ahí deducimos que $u_0 = 42$, $u_1 = 15$, $u_2 = 6$ (la división en este caso
+es posible, si no hubiera sido posible el sistema no tendría solución) y $u_3$
+puede tomar cualquier valor, por lo que la llamaremos $t$ como solemos hacer a los
+parámetros libres. Esto nos dice que 
+$$ X = \sage{Q} \sage{U(u0=42,u1=15,u2=6,u3=t)} = \sage{Q*U(u0=42,u1=15,u2=6,u3=t)}$$
+
+El valor que realmente nos interesa es el de $x_0 = n$ que nos dice que es
+$$ n = 39270t + 511047$$
+para un valor cualquiera de $t$, o lo que es lo mismo 
+$$ n \equiv 511047 \pmod{39270}$$
+Si reducimos para obtener el representante más pequeño, tenemos que 
+$$ n \equiv 511047  \equiv \sage{Zmod(39270)(511047)} \pmod{39270}$$
+que es el mismo valor que nos salía por el primer método.
+% Fin del Ejemplo 4
+
+
+\begin{ejer}
+Encuentra todos los valores enteros $n$ tales que
+\begin{align*}
+n &\equiv 18 \pmod{34} \\
+n &\equiv 24 \pmod{25} \\
+n &\equiv 8 \pmod{28} \\
+\end{align*}
+\end{ejer}
+
+{\it Solución: }
+
+% Escribe tu solución para el Ejercicio 4
+
+% Fin del Ejercicio 4
+
+\section{Despejando $n$ en las congruencias.}
+
+En los problemas de Teorema Chino de los Restos necesitamos ecuaciones del tipo 
+$$ n \equiv a \pmod{m} $$
+o lo que es lo mismo, $n = a$ en ${\mathbb Z}_m$. 
+A veces no tenemos las ecuaciones de esta forma y tenemos expresiones
+un poco más complicadas del tipo 
+$$ 5n+4 \equiv 6 \pmod{7}$$
+Si el módulo es primo como en este ejemplo, ésta ecuación se puede resolver
+despejando $5n = 6-4$ y por lo tanto $n = 5^{-1} (6-4) = 3\cdot 2 = 6$ en 
+${\mathbb Z}_7$. El inverso modular $5^{-1}$ se tiene que calcular en 
+${\mathbb Z}_7$. Esto se puede hacer aunque el módulo no sea primo 
+siempre que el inveso modular exista. Por ejemplo
+
+\begin{ejem}
+Despeja el valor de $n$ en la siguiente relación de congruencia
+$$ 128n + 65 \equiv 41 \pmod{4477}. $$
+\end{ejem}
+{\it Solución: }
+
+% Inicio del Ejemplo 5
+
+El $65$ no da problema porque lo podemos pasar restando al segundo miembro.
+$$ 128 n \equiv 41 - 65 = -24 \equiv 4553 \pmod{4477}$$
+Para eliminar el $128$ debemos comprobar si ese elemento es invertible 
+módulo $4477$ lo cual sucederá cuando el máximo común divisor entre $128$ y 
+$4477$ sea $1$. Podríamos hacerlo con un único comando en \verb|sage| pero 
+lo vamos a hacer usando el algoritmo de euclides extendido.
+
+\begin{sageblock}
+A = matrix(ZZ,[[218,4477]])
+At1 = block_matrix([[A.T,1]])
+At1R = copy(At1.echelon_form())
+At1R.subdivide([],[1])
+Q = At1R.subdivision(0,1).T
+\end{sageblock}
+
+Procedemos como en el caso de las ecuaciones diofánticas. 
+
+$$\sage{At1} \to \sage{At1R}$$
+Calculamos la matriz de paso por la derecha $Q$ y el teorema fundamental 
+de la reducción por columnas nos dice que 
+$$Q = \sage{Q} \qquad \sage{A} \sage{Q} = \sage{A*Q}$$
+
+El máximo común divisor es $1$ y el Lema de Bézout nos dice que 
+$$ 1 = 218 \cdot 3635 + 4477 \cdot (-177) $$
+por lo que $3635$ es el inverso modular de $218$ módulo $4477$.
+
+% Fin del Ejemplo 5
+
+También podemos tener el caso en que el coeficiente que multiplica a $n$
+no sea invertible. En ese caso procederemos del siguiente modo:
+
+\begin{ejem}
+Despeja el valor de $n$ en la siguiente relación de congruencia:
+$$ 165 n \equiv 3618 \pmod{4551} $$
+\end{ejem}
+
+{\it Solución: }
+
+% Inicio del Ejemplo 6
+
+Esta relación es equivalente a decir que $165n = 3618+4551t$ para algún
+valor de $t$. Vamos a ver si $165$ es invertible módulo $4551$ calculando
+el máximo común divisor de $165$ y $4551$.
+
+\begin{sageblock}
+A = matrix(ZZ,[[165,4551]])
+R = A.T.echelon_form()
+\end{sageblock}
+
+Tomamos la matriz columna con ambos valores y reducimos:
+
+$$ \sage{A.T} \to \sage{R}$$
+
+Esto nos dice que el máximo común divisor es $3$ y vamos a dividir toda
+la ecuación $165n = 3618+4551t$ por $3$.
+$$ \sage{165/3} n = \sage{3618/3} + \sage{4551/3} t$$
+Todos los términos han resultado ser divisibles por $3$ (para $165$ y 
+$4551$ estábamos seguros porque $3$ era su máximo común divisor, pero
+podría haber fallado para el término independiente $3618$ en cuyo caso
+no habría ningún $n$ cumpliendo las condiciones). 
+La ecuación $55n = 1206+1517t$ para algún valor de $t$ es equivalente
+a
+$$ 55n \equiv 1206 \pmod{1517}$$
+con la ventaja de que ahora el máximo común divisor de $55$ y $1517$ sí
+es $1$ y por lo tanto podemos calcular el inverso modular de $55$ módulo
+$1517$ y proceder como en el ejemplo anterior, o directamente poner
+$$ n \equiv 55^{-1} \cdot 1206 \equiv 
+\sage{Zmod(1517)(55)^-1} \cdot 1206
+\equiv \sage{Zmod(1517)(55)^-1 * 1206} \pmod{1517}.$$
+
+% Fin del Ejemplo 6
+
+\begin{ejer}
+Despeja del valor de $n$ en las siguientes relaciones de congruencia:
+\begin{enumerate}
+\item $5n + 1 \equiv 4 \pmod{7}$
+\item $45n - 23 \equiv 44 \pmod{121}$
+\item $15n - 4 \equiv 6 \pmod{20}$
+\item $814 n +14 \equiv 4343 \pmod{4551}$
+\end{enumerate}
+\end{ejer}
+{\it Solución: }
+
+\begin{enumerate}
+\item $5n + 1 \equiv 4 \pmod{7}$
+% Escribe tu solución para el Ejercicio 5, apartado 1
+
+% Fin del apartado 1
+\item $45n - 23 \equiv 44 \pmod{121}$
+% Escribe tu solución para el Ejercicio 5, apartado 2
+
+% Fin del apartado 2
+\item $15n - 4 \equiv 6 \pmod{20}$
+% Escribe tu solución para el Ejercicio 5, apartado 3
+
+% Fin del apartado 3
+\item $814 n +14 \equiv 4343 \pmod{4551}$
+% Escribe tu solución para el Ejercicio 5, apartado 4
+
+% Fin del apartado 4
+\end{enumerate}
+
+\section{Ejercicios Adicionales}
+
+\begin{ejer}[Examen Junio 2024]
+En nuestro almacén recibimos furgonetas pequeñas con una capacidad de $108$ ordenadores y 
+salen furgonetas grandes con una capacidad de $201$ ordenadores. En este momento 
+tenemos en el almacén $74$ ordenadores, pero sospechamos que podríamos haber sufrido
+un robo de un ordenador. Sabiendo que las furgonetas siempre van al máximo de su 
+capacidad determinia si efectivamente hemos sufrido ese robo y cuantas furgonetas 
+han podido entrar y salir del almacén.
+\end{ejer}
+
+{\it Solución: }
+
+% Escribe tu solución para el Ejercicio 6
+
+% Fin del Ejercicio 6
+
+\end{document}
+
+

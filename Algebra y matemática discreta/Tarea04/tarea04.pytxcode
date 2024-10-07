@@ -1,0 +1,88 @@
+=>PYTHONTEX#sage#default#default#0#code#####17#
+B = matrix(QQ,[[4,-1,2],
+[1,-1,-2],
+[2,-1,0],
+[-1,0,-2],
+[0,0,1]])
+=>PYTHONTEX#sage#default#default#1#i#####26#
+B
+=>PYTHONTEX#sage#default#default#2#block#####41#
+B = matrix(QQ,[[4,-1,2],[1,-1,-2],[2,-1,0],[-1,0,-2],[0,0,1]])
+B1 = block_matrix([[B,1]])
+B1R = B1.echelon_form()
+B1R2 = copy(B1R)
+B1R2.subdivide(3,3)
+A = B1R2.subdivision(0,1)
+H = B1R2.subdivision(1,1)
+Pol.<a1,a2,b1,b2,c1,c2> = QQ[]
+C = matrix(Pol,[[a1,a2],[b1,b2],[c1,c2]])
+Sol = A + C*H
+
+D = Sol[0,:]
+E = matrix(QQ, [[1, 1, -2, 0, 0]])
+a1 = 1
+a2 = 1
+F = matrix(Pol,[[a1,a2],[b1,b2],[c1,c2]])
+Sol2 = A + F*H
+=>PYTHONTEX#sage#default#default#3#i#####62#
+B1
+=>PYTHONTEX#sage#default#default#4#i#####62#
+B1R
+=>PYTHONTEX#sage#default#default#5#i#####68#
+B1R2
+=>PYTHONTEX#sage#default#default#6#i#####69#
+A
+=>PYTHONTEX#sage#default#default#7#i#####70#
+H
+=>PYTHONTEX#sage#default#default#8#i#####73#
+A
+=>PYTHONTEX#sage#default#default#9#i#####73#
+B
+=>PYTHONTEX#sage#default#default#10#i#####73#
+A*B
+=>PYTHONTEX#sage#default#default#11#i#####74#
+H
+=>PYTHONTEX#sage#default#default#12#i#####74#
+B
+=>PYTHONTEX#sage#default#default#13#i#####74#
+H*B
+=>PYTHONTEX#sage#default#default#14#i#####82#
+A
+=>PYTHONTEX#sage#default#default#15#i#####82#
+C
+=>PYTHONTEX#sage#default#default#16#i#####82#
+H
+=>PYTHONTEX#sage#default#default#17#i#####83#
+Sol
+=>PYTHONTEX#sage#default#default#18#i#####90#
+D
+=>PYTHONTEX#sage#default#default#19#i#####93#
+E
+=>PYTHONTEX#sage#default#default#20#i#####103#
+Sol2
+=>PYTHONTEX:SETTINGS#
+version=0.18
+outputdir=pythontex-files-tarea04
+workingdir=.
+workingdirset=false
+gobble=none
+rerun=default
+hashdependencies=default
+makestderr=false
+stderrfilename=full
+keeptemps=none
+pyfuture=default
+pyconfuture=none
+pygments=true
+pygglobal=:GLOBAL||
+fvextfile=-1
+pyconbanner=none
+pyconfilename=stdin
+depythontex=false
+pygfamily=py|python3|
+pygfamily=pycon|pycon|
+pygfamily=sympy|python3|
+pygfamily=sympycon|pycon|
+pygfamily=pylab|python3|
+pygfamily=pylabcon|pycon|
+pygfamily=sage|sage|

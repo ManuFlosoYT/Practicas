@@ -1,0 +1,782 @@
+\documentclass{amsart}
+\usepackage[margin = 2cm]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage[usefamily=sage]{pythontex}
+\usepackage{colortbl} 
+\usepackage{xcolor}
+\usepackage[most]{tcolorbox}
+
+\newtheorem{ejer}{Ejercicio}
+\newtheorem{ejem}{Ejemplo}
+
+\title{Práctica 4. Vectores Independientes y Generadores. Inversas laterales. Ecuaciones Implícitas y Paramétricas. }
+\author{Escribe tu Nombre y Grupo}
+
+\def\n{\mathbb{N}}
+\def\r{\mathbb{R}}
+\def\z{\mathbb{Z}}
+\def\q{\mathbb{Q}}
+\def\c{\mathbb{C}}
+
+\begin{document}
+\maketitle
+
+\section{Vectores Independientes y Generadores}
+
+Una combinación lineal de los vectores $v_1, v_2, \cdots, v_n$ es una 
+expresión de la forma $x_1 v_1 + x_2 v_2 + \cdots + x_n v_n$ donde los
+$x_i$ son escalares que llamaremos coeficientes de la combinación. Cuando
+trabajemos con conjuntos de vectores, habitualmente los pondremos como 
+columnas de una única matriz y en ese caso, las combinaciones lineales
+se pueden escribir de forma compacta en lo que llamaremos representación
+matricial de una combinación lineal:
+
+\begin{sagecode}
+latex.matrix_delimiters('[', ']')
+A = matrix(QQ,[[1,0,1,2],[2,1,0,1],[3,1,4,2]])
+Pol.<x1,x2,x3,x4> = QQ[]
+X = matrix(Pol,[[x1],[x2],[x3],[x4]])
+\end{sagecode}
+
+$$ \underbrace{x_1 \sage{A[:,0]} + x_2 \sage{A[:,1]} + x_3 \sage{A[:,2]} + x_4 \sage{A[:,3]}}_{\text{Combinación Lineal en forma vectorial}} = \sage{A*X} = \underbrace{\sage{A} \sage{X}}_{\text{Combinación Lineal en forma matricial}} $$ 
+
+Unos vectores se dicen {\bf linealmente independientes} si la única 
+combinación  lineal que nos da el vector $0$ es la que tiene todos sus 
+coeficientes  iguales a $0$. En forma matricial: Las columnas de $A$ son 
+linealmente independientes si $AX = 0$ implica $X = 0$. Esto a veces también 
+se denomina que $A$ es cancelable
+\footnote{Esta terminología es para "cosas que se pueden multiplicar", no solo matrices. Hablando en general, todos los 
+elementos invertibles son cancelables, pero puede haber elementos cancelables
+no invertibles, por ejemplo, en la ecuación $3x=0$ en los números enteros,
+nosotros sabemos que $x = 0$, aunque no podemos multiplicar por el inverso
+de $3$ porque no existe en el conjunto de los números enteros. En el caso
+concreto de matrices, cancelable por la izquierda va a ser equivalente a
+tener inversa por la izquierda, pero eso lo veremos más adelante.}  
+por la izquierda. 
+
+La propiedad fundamental es que si $P$ es una matriz invertible, las 
+columnas de $A$ son linealmente independientes si y solo si las columnas
+de $PA$ son linealmente independientes. Si esto lo aplicamos a la matriz de
+paso, $PA$ es la matriz reducida por filas. Entonces podemos decir que las
+columnas de $A$ son linealmente independientes si y solo si las de su reducida
+por filas lo son, y en las matrices reducidas por filas esa propiedad
+es inmediata: En una matriz reducida por filas, sus columnas son
+linealmente independientes si y solo si todas son columnas pivote (o lo que
+es lo mismo: el {\bf rango}, que es el número de pivotes, coincide con el 
+número de columnas). De hecho,
+si de un conjunto de vectores queremos extraer un conjunto linealmente 
+independiente con el mayor número de elementos posible, lo que tenemos que
+hacer es reducir, ver qué columnas son pivote y esas columnas de la matriz
+original serán linealmente independientes. Vamos a ver unos ejemplos:
+
+\begin{ejem}
+Para cada una de las siguientes matrices, determina si sus columnas son 
+linealmente independientes. Si no lo son, encuentra un conjunto de columnas
+linealmente independientes de dicha matriz que tenga el máximo número de 
+elementos.
+
+\begin{sagecode}
+A = matrix(Zmod(5),[[2,2,3,1,2],[0,3,1,1,1],[2,3,0,4,1],[0,4,1,4,2]])
+B = matrix(Zmod(5),[[4,1,0,2],[3,2,4,0],[4,0,1,0],[1,0,3,1],[2,1,3,0]])
+C = matrix(Zmod(7),[[5,1,5,2,1],
+[3,3,4,4,4],
+[2,4,5,4,5],
+[2,0,0,0,5],
+[3,0,3,5,1]])
+\end{sagecode}
+
+\begin{enumerate}
+\item $A = \sage{A}$ en el cuerpo ${\mathbb Z}_5$.
+\item $B = \sage{B}$ en el cuerpo ${\mathbb Z}_5$.
+\item $C = \sage{C}$ en el cuerpo ${\mathbb Z}_7$.
+\end{enumerate}
+\end{ejem}
+
+{\it Solución:}
+% Inicio del Ejemplo 1
+
+\begin{enumerate}
+\item 
+
+\begin{sageblock}
+A = matrix(Zmod(5),[[2,2,3,1,2],[0,3,1,1,1],[2,3,0,4,1],[0,4,1,4,2]])
+AR = A.echelon_form()
+\end{sageblock}
+
+Reducimos por filas la matriz $A$.
+
+$$ \sage{A} \to \sage{AR}$$
+
+Como no todas las columnas son pivote los vectores no son linealmente
+independientes. Las cuatro primera columnas sí lo son, y podemos tomar
+$$ \sage{A[:,:4]}$$
+como conjunto lineamente independiente con el máximo número de elementos.
+
+\item 
+
+\begin{sageblock}
+B = matrix(Zmod(5),[[4,1,0,2],[3,2,4,0],[4,0,1,0],[1,0,3,1],[2,1,3,0]])
+BR = B.echelon_form()
+\end{sageblock}
+
+Reducimos por filas la matriz $B$.
+
+$$ \sage{B} \to \sage{BR}$$
+
+Todas las columnas son pivote, por lo tanto estos vectores son linealmente
+idependientes.
+
+\item 
+\begin{sageblock}
+C = matrix(Zmod(7),[[5,1,5,2,1],[3,3,4,4,4],[2,4,5,4,5],[2,0,0,0,5],[3,0,3,5,1]])
+CR = C.echelon_form()
+\end{sageblock}
+
+Reducimos por filas la matriz $C$.
+
+$$ \sage{C} \to \sage{CR}$$
+
+No todas las columnas son pivote, por lo tanto los vectores no son linealmente
+idependientes. Si quitamos la cuarta columna que es la que nos ha salido "no
+pivote" obtenemos un conjunto de vectores independientes con el número máximo
+de elementos.
+
+$$ \sage{C[:,[0,1,2,4]]}$$
+\end{enumerate}
+
+% Fin del Ejemplo 1
+
+Dados $v_1, v_2, \cdots, v_n$ en el espacio $K^m$ para un cuerpo $K$, 
+diremos que son {\bf generadores} si todo vector de $K^m$ se puede poner
+como combinación lineal de dichos vectores. Si consideramos los vectores
+$v_i$ como columnas de una matriz $B$, esta matriz tendrá tamaño $m$ filas
+y $n$ columnas y la relación de ser generadores es equivalente a decir
+que $BX=Y$ tiene solución para cualquier $Y$ de $K^m$. 
+
+Si $B$ es una matriz $m\times n$ sobre $K$ y $E$ una operación elemental 
+por filas, entonces las columnas de $B$ son generadoras (de $K^m$) si y 
+solo si las de $EB$ son generadoras (de $K^m$). Este resultado que es muy 
+fácil de demostrar nos permite reducir el problema de saber si las columnas
+de $B$ son generadoras al de si su reducida por filas tiene sus columnas
+generadoras. En el caso de una matriz reducida $R$, las columnas de $R$
+son generadoras si y solo si $R$ no tiene ninguna fila de ceros, o lo que
+es lo mismo, el número de pivotes (el rango) coincide con el número de filas.
+
+\begin{ejem}
+Para cada una de las siguientes matrices de tamaño $m \times n$ sobre el
+cuerpo $K$, determina si sus columnas son generadoras de $K^m$.
+
+\begin{sagecode}
+A = matrix(Zmod(5),[[4,1,0,0,2,3,3],
+[1,0,4,4,2,2,2],
+[3,3,3,4,1,0,4],
+[1,2,2,2,0,2,2],
+[1,3,4,3,2,0,3]])
+B = matrix(Zmod(5),[[0,2,3,3,1],
+[0,0,4,3,0],
+[4,0,4,1,0],
+[2,3,1,0,4]])
+C = matrix(Zmod(7),[[4,4,6,5],
+[5,6,0,6],
+[3,6,6,5],
+[1,6,4,2],
+[5,4,6,3]])
+\end{sagecode}
+
+\begin{enumerate}
+\item $A = \sage{A}$ en el cuerpo ${\mathbb Z}_5$.
+\item $B = \sage{B}$ en el cuerpo ${\mathbb Z}_5$.
+\item $C = \sage{C}$ en el cuerpo ${\mathbb Z}_7$.
+\end{enumerate}
+\end{ejem}
+
+{\it Solución:}
+% Inicio del Ejemplo 2
+\begin{enumerate}
+\item Empecemos reduciendo por filas la matriz y viendo los pivotes que 
+aparecen:
+
+\begin{sageblock}
+AR = A.echelon_form()
+\end{sageblock}
+
+$$ \sage{A} \to \sage{AR} $$
+
+Estas columnas no son generadoras porque el rango (4) no coincide con el
+número de filas (5).
+
+\item Empecemos reduciendo por filas la matriz y viendo los pivotes que 
+aparecen:
+
+\begin{sageblock}
+BR = B.echelon_form()
+\end{sageblock}
+
+$$ \sage{B} \to \sage{BR} $$
+
+Estas columnas son generadoras porque el rango (4) coincide con el número
+de filas (4).
+
+\item Empecemos reduciendo por filas la matriz y viendo los pivotes que 
+aparecen:
+
+\begin{sageblock}
+CR = C.echelon_form()
+\end{sageblock}
+
+$$ \sage{C} \to \sage{CR} $$
+
+Estas columnas no son generadoras porque el rango no coincide con el número
+de filas. En este caso no hubiese sido necesario ni siquiera hacer la 
+reducción porque 4 columnas solo podrían tener como máximo 4 pivotes y 
+nunca 5 (que el el número de filas).
+
+\end{enumerate}
+% Fin del Ejemplo 2
+
+Los conjuntos que son al mismo tiempo linealmente independientes y generadores
+se denominan {\bf bases}. De cualquier conjunto generador se puede extraer 
+una base eligiendo un conjunto linealmente independiente con el máximo 
+número de vectores (maximal). Dado cualquier conjunto de 
+vectores, si le añadimos
+un conjunto generador obtenemos evidentemente un conjunto generador, por lo 
+tanto si a un conjunto linealmente independiente le añadimos una base (por 
+ejemplo la canónica) obtendremos un conjunto generador. Si sacamos de este 
+conjunto uno linealmente independiente mediante una reducción de matrices, 
+obtendremos que 
+las primeras columnas son pivotes (porque ya eran linealmente 
+independientes) y luego nos aparecerán pivotes en la parte
+que hemos añadido. Estas columnas pivote, si volvemos a la matriz original, 
+formarán una base que amplía al conjunto independiente que nos han dado 
+inicialmente. 
+
+\begin{ejem}
+
+\begin{sagecode}
+A = matrix(Zmod(7),[[0,5,5],
+[1,5,2],
+[4,1,3],
+[3,2,3],
+[1,6,5]])
+B = matrix(Zmod(7),[[4,6,6,5,0],
+[6,6,1,6,5],
+[1,5,5,2,4],
+[0,2,0,0,4],
+[1,4,2,6,2]])
+\end{sagecode}
+
+Comprueba que las columnas de la matriz $A$ son linealmente independientes y
+que las de $B$ son generadoras de $K^5$ para el cuerpo $K = {\mathbb Z}_7$.
+Amplía los vectores de $A$ para conseguir extender el conjunto a una base 
+de $K^5$ usando los vectores que necesites de la base $B$.
+
+$$ A = \sage{A} \qquad B = \sage{B} $$
+\end{ejem}
+
+{\it Solución:}
+% Inicio del Ejemplo 3
+
+\begin{sageblock}
+AR = A.echelon_form()
+BR = B.echelon_form()
+AB = block_matrix([[A,B]])
+ABR = AB.echelon_form()
+\end{sageblock}
+
+Para responder a las preguntas del ejercicio vamos a reducir las matrices
+$A$ y $B$ por filas
+
+$$ \sage{A} \to \sage{AR}$$
+
+Los vectores de $A$ son independientes porque su reducida tiene pivotes 
+en todas las columnas.
+
+$$ \sage{B} \to \sage{BR}$$
+
+Los vectores de $B$ son independientes y generadores (y por tanto una base) 
+porque al reducir, el número de pivotes coincide con el número de columnas y 
+de filas. 
+Para la última parte construimos el conjunto de vectores formados por las
+columnas de la matriz $A$ y los de la matriz $B$. Este conjunto será 
+claramente generador porque los de $B$ ya son generadores. Si reducimos por
+filas obtendremos lo siguiente:
+
+$$ \sage{AB} \to \sage{ABR} $$
+
+Esto nos muestra que si añadimos el primer y el tercer vector de $B$ (que nos
+dan los pivotes que nos faltan) obtendríamos un conjunto linealmente 
+idependiente y generador que amplía los vectores de $A$. Los vectores que
+nos piden son 
+$$ \sage{AB[:,[0,1,2,3,5]]}$$
+Podemos comprobar que es realmente es base reduciendo esta matriz
+$$ 
+\sage{AB[:,[0,1,2,3,5]]} \to 
+\sage{AB[:,[0,1,2,3,5]].echelon_form()}. 
+$$
+
+% Fin del Ejemplo 3
+
+\begin{ejer}
+Para cada una de las matrices siguientes de tamaño $m \times n$ sobre el 
+cuerpo $K$ determina si las columnas de la matriz son linealmente 
+independientes, generadores de $K^m$ y/o bases de $K^m$. En el caso de 
+los conjuntos generadores que no sean base, extrae una base de los mismos.
+El el caso de los linealmente independientes que no son bases, amplíalos a
+bases utilizando los vectores que sean necesarios de la base canónica.
+
+\begin{sagecode}
+A = matrix(Zmod(5),[[4,2,4,0,1],
+[1,1,0,4,4],
+[3,0,1,2,3],
+[1,2,0,1,3],
+[2,4,1,2,2]])
+B = matrix(Zmod(5),[[3,0,2,1,3],
+[2,0,3,2,1],
+[1,0,1,4,2],
+[4,3,2,4,3],
+[0,2,4,2,0]])
+C = matrix(Zmod(7),[[6,2,0,5,5],
+[2,2,4,2,0],
+[1,3,2,5,1]])
+D = matrix(Zmod(7),[[1,1,4,0,1],
+[5,4,2,3,1],
+[5,2,1,2,0]])
+E = matrix(QQ,[[-2,0,1],
+[-1,1/2,0],
+[0,1,-1],
+[-2,2,2],
+[-1,0,1]])
+F = matrix(QQ,[[-2,0,-1,2],
+[-2,-2,0,-1],
+[0,-2,1,0],
+[-3,-1,-1,-2],
+[-1,-1,0,0],
+[0,-1,1/2,-1]])
+\end{sagecode}
+
+\begin{enumerate}
+\item $ A = \sage{A}$ sobre $K = {\mathbb Z}_5$.
+\item $ B = \sage{B}$ sobre $K = {\mathbb Z}_5$.
+\item $ C = \sage{C}$ sobre $K = {\mathbb Z}_7$.
+\item $ D = \sage{D}$ sobre $K = {\mathbb Z}_7$.
+\item $ E = \sage{E}$ sobre $K = {\mathbb Q}$.
+\item $ F = \sage{F}$ sobre $K = {\mathbb Q}$.
+\end{enumerate}
+\end{ejer}
+{\it Solución:}
+
+% Escribe tu solución para el Ejercicio 1
+
+% Fin del Ejercicio 1
+
+
+\section{Inversas Laterales}
+
+Dos matrices cuadradas $A$ y $B$ se dicen inversas una de la otra si 
+$AB = I = BA$. Sabemos que en el conjunto de las matrices el producto
+no es conmutativo, sin embargo en el caso de las matrices cuadradas, si
+$AB = I$ podemos estar seguros de que $BA = I$. Otra propiedad importante
+que tienen las matrices cuadradas es que si una matriz tiene inversa, 
+esa inversa es única, no pueden haber dos inversas diferentes para la 
+misma matriz cuadrada.
+
+En el caso de las matrices no cuadradas tenemos la posibilidad de que 
+dos matrices $A$ y $B$ cumplan que $AB = I$ pero $BA$ no sea la identidad.
+En ese caso diremos que $A$ es inversa por la izquierda de $B$ o que $B$ 
+es inversa por la derecha de $A$. En matrices no cuadradas las inversas
+laterales no son únicas y si son inversas por un lado, no lo pueden ser 
+por el otro. 
+
+Si nos dan una matriz $A$ para la que queremos encontrar, por ejemplo, 
+sus inversas por la derecha, podríamos plantear la ecuación matricial 
+$AX = I$ y despejar $X$ utilizando las técnicas de la Práctica 2, pero
+para este caso particular existe otra técnica que puede resultar más
+efectiva y que también nos ayudará a entender otros problemas posteriores.
+
+Antes de iniciar el ejemplo, vamos a darnos cuenta de que encontrar las
+inversas laterales por la izquierda o la derecha son problemas simétricos
+y si sabemos resolver uno de ellos, el otro es inmediato ya que si $AB = I$
+entonces $B^t A^t = (AB)^t = I^t = I$. Por lo tanto, tomando traspuestas
+podemos reducir un problema a otro de forma inmediata.
+
+\begin{ejem}
+Determina si las siguientes matrices tienen inversas laterales y en 
+el caso en que las tengan, calcúlalas:
+
+\begin{sagecode}
+M = matrix(QQ,[[2,2,0,0],
+[2,2,0,1],
+[4,-2,0,3],
+[1,1,0,-1],
+[2,3,0,0],
+[0,3,1,-2],
+[2,1,0,1]])
+N = matrix(QQ,[[-2,0,-1,0,-1,-2,0],
+[1,0,0,0,0,0,0],
+[0,-1,0,-1,0,0,0],
+[2,0,0,0,0,1,0]])
+\end{sagecode}
+
+\begin{enumerate}
+\item $M = \sage{M}$ sobre el cuerpo ${\mathbb Q}$.
+\item $N = \sage{N}$ sobre el cuerpo ${\mathbb Q}$.
+\end{enumerate}
+\end{ejem}
+
+{\it Solución:}
+% Inicio del Ejemplo 4
+
+\begin{enumerate}
+\item Ampliamos la matriz con la matriz identidad a la derecha y 
+reducimos por filas:
+
+\begin{sageblock}
+M1 = block_matrix([[M,1]])
+M1R = M1.echelon_form()
+\end{sageblock}
+
+$$ \sage{M1} \to \sage{M1R}$$
+
+La condición necesaria y suficiente para tener una inversa por la izquierda
+es que al reducir, todas las columnas sean pivote (o lo que es lo mismo,
+que los vectores sean linealmente independientes). Entonces tendremos
+una matriz reducida con la siguiente estructura
+$$ \left[\begin{array}{c|c} I & A \\ \hline 0 & H \end{array}\right]$$
+En nuestro ejemplo tendríamos
+
+\begin{sageblock}
+M1R = copy(M1R)
+M1R.subdivide(4,4)
+A = M1R.subdivision(0,1)
+H = M1R.subdivision(1,1)
+\end{sageblock}
+
+$$\sage{M1R}$$
+$$ A = \sage{A} $$
+$$ H = \sage{H} $$
+El teorema fundamental de la reducción por filas nos dice que 
+$$ \sage{A} \sage{M} = \sage{A*M} $$
+$$ \sage{H} \sage{M} = \sage{H*M} $$
+
+La matriz $A$ vemos que es una posible inversa por la izquierda, pero 
+hay muchas, cualquiera que podamos poner de la forma $A+CH$ con $C$
+cualquier matriz de parámetros libres cumplirá que
+$$ (A+CH)M = AM + CHM = I + C0 = I.$$
+Como $A$ tiene tamaño $4 \times 7$ y $H$ tiene tamaño $3 \times 7$
+el tamaño de la matriz $C$ debe ser $4 \times 3$ para que la operación
+sea posible.
+
+\begin{sageblock}
+Pol.<a1,a2,a3,b1,b2,b3,c1,c2,c3,d1,d2,d3> = QQ[]
+C = matrix(Pol,[[a1,a2,a3],[b1,b2,b3],[c1,c2,c3],[d1,d2,d3]])
+\end{sageblock}
+
+La solución general es pues
+$$ \sage{A} + \sage{C} \sage{H} = $$
+$$ \sage{A+C*H}$$
+donde los $a_i,b_i,c_i,d_i$ son $12$ parámetros libres en ${\mathbb Q}$.
+
+\item En este segundo ejemplo tenemos una matriz con más columnas que filas.
+Este tipo de matrices puede tener inversas laterales por la derecha y para
+encontrarlas tenemos que hacer el mismo proceso que antes pero por columnas,
+o lo que es lo mismo, resolviendo el problema usando traspuestas. La regla
+es sencilla, al ampliar con la matriz identidad, esta debe estar siempre por 
+el lado más grande de la matriz así que si la matriz es "horizontal" tenemos
+que tomar traspuestas para amplicar con la identidad a la derecha.
+
+\begin{sageblock}
+Nt1 = block_matrix([[N.T,1]])
+Nt1R = Nt1.echelon_form()
+\end{sageblock}
+\end{enumerate}
+
+$$ \sage{Nt1} \to \sage{Nt1R}$$
+
+Como todas las columnas son pivote, la matriz $N^t$ tendrá inversa por
+la izquierda (y por lo tanto $N$ tendrá inversa por la derecha). Esta 
+condición es equivalente a que las columnas de $N$ sean generadoras.
+
+\begin{sageblock}
+Nt1R = copy(Nt1R)
+Nt1R.subdivide(4,4)
+A = Nt1R.subdivision(0,1)
+H = Nt1R.subdivision(1,1)
+\end{sageblock}
+
+La matriz $\sage{A}$ es una inversa por la izquierda de $N^t$ y la fórmula
+general para todas las matrices inversas por la izquierda de $N^t$ es
+$$ \sage{A} + C \sage{H} $$
+donde $C$ es una matriz de parámetros libres de tamaño $4 \times 3$.
+
+\begin{sageblock}
+Pol.<a1,a2,a3,b1,b2,b3,c1,c2,c3,d1,d2,d3> = QQ[]
+C = matrix(Pol,[[a1,a2,a3],[b1,b2,b3],[c1,c2,c3],[d1,d2,d3]])
+Sol = (A+C*H).T
+\end{sageblock}
+
+Las inversas por la derecha de $N$ serán por lo tanto
+$$ \left( \sage{A} + \sage{C}\sage{H}\right)^t = $$
+$$ \sage{Sol} $$
+siendo $a_i,b_i,c_i$ y $d_i$ parámetros libres en ${\mathbb Q}$.
+Podemos comprobar el resultado calculando el producto de estas soluciones
+por la matriz $N$,
+$$ \sage{N}\sage{Sol} = \sage{N*Sol}$$
+
+% Fin del Ejemplo 4
+
+\begin{ejer}
+Para cada una de las siguientes matrices, determina si tienen inversas por
+la izquierda, por la derecha o por ambos lados. En caso de tenerlas, 
+calcúlalas.
+
+\begin{sagecode}
+M1 = matrix(Zmod(5),[[0,1,4,0,0,3],
+[3,3,3,4,4,3],
+[3,4,3,3,4,3],
+[1,4,3,3,2,0]])
+M2 = matrix(Zmod(5),[[0,0,2,1,1,1],
+[2,3,3,1,4,2],
+[1,4,4,1,4,4],
+[3,2,2,2,3,1]])
+M3 = matrix(Zmod(5),[[2,3,4],
+[2,0,3],
+[1,4,1],
+[1,3,4],
+[0,4,1],
+[4,2,1]])
+M4 = matrix(Zmod(5),[[4,1,3],
+[3,1,2],
+[0,1,4],
+[3,0,3],
+[3,0,3],
+[3,1,2]])
+M5 = matrix(Zmod(5),[[1,1,3,0],
+[4,4,2,3],
+[2,4,1,2],
+[1,3,3,0]])
+M6 = matrix(Zmod(5),[[3,2,3,2],
+[4,1,0,1],
+[0,2,0,4],
+[4,0,0,3]])
+\end{sagecode}
+
+\begin{enumerate}
+\item $M_1 = \sage{M1}$ sobre el cuerpo ${\mathbb Z}_5$.
+\item $M_2 = \sage{M2}$ sobre el cuerpo ${\mathbb Z}_5$.
+\item $M_3 = \sage{M3}$ sobre el cuerpo ${\mathbb Z}_5$.
+\item $M_4 = \sage{M4}$ sobre el cuerpo ${\mathbb Z}_5$.
+\item $M_5 = \sage{M5}$ sobre el cuerpo ${\mathbb Z}_5$.
+\item $M_6 = \sage{M6}$ sobre el cuerpo ${\mathbb Z}_5$.
+\end{enumerate}
+
+\end{ejer}
+
+{\it Solución:}
+
+% Escribe tu solución para el Ejercicio 2
+
+% Fin del Ejercicio 2
+
+\section{Ecuaciones Implícitas y Paramétricas}
+
+Sea $K$ un cuerpo y $m$ un número natural. Los elementos de $K^m$ los 
+llamaremos vectores y un espacio vectorial $V$ sobre el cuerpo $K$ es un 
+subconjunto no vacío de $K^m$ cumpliendo las siguientes condiciones:
+\begin{itemize}
+\item Si $u,v \in V$ entonces $u+v \in V$.
+\item Si $u \in V$ y $\alpha \in K$, entonces $\alpha v \in V$.
+\end{itemize}
+Existen dos formas fundamentales para definir un espacio vectorial a 
+partir de una matriz:
+
+\subsection{Forma Paramétrica} Dada una matriz $B$, llamaremos\footnote{La
+notación $C(B)$ proviene del nombre en inglés {\it column space} en español
+se denomina espacio generado por las columnas de $B$.} $C(B)$
+al conjunto de todos los vectores que se pueden poner como combinación
+lineal de las columnas de $B$. Cuando un espacio vectorial $V$ nos lo
+dan como $V = C(B)$ diremos que $V$ nos lo están dando en forma paramétrica.
+
+\begin{sagecode}
+Pol.<alpha1,alpha2,alpha3>  = Zmod(2)[]
+B = matrix(Zmod(2),[[1,0,1],
+[1,1,1],
+[1,0,1],
+[0,1,0],
+[0,0,1]])
+V = []
+for a1 in Zmod(2):
+  for a2 in Zmod(2):
+    for a3 in Zmod(2):
+      v = a1*B[:,0]+a2*B[:,1]+a3*B[:,2]
+      if v not in V:
+        V.append(v)
+\end{sagecode}
+
+Si $B = \sage{B}$ sobre ${\mathbb Z}_2$ enconces
+$C(B)$ es el conjunto de los vectores que se pueden escribir como
+$$ \alpha_1 \sage{B[:,0]} + \alpha_2 \sage{B[:,1]} + \alpha_3\sage{B[:,2]}$$
+para $\alpha_1,\alpha_2,\alpha_3$ todos los valores posibles en 
+${\mathbb Z}_2$. Si tomamos todos los valores, obtenemos que 
+
+$$V = C(B) = \left\{ \sage{V[0]},\sage{V[1]},\sage{V[2]},\sage{V[3]},
+\sage{V[4]},\sage{V[5]},\sage{V[6]},\sage{V[7]}\right\}$$  
+
+\subsection{Forma Implícita} Dada una matriz $H$, llamaremos\footnote{La
+notación $N(H)$ proviene del nombre en inglés {\it null space} en español
+se denomina espacio anulador por la derecha de $H$.} $N(H)$ al conjunto
+de vectores $X$ tales que $HX = 0$. Cuando un espacio vectorial $V$ nos lo
+dan como $V = N(H)$ diremos que $V$ nos lo están dando en forma implícita.
+
+\begin{sagecode}
+Pol.<x1,x2,x3,x4,x5> = Zmod(2)[]
+H = matrix(Zmod(2),[[1,0,1,0,0],
+[0,1,1,1,0]])
+X = matrix(Pol,[[x1],[x2],[x3],[x4],[x5]])
+V = [column_matrix(v) for v in VectorSpace(Zmod(2),5) if H*v == 0]
+\end{sagecode}
+
+Por ejemplo, si $H = \sage{H}$ sobre ${\mathbb Z}_2$ entonces
+$N(H)$ es el conjunto de los vectores $X = \sage{X}$ que se pueden escribir
+como $HX = 0$, es decir, 
+$$ \sage{H} \sage{X} = \sage{H*X} = \sage{matrix(Zmod(2),2,1)}$$
+que separado en forma de dos ecuaciones nos dice que
+\begin{align*} 
+\sage{(H*X)[0,0]} &= 0 \\
+\sage{(H*X)[1,0]} &= 0 \\
+\end{align*}
+Encontrando todos los valores posibles, obtenemos
+
+$$V = N(H) = \left\{ \sage{V[0]},\sage{V[1]},\sage{V[2]},\sage{V[3]},
+\sage{V[4]},\sage{V[5]},\sage{V[6]},\sage{V[7]}\right\}$$  
+
+\vspace{1cm}
+
+Tal y como hemos visto en este ejemplo, un mismo espacio vectorial se puede
+poner tanto de forma implícita como de forma paramétrica. Pasar de una 
+representación a otra será una parte fundamental de muchos de los problemas
+porque la utilización de la representación adecuada permitirá resolverlos
+de forma sencilla mientras que con la representación incorrecta el problema
+puede ser muy complicado. Vamos a aprender en esta sección a pasar de una
+representación a la otra con unos ejemplos:
+
+\begin{sagecode}
+B = matrix(Zmod(5),[[2,4,2],
+[2,0,3],
+[4,2,3],
+[0,4,4],
+[4,0,1]])
+\end{sagecode}
+
+\begin{ejem}
+Dada la matriz $B = \sage{B}$ sobre el cuerpo ${\mathbb Z}_5$ describe el 
+espacio vectorial $V = C(B)$ en forma implícita.
+\end{ejem}
+
+{\it Solución:}
+% Inicio del Ejemplo 5
+
+\begin{sageblock}
+B1 = block_matrix([[B,1]])
+B1R = copy(B1.echelon_form())
+B1R.subdivide(2,3)
+H = B1R.subdivision(1,1)
+\end{sageblock}
+
+Ampliamos la matriz con la identidad a la derecha reducimos por filas
+$$ \sage{B1} \to \sage{B1R} $$
+Si denominamos $H$ a la parte que queda a la derecha de los ceros al hacer la
+reducción tenemos que $H = \sage{H}$. El teorema fundamental de la reducción
+por filas nos dice que $HB = 0$ y por lo tanto 
+$$ 
+\sage{H} \sage{B[:,0]} = \sage{H*B[:,0]},
+\sage{H} \sage{B[:,1]} = \sage{H*B[:,1]},
+\sage{H} \sage{B[:,2]} = \sage{H*B[:,2]}$$
+Si eso es cierto para las columnas de $B$, lo es para cualquier combinación
+lineal de las columnas de $B$ (para todos los vectores de $C(B)$) y la matriz
+$H$ es precisamente la matriz que nos da $V$ de forma implícita.
+
+$$ N\left(\sage{H}\right) = V = C\left(\sage{B}\right).$$
+
+% Fin del Ejemplo 5
+
+\vspace{1cm}
+
+El problema inverso se puede resolver de forma dual usando traspuestas. La 
+razón es una propiedad muy útil que es 
+$$ N(H) = C(B) ~\text{si y solo si}~ C(H^t) = N(B^t)$$
+Esta propiedad la veremos de nuevo cuando hablemos de espacio ortogonal, pero
+de momento nos servirá para pasar de implícitas a paramétricas usando la misma
+técnica que para pasar de paramétricas a implícitas.
+
+\begin{sagecode}
+H = matrix(Zmod(7),[[2,2,6,6,6],
+[0,2,2,3,5],
+[5,0,6,4,4]])
+Pol.<x1,x2,x3,x4,x5> = Zmod(7)[]
+X = matrix(Pol,[[x1],[x2],[x3],[x4],[x5]])
+\end{sagecode}
+
+\begin{ejem}
+Sea $V$ el espacio vectorial sobre el cuerpo ${\mathbb Z}_7$ formado por los
+$X$ tales que 
+\begin{align*}
+\sage{(H*X)[0,0]} &= 0 \\
+\sage{(H*X)[1,0]} &= 0 \\
+\sage{(H*X)[2,0]} &= 0 \\
+\end{align*}
+Escribe $V$ en forma paramétrica.
+\end{ejem}
+
+{\it Solución:}
+% Inicio del Ejemplo 6
+
+\begin{sageblock}
+Ht1 = block_matrix([[H.T,1]])
+Ht1R = copy(Ht1.echelon_form())
+Ht1R.subdivide(3,3)
+B = Ht1R.subdivision(1,1).T
+\end{sageblock}
+
+Lo primero que tenemos que hacer es poner el espacio como $HX = 0$, lo cual
+podemos hacer tomando $H = \sage{H}$.
+Trasponemos $H$ y ampliamos la matriz con la identidad para reducir por filas
+$$ \sage{Ht1} \to \sage{Ht1R} $$
+Si denominamos $B$ a la traspuesta de la matriz que queda en la parte derecha 
+de los ceros al hacer la reducción tenemos que
+$$ B = \sage{B} $$
+Entonces tenemos que
+$$ N\left(\sage{H}\right) = V = C\left(\sage{B}\right).$$
+% Fin del Ejemplo 6
+
+\begin{sagecode}
+B = matrix(Zmod(3),[[1,0,1,2],
+[0,1,0,2],
+[1,1,2,2],
+[0,1,0,1],
+[0,0,2,0],
+[2,0,2,1]])
+H = matrix(Zmod(7),[[5,6,2,3,1],
+[2,0,0,3,1],
+[4,1,5,0,0]])
+\end{sagecode}
+
+\begin{ejer}
+\begin{enumerate}
+\item Sea $B = \sage{B}$ sobre el cuerpo ${\mathbb Z}_3$ y $V = C(B)$. Escribe $V$
+en forma implícita.
+\item Sea $H = \sage{H}$ sobre el cuerpo ${\mathbb Z}_7$ y $W = N(H)$. Escribe $W$
+en forma paramétrica.
+\end{enumerate}
+\end{ejer}
+
+{\it Solución:}
+
+% Escribe tu solución para el Ejercicio 3
+
+% Fin del Ejercicio 3
+
+
+\end{document}
+
+
+

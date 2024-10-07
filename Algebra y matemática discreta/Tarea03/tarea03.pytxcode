@@ -1,0 +1,55 @@
+=>PYTHONTEX#sage#default#default#0#block#####29#
+A = column_matrix(ZZ, [15, 125])
+B = matrix(ZZ, [[1, 0], [0, 1]])
+AB = block_matrix([ [A, B] ])
+ABr = AB.echelon_form()
+
+C = column_matrix(ZZ, [-25, 64])
+D = matrix(ZZ, [[1, 0], [0, 1]])
+CD = block_matrix([ [C, D] ])
+CDr = CD.echelon_form()
+CDr2 = CDr[:, 1:3]
+CDr2t = CDr2.T
+Pol.<t> = ZZ[]
+E = column_matrix(Pol,[16 ,t])
+D = CDr2t * E
+=>PYTHONTEX#sage#default#default#1#i#####54#
+AB
+=>PYTHONTEX#sage#default#default#2#i#####54#
+ABr
+=>PYTHONTEX#sage#default#default#3#i#####87#
+CD
+=>PYTHONTEX#sage#default#default#4#i#####87#
+CDr
+=>PYTHONTEX#sage#default#default#5#i#####91#
+CDr2t
+=>PYTHONTEX#sage#default#default#6#i#####91#
+E
+=>PYTHONTEX#sage#default#default#7#i#####91#
+D
+=>PYTHONTEX:SETTINGS#
+version=0.18
+outputdir=pythontex-files-tarea03
+workingdir=.
+workingdirset=false
+gobble=none
+rerun=default
+hashdependencies=default
+makestderr=false
+stderrfilename=full
+keeptemps=none
+pyfuture=default
+pyconfuture=none
+pygments=true
+pygglobal=:GLOBAL||
+fvextfile=-1
+pyconbanner=none
+pyconfilename=stdin
+depythontex=false
+pygfamily=py|python3|
+pygfamily=pycon|pycon|
+pygfamily=sympy|python3|
+pygfamily=sympycon|pycon|
+pygfamily=pylab|python3|
+pygfamily=pylabcon|pycon|
+pygfamily=sage|sage|

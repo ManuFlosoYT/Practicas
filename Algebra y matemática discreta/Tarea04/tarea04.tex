@@ -1,0 +1,108 @@
+\documentclass{amsart}
+\usepackage[margin = 2cm]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage[usefamily=sage]{pythontex} 
+\usepackage{colortbl} 
+\usepackage{xcolor}
+
+\newtheorem{ejer}{Ejercicio}
+
+\title{Tarea 4. Inversas Laterales}
+\author{Manuel Bernal Hernández, Grupo 2.1}
+
+\begin{document}
+\maketitle
+
+\begin{ejer}
+\begin{sagecode}
+B = matrix(QQ,[[4,-1,2],
+[1,-1,-2],
+[2,-1,0],
+[-1,0,-2],
+[0,0,1]])
+\end{sagecode}
+
+Calcula todas las inversas laterales por la izquierda de la matriz 
+$$ B = \sage{B} $$
+definida sobre el cuerpo de los números racionales. 
+
+¿Existe alguna inversa por la iquierda de $B$ que tenga la forma
+$\left(\begin{array}{rrrrr}
+1 & 1 & -2 & 0 & 0 \\
+* & * & * & * & * \\
+* & * & * & * & *
+\end{array}\right)$
+?
+\end{ejer}
+
+{\it Solución: }
+
+% Escribe tu solución para el Ejercicio 1.
+\begin{sageblock}
+B = matrix(QQ,[[4,-1,2],[1,-1,-2],[2,-1,0],[-1,0,-2],[0,0,1]])
+B1 = block_matrix([[B,1]])
+B1R = B1.echelon_form()
+B1R2 = copy(B1R)
+B1R2.subdivide(3,3)
+A = B1R2.subdivision(0,1)
+H = B1R2.subdivision(1,1)
+Pol.<a1,a2,b1,b2,c1,c2> = QQ[]
+C = matrix(Pol,[[a1,a2],[b1,b2],[c1,c2]])
+Sol = A + C*H
+
+D = Sol[0,:]
+E = matrix(QQ, [[1, 1, -2, 0, 0]])
+a1 = 1
+a2 = 1
+F = matrix(Pol,[[a1,a2],[b1,b2],[c1,c2]])
+Sol2 = A + F*H
+\end{sageblock}
+
+Ampliamos la matriz con la matriz identidad a la derecha y reducimos por filas:
+$$ \sage{B1} \to \sage{B1R} $$
+
+Para tener una inversa por la izquierda hay que hacer que todas las columnas sean pivote.
+Entonces tendremos una matriz reducida con la siguiente estructura:
+$$ \left[\begin{array}{c|c} I & A \\ \hline 0 & H \end{array}\right]$$
+
+$$ \sage{B1R2} $$
+$$ A = \sage{A} $$
+$$ H = \sage{H} $$
+
+El teorema fundamental de la reducción por filas nos dice que 
+$$ A \times B = \sage{A} \sage{B} = \sage{A*B} $$
+$$ H \times B = \sage{H} \sage{B} = \sage{H*B} $$
+
+La matriz $A$ vemos que es una posible inversa por la izquierda, pero hay muchas, cualquiera que podamos poner de la forma $A+CH$ con $C$ cualquier matriz de parámetros libres cumplirá que
+
+$$ (A+CH)B = AB + CHB = I + C0 = I.$$
+
+Como $A$ tiene tamaño $3 \times 5$ y $H$ tiene tamaño $2 \times 5$ el tamaño de la matriz $C$ debe ser $3 \times 2$.
+
+$$ Solucion =  A+CH = \sage{A} + \sage{C} \times \sage{H} = $$
+$$ = \sage{Sol} $$
+donde los $a_i,b_i,c_i$ son $6$ parámetros libres en ${\mathbb Q}$.
+
+
+
+
+Para encontrar una inversa por la izquierda de B con la forma requerida, necesitamos encontrar valores para los parametros libres en la solucion general de inversas por la izquierda que satisfagan la condición dada. La primera fila de la solución general es:
+$$ \sage{D} $$
+
+Si queremos que esta fila sea igual a
+$$ \sage{E} $$
+
+entonces necesitamos resolver el siguiente sistema de ecuaciones:
+$$ a_1 = 1 $$
+$$ a_2 = 1 $$
+$$ -a_1-a_2 = -2 $$
+$$ 2a_1-a_2-1 = 0 $$
+$$ 2a_2-2 = 0 $$
+
+La solucion a este sistema de ecuaciones es a1=1 y a2=1. Por lo tanto, existe una inversa por la izquierda de B que tiene la forma requerida. Especificamente, la inversa por la izquierda es:
+$$ \sage{Sol2} $$
+
+donde b1, b2, c1 y c2 son $4$ parámetros libres en ${\mathbb Q}$.
+% Fin del ejercicio.
+
+\end{document}

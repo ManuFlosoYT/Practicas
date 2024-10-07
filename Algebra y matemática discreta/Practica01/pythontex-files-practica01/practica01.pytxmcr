@@ -1,0 +1,121 @@
+%Last time of file creation:  1726148371.9185834
+
+\pytx@SVMCR{pytx@MCR@sage@default@default@1}
+\left(\begin{array}{rrr}
+-\frac{11}{4} & 2 & \frac{5}{6} \\
+-\frac{4}{3} & 4 & -\frac{1}{3}
+\end{array}\right)\endpytx@SVMCR
+
+\pytx@SVMCR{pytx@MCR@sage@default@default@2}
+\left(\begin{array}{rrr}
+0 & \frac{5}{6} & 3 \\
+-2 & \frac{8}{9} & \frac{11}{3}
+\end{array}\right)\endpytx@SVMCR
+
+\pytx@SVMCR{pytx@MCR@sage@default@default@4}
+\left(\begin{array}{rrrrrr}
+1 & \frac{1}{2} & 0 & 2 & 1 & 2 \\
+0 & 0 & 1 & 3 & -1 & 0
+\end{array}\right)\endpytx@SVMCR
+
+\pytx@SVMCR{pytx@MCR@sage@default@default@6}
+\left(\begin{array}{rrrr}
+1 & \frac{1}{2} & 0 & 2 \\
+0 & 0 & 1 & 3
+\end{array}\right)\endpytx@SVMCR
+
+\pytx@SVMCR{pytx@MCR@sage@default@default@7}
+\left(\begin{array}{rr}
+1 & 2 \\
+-1 & 0
+\end{array}\right)\endpytx@SVMCR
+
+\pytx@SVMCR{pytx@MCR@sage@default@default@8}
+\left(\begin{array}{rrrr}
+0 & 1 & 0 & 0 \\
+0 & 0 & 0 & 1
+\end{array}\right)\endpytx@SVMCR
+
+\pytx@SVMCR{pytx@MCR@sage@default@default@9}
+\left(\begin{array}{rr}
+\alpha_{0} & \beta_{0} \\
+\alpha_{1} & \beta_{1}
+\end{array}\right)\endpytx@SVMCR
+
+\pytx@SVMCR{pytx@MCR@sage@default@default@10}
+\left(\begin{array}{rrrr|rr}
+1 & \frac{1}{2} & 0 & 2 & 1 & 2 \\
+0 & 0 & 1 & 3 & -1 & 0 \\
+\hline
+ 0 & 1 & 0 & 0 & \alpha_{0} & \beta_{0} \\
+0 & 0 & 0 & 1 & \alpha_{1} & \beta_{1}
+\end{array}\right)\endpytx@SVMCR
+
+\pytx@SVMCR{pytx@MCR@sage@default@default@12}
+\left(\begin{array}{rrrr}
+5 & 4 & -3 & 1 \\
+10 & 7 & -1 & 0 \\
+26 & 14 & 17 & -8 \\
+1 & 3 & -10 & 4
+\end{array}\right)\endpytx@SVMCR
+
+\pytx@SVMCR{pytx@MCR@sage@default@default@13}
+\left(\begin{array}{rrrr|rrrr}
+1 & 0 & 0 & 0 & 4 & 1 & -1 & -3 \\
+0 & 1 & 0 & 0 & -8 & 1 & 1 & 4 \\
+0 & 0 & 1 & 0 & -16 & 16 & -3 & -2 \\
+0 & 0 & 0 & 1 & -35 & 39 & -8 & -7
+\end{array}\right)\endpytx@SVMCR
+
+\pytx@SVMCR{pytx@MCR@sage@default@default@14}
+\left(\begin{array}{rrrr}
+4 & 1 & -1 & -3 \\
+-8 & 1 & 1 & 4 \\
+-16 & 16 & -3 & -2 \\
+-35 & 39 & -8 & -7
+\end{array}\right)\endpytx@SVMCR
+
+\pytx@SVMCR{pytx@MCR@sage@default@default@15}
+\left(\begin{array}{rrrr}
+4 & 1 & -1 & -3 \\
+-8 & 1 & 1 & 4 \\
+-16 & 16 & -3 & -2 \\
+-35 & 39 & -8 & -7
+\end{array}\right)\endpytx@SVMCR
+
+\pytx@SVMCR{pytx@MCR@sage@default@default@16}
+\left(\begin{array}{rrrr}
+4 & 1 & -1 & -3 \\
+-8 & 1 & 1 & 4 \\
+-16 & 16 & -3 & -2 \\
+-35 & 39 & -8 & -7
+\end{array}\right)\endpytx@SVMCR
+
+\pytx@SVMCR{pytx@MCR@sage@default@default@18}
+\left(\begin{array}{rrr|r}
+3 & 2 & -1 & 3 \\
+-1 & 1 & 2 & 1 \\
+1 & 4 & 3 & 2 a + 1
+\end{array}\right)\endpytx@SVMCR
+
+\pytx@SVMCR{pytx@MCR@sage@default@default@19}
+\left(\begin{array}{rrr|r}
+3 & 2 & -1 & 3 \\
+0 & \frac{5}{3} & \frac{5}{3} & 2 \\
+0 & 0 & 0 & 2 a - 4
+\end{array}\right)\endpytx@SVMCR
+
+\pytx@SVMCR{pytx@MCR@sage@default@default@20}
+\left(\begin{array}{rrrr}
+3 & 2 & -1 & 3 \\
+0 & \frac{5}{3} & \frac{5}{3} & 2 \\
+0 & 0 & 0 & 0
+\end{array}\right)\endpytx@SVMCR
+
+\pytx@SVMCR{pytx@MCR@sage@default@default@21}
+\left(\begin{array}{rrrr}
+1 & 0 & -1 & \frac{1}{5} \\
+0 & 1 & 1 & \frac{6}{5} \\
+0 & 0 & 0 & 0
+\end{array}\right)\endpytx@SVMCR
+
