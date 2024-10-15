@@ -46,7 +46,12 @@ int main()
 	switch(_riesgo)
 	{
 		case 's':
+		case 'S':
 			riesgo = true;
+			break;
+		case 'n':
+		case 'N':
+			riesgo = false;
 			break;
 		default:
 			cout << "Entrada incorrecta, usando falso por defecto" << endl;
