@@ -14,11 +14,7 @@ float calcRecargo(float cantidad, float interes, bool riesgo)
 
 float calcTotal(float cantidad, float interes, float recargo, bool riesgo)
 {
-	if(riesgo)
-	{
-		return cantidad + interes + recargo;
-	}
-	return cantidad + interes;
+	return cantidad + interes + recargo;
 }
 
 int main()

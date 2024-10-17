@@ -9,6 +9,8 @@ int main()
 		int ano;
 	};
 
+	int largoMes;
+
 	fecha f = {1, 1, 1};
 	
 	std::cout << "Inserta una fecha en formato (DD MM AAAA): ";
@@ -29,34 +31,18 @@ int main()
 		std::cout << "Formato invalido";
 		return -1;
 	}
-	
+
 	switch(f.mes)
 	{
 		case 2: //FEBRERO
-			if(f.dia < 28)
-			{
-				f.dia++;
-			}
-			else
-			{
-				f.dia = 1;
-				f.mes++;
-			}
+			largoMes = 28;
 			break;
 			
 		case 4: //MESES DE 30
 		case 6:
 		case 9:
 		case 11:
-			if(f.dia < 30)
-			{
-				f.dia++;
-			}
-			else
-			{
-				f.dia = 1;
-				f.mes++;
-			}
+			largoMes = 30;
 			break;
 			
 		case 1: //MESES DE 31
@@ -65,34 +51,31 @@ int main()
 		case 7:
 		case 8:
 		case 10:
-			if(f.dia < 31)
-			{
-				f.dia++;
-			}
-			else
-			{
-				f.dia = 1;
-				f.mes++;
-			}
+		case 12:
+			largoMes = 31;
 			break;
-			
-		case 12: //DICIEMBRE
-			if(f.dia < 31)
-			{
-				f.dia++;
-			}
-			else
-			{
-				f.dia = 1;
-				f.mes = 1;
-				f.ano++;
-			}
-			break;
-			
+
 		default:
 			std::cout << "Formato invalido";
 			return -1;
 			break;
+	}
+
+	if(f.dia < largoMes)
+	{
+		f.dia++;
+	}
+	else
+	{
+		f.dia = 1;
+		f.mes++;
+
+		if(f.mes > 12)
+		{
+			f.dia = 1;
+			f.mes = 1;
+			f.ano++;
+		}
 	}
 	
 	std::cout << "La fecha del dia siguiente es: " << f.dia << "/" << f.mes << "/" << f.ano;
