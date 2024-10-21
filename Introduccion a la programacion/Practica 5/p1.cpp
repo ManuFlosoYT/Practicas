@@ -36,7 +36,7 @@ int main ()
     { 
         suma = suma + 1.0 / cuenta;
         cuenta++;
-    }; 
+    };
     cuenta--;
 
     cout << "El numero de terminos es " << cuenta; 
