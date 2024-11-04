@@ -9,7 +9,7 @@ int main()
     int EA_R; //Cuadrado del EA 
     
     //Primer esquema de recorrido del primer modelo de acceso secuencial 
-    cout<<"Introduce una serie de enteros, para terminar el -100"<<endl; 
+    cout << "Introduce una serie de enteros, para terminar el -100" << endl; 
     cin >> EA; //Comenzar 
     
     while (EA != MF) 
