@@ -1,0 +1,33 @@
+=>PYTHONTEX#sage#default#default#0#block#####30#
+
+A = vector([3/2, 3/2])
+beta = 2*pi/5
+G = matrix(RR,[[cos(beta), -sin(beta)], [sin(beta), cos(beta)]])
+V = [A+G^i*vector([0,1/2]) for i in range(5)]
+
+=>PYTHONTEX:SETTINGS#
+version=0.18
+outputdir=pythontex-files-tarea08
+workingdir=.
+workingdirset=false
+gobble=none
+rerun=default
+hashdependencies=default
+makestderr=false
+stderrfilename=full
+keeptemps=none
+pyfuture=default
+pyconfuture=none
+pygments=true
+pygglobal=:GLOBAL||
+fvextfile=-1
+pyconbanner=none
+pyconfilename=stdin
+depythontex=false
+pygfamily=py|python3|
+pygfamily=pycon|pycon|
+pygfamily=sympy|python3|
+pygfamily=sympycon|pycon|
+pygfamily=pylab|python3|
+pygfamily=pylabcon|pycon|
+pygfamily=sage|sage|
