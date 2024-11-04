@@ -18,7 +18,7 @@ int main()
         { 
             c_conv = char(int(EA) - Distancia); //Tratamiento EA 
         } 
-        else 
+        else
         { 
             c_conv = EA; 
         } 
