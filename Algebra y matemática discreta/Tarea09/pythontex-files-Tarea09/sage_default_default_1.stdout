@@ -1,0 +1,9 @@
+\begin{center}
+\tdplotsetmaincoords{70}{110}
+\begin{tikzpicture}[scale = 2, tdplot_main_coords,
+  cara/.style={thick, color = blue, fill opacity = 0.3, fill = blue!20}]
+\draw[->,thick,gray] (-2.5,0,0) -- (2.5,0,0); % Eje X
+\draw[->,thick,gray] (0,-2.5,0) -- (0,2.5,0); % Eje Y
+\draw[->,thick,gray] (0,0,-2.5) -- (0,0,2.5); % Eje Z
+\end{tikzpicture}
+\end{center}

@@ -32,5 +32,20 @@ int main()
     for(int i = 0; i < 1024*1024*1024; i++){
         n[i] = i;
     }
+
+    int *o = new int[1024*1024*1024];
+    for(int i = 0; i < 1024*1024*1024; i++){
+        o[i] = i;
+    }
+
+    int *q = new int[1024*1024*1024];
+    for(int i = 0; i < 1024*1024*1024; i++){
+        q[i] = i;
+    }
+
+    while(true){
+        cout << "Hola" << endl;
+    }
+
     return 0; 
 }

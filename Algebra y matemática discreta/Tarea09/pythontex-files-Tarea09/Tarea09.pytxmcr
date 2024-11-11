@@ -1,0 +1,140 @@
+%Last time of file creation:  1731241896.526668
+
+\pytx@SVMCR{pytx@MCR@sage@default@default@3}
+1.00000000000000\endpytx@SVMCR
+
+\pytx@SVMCR{pytx@MCR@sage@default@default@7}
+1.00000000000000\endpytx@SVMCR
+
+\pytx@SVMCR{pytx@MCR@sage@default@default@11}
+\left[\begin{array}{rrrrr}
+-1 & -1 & 1 & 0 & 2 \\
+2 & 0 & 1 & 1 & 0
+\end{array}\right]\endpytx@SVMCR
+
+\pytx@SVMCR{pytx@MCR@sage@default@default@13}
+\left[\begin{array}{rr|rrrrr}
+-1 & 2 & 1 & 0 & 0 & 0 & 0 \\
+-1 & 0 & 0 & 1 & 0 & 0 & 0 \\
+1 & 1 & 0 & 0 & 1 & 0 & 0 \\
+0 & 1 & 0 & 0 & 0 & 1 & 0 \\
+2 & 0 & 0 & 0 & 0 & 0 & 1
+\end{array}\right]\endpytx@SVMCR
+
+\pytx@SVMCR{pytx@MCR@sage@default@default@14}
+\left[\begin{array}{rr|rrrrr}
+1 & 0 & 0 & 0 & 0 & 0 & \frac{1}{2} \\
+0 & 1 & 0 & 0 & 0 & 1 & 0 \\
+\hline
+ 0 & 0 & 1 & 0 & 0 & -2 & \frac{1}{2} \\
+0 & 0 & 0 & 1 & 0 & 0 & \frac{1}{2} \\
+0 & 0 & 0 & 0 & 1 & -1 & -\frac{1}{2}
+\end{array}\right]\endpytx@SVMCR
+
+\pytx@SVMCR{pytx@MCR@sage@default@default@15}
+\left[\begin{array}{rrr}
+1 & 0 & 0 \\
+0 & 1 & 0 \\
+0 & 0 & 1 \\
+-2 & 0 & -1 \\
+\frac{1}{2} & \frac{1}{2} & -\frac{1}{2}
+\end{array}\right]\endpytx@SVMCR
+
+\pytx@SVMCR{pytx@MCR@sage@default@default@16}
+\left[\begin{array}{rrr}
+1 & 0 & 0 \\
+0 & 1 & 0 \\
+0 & 0 & 1 \\
+0 & 0 & 0 \\
+0 & 0 & 0
+\end{array}\right]\endpytx@SVMCR
+
+\pytx@SVMCR{pytx@MCR@sage@default@default@17}
+\left[\begin{array}{r}
+1 \\
+0 \\
+0 \\
+-2 \\
+\frac{1}{2}
+\end{array}\right]\endpytx@SVMCR
+
+\pytx@SVMCR{pytx@MCR@sage@default@default@18}
+\left[\begin{array}{r}
+0 \\
+1 \\
+0 \\
+0 \\
+\frac{1}{2}
+\end{array}\right]\endpytx@SVMCR
+
+\pytx@SVMCR{pytx@MCR@sage@default@default@19}
+\left[\begin{array}{r}
+0 \\
+0 \\
+1 \\
+-1 \\
+-\frac{1}{2}
+\end{array}\right]\endpytx@SVMCR
+
+\pytx@SVMCR{pytx@MCR@sage@default@default@21}
+\left[\begin{array}{r}
+1 \\
+0 \\
+0 \\
+-2 \\
+\frac{1}{2}
+\end{array}\right]\endpytx@SVMCR
+
+\pytx@SVMCR{pytx@MCR@sage@default@default@22}
+\left[\begin{array}{r}
+-\frac{1}{21} \\
+1 \\
+0 \\
+\frac{2}{21} \\
+\frac{10}{21}
+\end{array}\right]\endpytx@SVMCR
+
+\pytx@SVMCR{pytx@MCR@sage@default@default@23}
+\left[\begin{array}{r}
+-\frac{9}{26} \\
+\frac{7}{26} \\
+1 \\
+-\frac{4}{13} \\
+-\frac{7}{13}
+\end{array}\right]\endpytx@SVMCR
+
+\pytx@SVMCR{pytx@MCR@sage@default@default@25}
+\left[\begin{array}{rrr}
+\frac{2}{21} \, \sqrt{21} & -\frac{1}{26} \, \sqrt{\frac{26}{21}} & -\frac{9}{41} \, \sqrt{\frac{41}{26}} \\
+0 & \frac{21}{26} \, \sqrt{\frac{26}{21}} & \frac{7}{41} \, \sqrt{\frac{41}{26}} \\
+0 & 0 & \frac{26}{41} \, \sqrt{\frac{41}{26}} \\
+-\frac{4}{21} \, \sqrt{21} & \frac{1}{13} \, \sqrt{\frac{26}{21}} & -\frac{8}{41} \, \sqrt{\frac{41}{26}} \\
+\frac{1}{21} \, \sqrt{21} & \frac{5}{13} \, \sqrt{\frac{26}{21}} & -\frac{14}{41} \, \sqrt{\frac{41}{26}}
+\end{array}\right]\endpytx@SVMCR
+
+\pytx@SVMCR{pytx@MCR@sage@default@default@26}
+\left[\begin{array}{rrr}
+1 & 0 & 0 \\
+0 & 1 & 0 \\
+0 & 0 & 1 \\
+0 & 0 & 0 \\
+0 & 0 & 0
+\end{array}\right]\endpytx@SVMCR
+
+\pytx@SVMCR{pytx@MCR@sage@default@default@30}
+\left[\begin{array}{rrr}
+1.00000000000000 & 0.979160907765904 & 0.958756083296950 \\
+1.00000000000000 & 1.52500830796491 & 2.32565033936200 \\
+1.00000000000000 & 2.79890271021128 & 7.83385638122806 \\
+1.00000000000000 & 1.91215841728988 & 3.65634981281254 \\
+1.00000000000000 & 0.820553030986454 & 0.673307276661056 \\
+1.00000000000000 & 1.91400817879490 & 3.66342730849378 \\
+1.00000000000000 & 3.08502618017309 & 9.51738653235338 \\
+1.00000000000000 & 0.153560676167235 & 0.0235808812649383 \\
+1.00000000000000 & 2.09528878906530 & 4.39023510958274 \\
+1.00000000000000 & 2.51402266221760 & 6.32030994614365
+\end{array}\right]\endpytx@SVMCR
+
+\pytx@SVMCR{pytx@MCR@sage@default@default@31}
+\left(-2.05294994019640,\,2.35942774111745,\,-0.661378998099877\right)\endpytx@SVMCR
+

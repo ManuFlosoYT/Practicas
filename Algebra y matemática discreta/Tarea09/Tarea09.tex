@@ -1,0 +1,288 @@
+\documentclass{amsart}
+\usepackage[utf8]{inputenc}
+\usepackage[usefamily=sage]{pythontex} 
+\usepackage{float}
+\usepackage{tikz}
+\usetikzlibrary{calc}
+\usepackage[most]{tcolorbox}
+\usepackage[margin = 2cm]{geometry}
+\usepackage{graphicx}
+\usetikzlibrary{3d}
+\usepackage{tikz-3dplot}
+
+
+\newtheorem{ejer}{Ejercicio}
+
+\def\n{\mathbb{N}}
+\def\r{\mathbb{R}}
+\def\z{\mathbb{Z}}
+\def\q{\mathbb{Q}}
+\def\c{\mathbb{C}}
+
+\title{Tarea 9 AMD. Producto Escalar}
+\author{Manuel Bernal Hernandez, Grupo 2.1}
+
+\begin{document}
+
+\maketitle
+
+\begin{sagecode}
+latex.matrix_delimiters("[", "]")
+\end{sagecode}
+
+\begin{ejer}
+Para cada una de las rectas dadas, calcula un vector $v_1$ de la recta y dos vectores 
+$v_2$ y $v_3$ perpendiculares a la recta de forma que la base $B = \{v_1,v_2,v_3\}$ tenga 
+orientación positiva, normalízalos, píntalos en unos ejes coordenados y dibuja un cuadrado de 
+tamaño $4\times 4$ centrado en el origen con lados paralelos a los vectores $v_2$ y $v_3$.
+Para hacer los dibujos usa los siguientes ejes coordenados:
+
+\begin{sagesub}
+\begin{center}
+\tdplotsetmaincoords{70}{110}
+\begin{tikzpicture}[scale = 2, tdplot_main_coords,
+  cara/.style={thick, color = blue, fill opacity = 0.3, fill = blue!20}]
+\draw[->,thick,gray] (-2.5,0,0) -- (2.5,0,0); % Eje X
+\draw[->,thick,gray] (0,-2.5,0) -- (0,2.5,0); % Eje Y
+\draw[->,thick,gray] (0,0,-2.5) -- (0,0,2.5); % Eje Z
+\end{tikzpicture}
+\end{center}
+\end{sagesub}
+
+
+\begin{enumerate}
+\item La recta $r$ dada por $\begin{cases} 2x+2y-z = 0 \\ x-y+3z = 0 \end{cases} $
+\item La recta $r$ dada por $x = 2\lambda, y = 0, z = -\lambda$ con $\lambda \in {\mathbb R}$.
+\end{enumerate}
+\end{ejer}
+
+{\it Solución}
+
+% Inicio Ejercicio 1
+\begin{enumerate}
+\item La recta $r$ dada por $\begin{cases} 2x+2y-z = 0 \\ x-y+3z = 0 \end{cases} $
+
+\begin{sageblock}
+r1=vector(RR,[2,2,-1])
+r2=vector(RR,[1,-1,3])
+v1 = r1.cross_product(r2)
+v2 = r1
+v3 = v1.cross_product(v2)
+u1 = v1/v1.norm()
+u2 = v2/v2.norm()
+u3 = v3/v3.norm()
+\end{sageblock}
+
+Para hallar el vector de la recta, hacemos el producto vectorial de los dos vectores que nos da su ecuación. 
+Esto debido a que estos son perpendiculares entre sí y a la recta, por lo que el resultado del producto vectorial nos dará el resultado que buscamos.\\
+Para hallar el primer vector perpendicular a la recta, simplemente cogemos uno de los dos vectores de las ecuaciones de la recta. 
+El segundo y último vector perpendicular será el resultado de hacer el producto vectorial entre el vector perteneciente a la recta, y el vector perpendicular que acabamos de calcular.\\
+Posteriormente, normalizamos los vectores dividiéndolos por su norma. 
+Estos vectores forman la base $B$ que nos pide el enunciado, cuya orientación efectivamente es positiva porque su determinante es $\sage{det(matrix([u1,u2,u3]))}$.
+
+\begin{sageblock}
+A = -2*u2 + -2*u3
+B = -2*u2 + +2*u3
+C = +2*u2 + +2*u3
+D = +2*u2 + -2*u3
+\end{sageblock}
+
+Ahora, dibujamos el cuadrado en el eje de coordenadas, expresando cada uno de sus puntos como combinación lineal de $u_1$ y $u_2$ para que sus lados sean paralelos a sus respectivos vectores:
+
+\begin{sagesub}
+\begin{center}
+\tdplotsetmaincoords{70}{110}
+\begin{tikzpicture}[scale = 2, tdplot_main_coords,
+  cara/.style={thick, color = blue, fill opacity = 0.3, fill = blue!20}]
+\draw[->,thick,gray] (-2.5,0,0) -- (2.5,0,0); % Eje X
+\draw[->,thick,gray] (0,-2.5,0) -- (0,2.5,0); % Eje Y
+\draw[->,thick,gray] (0,0,-2.5) -- (0,0,2.5); % Eje Z
+\node at !{1.2*u1} {$u_1$};
+\node at !{1.2*u2} {$u_2$};
+\node at !{1.2*u3} {$u_3$};
+\draw[->,very thick] (0,0,0) -- !{u1};
+\draw[->,very thick] (0,0,0) -- !{u2};
+\draw[->,very thick] (0,0,0) -- !{u3};
+\draw[cara] !{A} -- !{B} -- !{C} -- !{D} -- cycle;
+\end{tikzpicture}
+\end{center}
+\end{sagesub}
+
+\item La recta $r$ dada por $x = 2\lambda, y = 0, z = -\lambda$ con $\lambda \in {\mathbb R}$.
+
+\begin{sageblock}
+v1=vector(RR,[2,0,-1])
+v2=vector(RR,[0,2,0])
+v3 = v1.cross_product(v2)
+u1 = v1/v1.norm()
+u2 = v2/v2.norm()
+u3 = v3/v3.norm()
+\end{sageblock}
+
+Como esta recta nos la dan en forma paramétrica, un vector perteneciente a la recta tendrá las componentes de los coeficientes de $\lambda$ en cada coordenada. 
+Para los vectores perpendiculares, simplemente intercambiamos el primer y segundo elementos del otro vector, ponemos el segundo en negativo para que el determinante sea positivo, y ponemos 0 en la tercera coordinada. El otro vector perpendicular será el producto vectorial de estos dos vectores.\\
+Posteriormente, normalizamos los vectores dividiéndolos por su norma. 
+Estos vectores forman la base $B$ que nos pide el enunciado, cuya orientación efectivamente es positiva porque su determinante es $\sage{det(matrix([u1,u2,u3]))}$.
+
+\begin{sageblock}
+A = -2*u2 + -2*u3
+B = -2*u2 + +2*u3
+C = +2*u2 + +2*u3
+D = +2*u2 + -2*u3
+\end{sageblock}
+
+Ahora, dibujamos el cuadrado en el eje de coordenadas, expresando cada uno de sus puntos como combinación lineal de $u_1$ y $u_2$ para que sus lados sean paralelos a sus respectivos vectores:
+
+\begin{sagesub}
+\begin{center}
+\tdplotsetmaincoords{70}{110}
+\begin{tikzpicture}[scale = 2, tdplot_main_coords,
+  cara/.style={thick, color = blue, fill opacity = 0.3, fill = blue!20}]
+\draw[->,thick,gray] (-2.5,0,0) -- (2.5,0,0); % Eje X
+\draw[->,thick,gray] (0,-2.5,0) -- (0,2.5,0); % Eje Y
+\draw[->,thick,gray] (0,0,-2.5) -- (0,0,2.5); % Eje Z
+\node at !{1.2*u1} {$u_1$};
+\node at !{1.2*u2} {$u_2$};
+\node at !{1.2*u3} {$u_3$};
+\draw[->,very thick] (0,0,0) -- !{u1};
+\draw[->,very thick] (0,0,0) -- !{u2};
+\draw[->,very thick] (0,0,0) -- !{u3};
+\draw[cara] !{A} -- !{B} -- !{C} -- !{D} -- cycle;
+\end{tikzpicture}
+\end{center}
+\end{sagesub}
+\end{enumerate}
+
+% Fin del Ejercicio 1
+
+\begin{ejer}
+Dado el espacio $W = N(H) \leq \r^5$, donde
+
+\begin{sageblock}
+H=matrix(QQ,[[-1,-1,1,0,2],[2,0,1,1,0]])
+\end{sageblock}
+
+\[ H = \sage{H}.\] 
+
+Calcula una base de $W$ y obtén una base ortonormal a partir de ella utilizando el método de Gram-Schmidt.
+\end{ejer}
+
+{\it Solución:}
+
+% Inicio Ejercicio 2
+Comenzamos calculando la base de $W$. Como nos dan el espacio en su forma implícita, trasponemos $H$, la ampliamos mediante la identidad y reducimos:
+\begin{sageblock}
+H=matrix(QQ,[[-1,-1,1,0,2],[2,0,1,1,0]])
+HT1 = block_matrix([[H.T,1]])
+HT1R = copy(HT1.echelon_form())
+HT1R.subdivide(2,2)
+B = HT1R.subdivision(1,1).T
+\end{sageblock}
+$$ \sage{HT1} \to \sage{HT1R} $$
+
+De este modo, si trasponemos lo que queda a la derecha de los ceros, nos queda una base de $W$. Podemos comprobarlo reduciéndola y viendo que es linealmente independiente:
+
+$$ B = \sage{B} \to \sage{B.echelon_form()} $$
+
+Para que la base sea ortgonal, aplicamos Gram-Schmidt en los vectores que componen las columnas de $B$:
+$$ v_1 = \sage{matrix([B.column(0)]).T} v_2 = \sage{matrix([B.column(1)]).T} v_3 = \sage{matrix([B.column(2)]).T}$$
+
+\begin{sageblock}
+v1 = B.column(0)
+v2 = B.column(1)
+v3 = B.column(2)
+w1 = v1
+w2 = v2 - ((v2*w1)/(w1*w1)) * w1
+w3 = v3 - ((v3*w2)/(w2*w2)) * w2 - ((v3*w1)/(w1*w1)) * w1
+\end{sageblock}
+
+$$ w_1 = v_1 = \sage{matrix([B.column(0)]).T}$$
+$$ w_2 = v_2 - \frac{v_2\cdot w_1}{w_1\cdot w_1}\cdot w_1 = \sage{matrix([w2]).T}$$
+$$ w_3 = v_3 - \frac{v_3\cdot w_2}{w_2\cdot w_2}\cdot w_2 - \frac{v_3\cdot w_1}{w_1\cdot w_1}\cdot w_1 = \sage{matrix([w3]).T}$$
+
+Posteriormente, normalizamos los vectores:
+\begin{sageblock}
+u1 = w1/w1.norm()
+u2 = w2/w2.norm()
+u3 = w3/w3.norm()
+B2 = column_matrix([u1,u2,u3])
+\end{sageblock}
+
+
+
+De este modo, finalmente nos queda una base ortonormal de $W$. Podemos comprobar que es una base reduciendo y viendo que es linealmente independiente:
+
+$$ \sage{B2} \to \sage{B2.echelon_form()}$$
+% Fin Ejercicio 2
+
+
+\begin{ejer} 
+Calcula la parábola que mejor se ajusta a los datos que se proporcionan a continuación:
+\begin{sageblock}
+XY = matrix(RR,[[ 0.9791609077659043 ,  -0.430715356970999 ],
+                [ 1.5250083079649113 ,  0.061165657369748695 ],
+                [ 2.7989027102112827 ,  -0.5015548718775755 ],
+                [ 1.912158417289881 ,  0.24440901271557722 ],
+                [ 0.8205530309864537 ,  -0.42261180235811696 ],
+                [ 1.914008178794904 ,  -0.17482280182386326 ],
+                [ 3.0850261801730925 ,  -1.0104522969296543 ],
+                [ 0.15356067616723457 ,  -1.7711019287922931 ],
+                [ 2.0952887890653016 ,  0.03975209722972092 ],
+                [ 2.514022662217597 ,  -0.6049726172196987 ]])
+
+X = XY.column(0)
+Y = XY.column(1)
+\end{sageblock}
+
+La representación gráfica de estos puntos es:
+
+\begin{sagesub}
+\begin{center}
+\begin{tikzpicture}
+\foreach \p in !{set(XY.rows())}
+  \filldraw[blue] \p circle (0.05);
+\draw[->] (!{min(X)-2},0)--(!{max(X)+2},0) node[right]{$x$};
+\draw[->] (0,!{min(Y)-2})--(0,!{max(Y)+2}) node[above]{$y$};
+\end{tikzpicture}
+\end{center}
+\end{sagesub}
+
+
+\end{ejer} 
+
+{\it Solución:}
+
+% Inicio Ejercicio 3
+\begin{sageblock}
+B = matrix([[1 for x in X],
+          [x for x in X],
+          [x^2 for x in X]]).T
+C = (B.T*B)^-1*B.T*Y
+\end{sageblock}
+
+Queremos construír una solución de la forma $y=c_0+c_1x+c_2x^2$. Para ello, construimos la matriz que tiene como columnas 1, $x$ y $x^2$:
+$$ B = \sage{B} $$
+
+Si creamos la matriz incógnita $C$ con la columna de variables $c_0$, $c_1$ y $c_2$, nos queda un sistema de ecuaciones tal que $BC = Y$, al cual le podemos aplicar mínimos cuadrados, quedándonos que $C=(B^TB)^{-1}B^TY$. Así, conseguimos la matriz $C$:
+$$ C = \sage{C}$$
+
+De este modo, y finalmente, representamos gráficamente la solución:
+
+\begin{sagesub}
+\begin{center}
+\begin{tikzpicture}
+\foreach \p in !{set(XY.rows())}
+  \filldraw[blue] \p circle (0.05);
+\draw[red, domain = !{min(X)-.2}:!{max(X)+.2}, very thick]
+ plot(\x,{!{C[0]}+!{C[1]}*\x+!{C[2]}*\x*\x});
+\draw[->] (!{min(X)-2},0)--(!{max(X)+2},0) node[right]{$x$};
+\draw[->] (0,!{min(Y)-2})--(0,!{max(Y)+2}) node[above]{$y$};
+\end{tikzpicture}
+\end{center}
+\end{sagesub}
+
+% Fin Ejercicio 3
+
+
+
+\end{document}
