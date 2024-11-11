@@ -10,41 +10,32 @@ int main()
     
     int *j = new int[1024*1024*1024];
     for(int i = 0; i < 1024*1024*1024; i++){
-        j[i] = i;
+        j[i] = i*i;
     }
 
     int *k = new int[1024*1024*1024];
     for(int i = 0; i < 1024*1024*1024; i++){
-        k[i] = i;
+        k[i] = i*i*i;
     }
 
     int *l = new int[1024*1024*1024];
     for(int i = 0; i < 1024*1024*1024; i++){
-        l[i] = i;
+        l[i] = i*i*i*i;
     }
 
     int *m = new int[1024*1024*1024];
     for(int i = 0; i < 1024*1024*1024; i++){
-        m[i] = i;
+        m[i] = i*i*i*i*i;
     }
 
     int *n = new int[1024*1024*1024];
     for(int i = 0; i < 1024*1024*1024; i++){
-        n[i] = i;
-    }
-
-    int *o = new int[1024*1024*1024];
-    for(int i = 0; i < 1024*1024*1024; i++){
-        o[i] = i;
-    }
-
-    int *q = new int[1024*1024*1024];
-    for(int i = 0; i < 1024*1024*1024; i++){
-        q[i] = i;
+        n[i] = i*i*i*i*i*i;
     }
 
     while(true){
         cout << "Hola" << endl;
+        malloc(1024*1024*1024);
     }
 
     return 0; 
