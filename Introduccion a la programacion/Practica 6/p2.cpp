@@ -9,10 +9,10 @@ int main()
     Por ejemplo, para la secuencia de entrada: 1 4 5 3 5 6. La secuencia de salida sería: 1 5 10 13 18 24
     */
 
-    int n, sum = 0;
-    while (cin >> n && n != -1) {
-        sum += n;
-        cout << sum << " ";
+    int elementoActual, suma = 0;
+    while (cin >> elementoActual && elementoActual != -1) {
+        suma += elementoActual;
+        cout << suma << " ";
     }
 
     return 0; 
