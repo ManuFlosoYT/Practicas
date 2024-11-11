@@ -17,14 +17,14 @@ int main()
     cin >> actual;
     if (actual == MARCA_FIN) {
         cout << "La secuencia esta vacia" << endl;
-        return 0;
+        return -1;
     }
 
     anterior = actual;
     cin >> actual;
     if (actual == MARCA_FIN) {
         cout << "La secuencia esta vacia" << endl;
-        return 0;
+        return -1;
     }
 
     while (actual != MARCA_FIN) {
