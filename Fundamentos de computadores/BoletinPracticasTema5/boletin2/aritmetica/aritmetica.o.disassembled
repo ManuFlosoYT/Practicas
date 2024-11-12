@@ -1,0 +1,25 @@
+
+aritmetica.o:     file format elf64-x86-64
+
+
+Disassembly of section .text:
+
+0000000000000000 <main>:
+   0:	f3 0f 1e fa          	endbr64
+   4:	55                   	push   %rbp
+   5:	48 89 e5             	mov    %rsp,%rbp
+   8:	8b 05 00 00 00 00    	mov    0x0(%rip),%eax        # e <main+0xe>
+   e:	83 c0 05             	add    $0x5,%eax
+  11:	89 05 00 00 00 00    	mov    %eax,0x0(%rip)        # 17 <main+0x17>
+  17:	8b 05 00 00 00 00    	mov    0x0(%rip),%eax        # 1d <main+0x1d>
+  1d:	c1 e0 02             	shl    $0x2,%eax
+  20:	89 05 00 00 00 00    	mov    %eax,0x0(%rip)        # 26 <main+0x26>
+  26:	8b 05 00 00 00 00    	mov    0x0(%rip),%eax        # 2c <main+0x2c>
+  2c:	01 c0                	add    %eax,%eax
+  2e:	89 05 00 00 00 00    	mov    %eax,0x0(%rip)        # 34 <main+0x34>
+  34:	8b 05 00 00 00 00    	mov    0x0(%rip),%eax        # 3a <main+0x3a>
+  3a:	83 e8 01             	sub    $0x1,%eax
+  3d:	89 05 00 00 00 00    	mov    %eax,0x0(%rip)        # 43 <main+0x43>
+  43:	8b 05 00 00 00 00    	mov    0x0(%rip),%eax        # 49 <main+0x49>
+  49:	5d                   	pop    %rbp
+  4a:	c3                   	ret

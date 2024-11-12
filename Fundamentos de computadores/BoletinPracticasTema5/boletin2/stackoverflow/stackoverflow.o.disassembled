@@ -1,0 +1,94 @@
+
+stackoverflow.o:     file format elf64-x86-64
+
+
+Disassembly of section .text:
+
+0000000000000000 <pong>:
+   0:	f3 0f 1e fa          	endbr64
+   4:	55                   	push   %rbp
+   5:	48 89 e5             	mov    %rsp,%rbp
+   8:	48 83 ec 10          	sub    $0x10,%rsp
+   c:	89 7d fc             	mov    %edi,-0x4(%rbp)
+   f:	8b 45 fc             	mov    -0x4(%rbp),%eax
+  12:	83 c0 01             	add    $0x1,%eax
+  15:	89 c7                	mov    %eax,%edi
+  17:	e8 00 00 00 00       	call   1c <pong+0x1c>
+  1c:	c9                   	leave
+  1d:	c3                   	ret
+
+000000000000001e <ping>:
+  1e:	f3 0f 1e fa          	endbr64
+  22:	55                   	push   %rbp
+  23:	48 89 e5             	mov    %rsp,%rbp
+  26:	48 83 ec 10          	sub    $0x10,%rsp
+  2a:	89 7d fc             	mov    %edi,-0x4(%rbp)
+  2d:	8b 55 fc             	mov    -0x4(%rbp),%edx
+  30:	48 63 c2             	movslq %edx,%rax
+  33:	48 69 c0 89 b5 f8 14 	imul   $0x14f8b589,%rax,%rax
+  3a:	48 c1 e8 20          	shr    $0x20,%rax
+  3e:	c1 f8 0c             	sar    $0xc,%eax
+  41:	89 d1                	mov    %edx,%ecx
+  43:	c1 f9 1f             	sar    $0x1f,%ecx
+  46:	29 c8                	sub    %ecx,%eax
+  48:	69 c8 50 c3 00 00    	imul   $0xc350,%eax,%ecx
+  4e:	89 d0                	mov    %edx,%eax
+  50:	29 c8                	sub    %ecx,%eax
+  52:	85 c0                	test   %eax,%eax
+  54:	75 4b                	jne    a1 <ping+0x83>
+  56:	bf 0a 00 00 00       	mov    $0xa,%edi
+  5b:	e8 00 00 00 00       	call   60 <ping+0x42>
+  60:	8b 45 fc             	mov    -0x4(%rbp),%eax
+  63:	89 c6                	mov    %eax,%esi
+  65:	48 8d 05 00 00 00 00 	lea    0x0(%rip),%rax        # 6c <ping+0x4e>
+  6c:	48 89 c7             	mov    %rax,%rdi
+  6f:	b8 00 00 00 00       	mov    $0x0,%eax
+  74:	e8 00 00 00 00       	call   79 <ping+0x5b>
+  79:	48 8d 05 00 00 00 00 	lea    0x0(%rip),%rax        # 80 <ping+0x62>
+  80:	48 89 c7             	mov    %rax,%rdi
+  83:	e8 00 00 00 00       	call   88 <ping+0x6a>
+  88:	48 8d 05 00 00 00 00 	lea    0x0(%rip),%rax        # 8f <ping+0x71>
+  8f:	48 89 c7             	mov    %rax,%rdi
+  92:	b8 00 00 00 00       	mov    $0x0,%eax
+  97:	e8 00 00 00 00       	call   9c <ping+0x7e>
+  9c:	e8 00 00 00 00       	call   a1 <ping+0x83>
+  a1:	8b 45 fc             	mov    -0x4(%rbp),%eax
+  a4:	83 c0 01             	add    $0x1,%eax
+  a7:	89 c7                	mov    %eax,%edi
+  a9:	e8 00 00 00 00       	call   ae <ping+0x90>
+  ae:	c9                   	leave
+  af:	c3                   	ret
+
+00000000000000b0 <main>:
+  b0:	f3 0f 1e fa          	endbr64
+  b4:	55                   	push   %rbp
+  b5:	48 89 e5             	mov    %rsp,%rbp
+  b8:	48 8d 05 00 00 00 00 	lea    0x0(%rip),%rax        # bf <main+0xf>
+  bf:	48 89 c7             	mov    %rax,%rdi
+  c2:	e8 00 00 00 00       	call   c7 <main+0x17>
+  c7:	48 8d 05 00 00 00 00 	lea    0x0(%rip),%rax        # ce <main+0x1e>
+  ce:	48 89 c7             	mov    %rax,%rdi
+  d1:	e8 00 00 00 00       	call   d6 <main+0x26>
+  d6:	48 8d 05 00 00 00 00 	lea    0x0(%rip),%rax        # dd <main+0x2d>
+  dd:	48 89 c7             	mov    %rax,%rdi
+  e0:	e8 00 00 00 00       	call   e5 <main+0x35>
+  e5:	be 50 c3 00 00       	mov    $0xc350,%esi
+  ea:	48 8d 05 00 00 00 00 	lea    0x0(%rip),%rax        # f1 <main+0x41>
+  f1:	48 89 c7             	mov    %rax,%rdi
+  f4:	b8 00 00 00 00       	mov    $0x0,%eax
+  f9:	e8 00 00 00 00       	call   fe <main+0x4e>
+  fe:	48 8d 05 00 00 00 00 	lea    0x0(%rip),%rax        # 105 <main+0x55>
+ 105:	48 89 c7             	mov    %rax,%rdi
+ 108:	e8 00 00 00 00       	call   10d <main+0x5d>
+ 10d:	b8 00 00 00 00       	mov    $0x0,%eax
+ 112:	e8 00 00 00 00       	call   117 <main+0x67>
+ 117:	89 c6                	mov    %eax,%esi
+ 119:	48 8d 05 00 00 00 00 	lea    0x0(%rip),%rax        # 120 <main+0x70>
+ 120:	48 89 c7             	mov    %rax,%rdi
+ 123:	b8 00 00 00 00       	mov    $0x0,%eax
+ 128:	e8 00 00 00 00       	call   12d <main+0x7d>
+ 12d:	bf 00 00 00 00       	mov    $0x0,%edi
+ 132:	e8 00 00 00 00       	call   137 <main+0x87>
+ 137:	b8 00 00 00 00       	mov    $0x0,%eax
+ 13c:	5d                   	pop    %rbp
+ 13d:	c3                   	ret

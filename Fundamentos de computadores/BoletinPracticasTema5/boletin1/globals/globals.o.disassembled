@@ -1,0 +1,24 @@
+
+globals.o:     file format elf64-x86-64
+
+
+Disassembly of section .text:
+
+0000000000000000 <main>:
+   0:	f3 0f 1e fa          	endbr64
+   4:	55                   	push   %rbp
+   5:	48 89 e5             	mov    %rsp,%rbp
+   8:	c7 45 fc 00 00 00 00 	movl   $0x0,-0x4(%rbp)
+   f:	eb 1f                	jmp    30 <main+0x30>
+  11:	8b 45 fc             	mov    -0x4(%rbp),%eax
+  14:	48 98                	cltq
+  16:	48 8d 14 85 00 00 00 	lea    0x0(,%rax,4),%rdx
+  1d:	00 
+  1e:	48 8d 05 00 00 00 00 	lea    0x0(%rip),%rax        # 25 <main+0x25>
+  25:	c7 04 02 ff ff ff ff 	movl   $0xffffffff,(%rdx,%rax,1)
+  2c:	83 45 fc 01          	addl   $0x1,-0x4(%rbp)
+  30:	83 7d fc 09          	cmpl   $0x9,-0x4(%rbp)
+  34:	7e db                	jle    11 <main+0x11>
+  36:	b8 00 00 00 00       	mov    $0x0,%eax
+  3b:	5d                   	pop    %rbp
+  3c:	c3                   	ret

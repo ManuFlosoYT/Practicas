@@ -1,0 +1,47 @@
+
+stackoverflowsimple.o:     file format elf64-x86-64
+
+
+Disassembly of section .text:
+
+0000000000000000 <pong>:
+   0:	f3 0f 1e fa          	endbr64
+   4:	55                   	push   %rbp
+   5:	48 89 e5             	mov    %rsp,%rbp
+   8:	48 83 ec 10          	sub    $0x10,%rsp
+   c:	89 7d fc             	mov    %edi,-0x4(%rbp)
+   f:	8b 45 fc             	mov    -0x4(%rbp),%eax
+  12:	83 c0 01             	add    $0x1,%eax
+  15:	89 c7                	mov    %eax,%edi
+  17:	e8 00 00 00 00       	call   1c <pong+0x1c>
+  1c:	c9                   	leave
+  1d:	c3                   	ret
+
+000000000000001e <ping>:
+  1e:	f3 0f 1e fa          	endbr64
+  22:	55                   	push   %rbp
+  23:	48 89 e5             	mov    %rsp,%rbp
+  26:	48 83 ec 10          	sub    $0x10,%rsp
+  2a:	89 7d fc             	mov    %edi,-0x4(%rbp)
+  2d:	8b 45 fc             	mov    -0x4(%rbp),%eax
+  30:	83 c0 01             	add    $0x1,%eax
+  33:	89 c7                	mov    %eax,%edi
+  35:	e8 00 00 00 00       	call   3a <ping+0x1c>
+  3a:	c9                   	leave
+  3b:	c3                   	ret
+
+000000000000003c <main>:
+  3c:	f3 0f 1e fa          	endbr64
+  40:	55                   	push   %rbp
+  41:	48 89 e5             	mov    %rsp,%rbp
+  44:	48 8d 05 00 00 00 00 	lea    0x0(%rip),%rax        # 4b <main+0xf>
+  4b:	48 89 c7             	mov    %rax,%rdi
+  4e:	e8 00 00 00 00       	call   53 <main+0x17>
+  53:	48 8d 05 00 00 00 00 	lea    0x0(%rip),%rax        # 5a <main+0x1e>
+  5a:	48 89 c7             	mov    %rax,%rdi
+  5d:	e8 00 00 00 00       	call   62 <main+0x26>
+  62:	bf 00 00 00 00       	mov    $0x0,%edi
+  67:	e8 00 00 00 00       	call   6c <main+0x30>
+  6c:	b8 00 00 00 00       	mov    $0x0,%eax
+  71:	5d                   	pop    %rbp
+  72:	c3                   	ret

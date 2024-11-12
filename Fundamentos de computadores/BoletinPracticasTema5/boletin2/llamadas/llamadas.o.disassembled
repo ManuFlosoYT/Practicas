@@ -1,0 +1,72 @@
+
+llamadas.o:     file format elf64-x86-64
+
+
+Disassembly of section .text:
+
+0000000000000000 <funcion0>:
+   0:	f3 0f 1e fa          	endbr64
+   4:	55                   	push   %rbp
+   5:	48 89 e5             	mov    %rsp,%rbp
+   8:	b8 00 00 00 00       	mov    $0x0,%eax
+   d:	5d                   	pop    %rbp
+   e:	c3                   	ret
+
+000000000000000f <funcion1>:
+   f:	f3 0f 1e fa          	endbr64
+  13:	55                   	push   %rbp
+  14:	48 89 e5             	mov    %rsp,%rbp
+  17:	b8 00 00 00 00       	mov    $0x0,%eax
+  1c:	e8 00 00 00 00       	call   21 <funcion1+0x12>
+  21:	83 c0 01             	add    $0x1,%eax
+  24:	5d                   	pop    %rbp
+  25:	c3                   	ret
+
+0000000000000026 <funcion2>:
+  26:	f3 0f 1e fa          	endbr64
+  2a:	55                   	push   %rbp
+  2b:	48 89 e5             	mov    %rsp,%rbp
+  2e:	b8 00 00 00 00       	mov    $0x0,%eax
+  33:	e8 00 00 00 00       	call   38 <funcion2+0x12>
+  38:	83 c0 02             	add    $0x2,%eax
+  3b:	5d                   	pop    %rbp
+  3c:	c3                   	ret
+
+000000000000003d <funcion3>:
+  3d:	f3 0f 1e fa          	endbr64
+  41:	55                   	push   %rbp
+  42:	48 89 e5             	mov    %rsp,%rbp
+  45:	b8 00 00 00 00       	mov    $0x0,%eax
+  4a:	e8 00 00 00 00       	call   4f <funcion3+0x12>
+  4f:	83 c0 03             	add    $0x3,%eax
+  52:	5d                   	pop    %rbp
+  53:	c3                   	ret
+
+0000000000000054 <funcion4>:
+  54:	f3 0f 1e fa          	endbr64
+  58:	55                   	push   %rbp
+  59:	48 89 e5             	mov    %rsp,%rbp
+  5c:	b8 00 00 00 00       	mov    $0x0,%eax
+  61:	e8 00 00 00 00       	call   66 <funcion4+0x12>
+  66:	83 c0 04             	add    $0x4,%eax
+  69:	5d                   	pop    %rbp
+  6a:	c3                   	ret
+
+000000000000006b <funcion5>:
+  6b:	f3 0f 1e fa          	endbr64
+  6f:	55                   	push   %rbp
+  70:	48 89 e5             	mov    %rsp,%rbp
+  73:	b8 00 00 00 00       	mov    $0x0,%eax
+  78:	e8 00 00 00 00       	call   7d <funcion5+0x12>
+  7d:	83 c0 05             	add    $0x5,%eax
+  80:	5d                   	pop    %rbp
+  81:	c3                   	ret
+
+0000000000000082 <main>:
+  82:	f3 0f 1e fa          	endbr64
+  86:	55                   	push   %rbp
+  87:	48 89 e5             	mov    %rsp,%rbp
+  8a:	b8 00 00 00 00       	mov    $0x0,%eax
+  8f:	e8 00 00 00 00       	call   94 <main+0x12>
+  94:	5d                   	pop    %rbp
+  95:	c3                   	ret

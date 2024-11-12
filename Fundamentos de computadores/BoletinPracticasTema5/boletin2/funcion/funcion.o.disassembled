@@ -1,0 +1,33 @@
+
+funcion.o:     file format elf64-x86-64
+
+
+Disassembly of section .text:
+
+0000000000000000 <funcion_resta>:
+   0:	f3 0f 1e fa          	endbr64
+   4:	55                   	push   %rbp
+   5:	48 89 e5             	mov    %rsp,%rbp
+   8:	89 7d ec             	mov    %edi,-0x14(%rbp)
+   b:	89 75 e8             	mov    %esi,-0x18(%rbp)
+   e:	8b 45 ec             	mov    -0x14(%rbp),%eax
+  11:	2b 45 e8             	sub    -0x18(%rbp),%eax
+  14:	89 45 fc             	mov    %eax,-0x4(%rbp)
+  17:	8b 45 fc             	mov    -0x4(%rbp),%eax
+  1a:	5d                   	pop    %rbp
+  1b:	c3                   	ret
+
+000000000000001c <main>:
+  1c:	f3 0f 1e fa          	endbr64
+  20:	55                   	push   %rbp
+  21:	48 89 e5             	mov    %rsp,%rbp
+  24:	48 83 ec 10          	sub    $0x10,%rsp
+  28:	c7 45 fc 64 00 00 00 	movl   $0x64,-0x4(%rbp)
+  2f:	be 1e 00 00 00       	mov    $0x1e,%esi
+  34:	bf 32 00 00 00       	mov    $0x32,%edi
+  39:	e8 00 00 00 00       	call   3e <main+0x22>
+  3e:	01 45 fc             	add    %eax,-0x4(%rbp)
+  41:	83 45 fc 01          	addl   $0x1,-0x4(%rbp)
+  45:	8b 45 fc             	mov    -0x4(%rbp),%eax
+  48:	c9                   	leave
+  49:	c3                   	ret
