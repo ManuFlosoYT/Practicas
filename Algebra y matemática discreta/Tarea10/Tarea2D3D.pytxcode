@@ -1,0 +1,97 @@
+=>PYTHONTEX#sage#default#default#0#code#####21#
+latex.matrix_delimiters("[", "]")
+=>PYTHONTEX#sage#default#default#1#block#####36#
+H = matrix(RR,[[-0.171527754943673,-0.886777920259044,-0.326362780186830],
+[0.0162571041668937,0.923172294747017,0.586214584852305]])
+Pol.<x,y,z> = PolynomialRing(RR)
+Ecuaciones = H*column_matrix(Pol,[x,y,z])
+b = vector(RR,[0.717434104560504,0.503600818995866,0.274834075678966])
+=>PYTHONTEX#sage#default#default#2#i#####50#
+Ecuaciones[0,0]
+=>PYTHONTEX#sage#default#default#3#i#####50#
+Ecuaciones[1,0]
+=>PYTHONTEX#sage#default#default#4#i#####50#
+column_matrix(b)
+=>PYTHONTEX#sage#default#default#2#i#####50#
+Ecuaciones[0,0]
+=>PYTHONTEX#sage#default#default#3#i#####50#
+Ecuaciones[1,0]
+=>PYTHONTEX#sage#default#default#4#i#####50#
+column_matrix(b)
+=>PYTHONTEX#sage#default#default#5#block#####94#
+
+H = matrix(RR,[[-0.171527754943673,-0.886777920259044,-0.326362780186830],
+               [0.0162571041668937,0.923172294747017 ,0.586214584852305 ]])
+Pol.<x,y,z> = PolynomialRing(RR)
+Ecuaciones = H*column_matrix(Pol,[x,y,z])
+b = vector(RR,[0.717434104560504,0.503600818995866,0.274834075678966])
+
+v1 = H.row(0)
+v2 = H.row(1)
+w1 = v1
+w3 = v1.cross_product(v2)
+w2 = w1.cross_product(w3)
+u1 = w1/norm(w1)
+u2 = w2/norm(w2)
+u3 = w3/norm(w3)
+pb = b-(b*u1)*u1-(b*u2)*u2
+c = b+3*u3
+a = 2*pi/6
+B = column_matrix([u1, u2, u3])
+GC = matrix(RR, [[cos(a), -sin(a), 0], [sin(a), cos(a), 0], [0, 0, 1]])
+G = B*GC*B^-1
+BP = [G^i*b for i in range(6)]
+pc = pb+3*u3
+C = [G^i*c for i in range(6)]
+
+=>PYTHONTEX#sage#default#default#6#sub#####122#
+\begin{center}
+\tdplotsetmaincoords{70}{110}
+\begin{tikzpicture}[scale = 3, tdplot_main_coords, cara/.style={thick, color = blue, fill opacity = 0.3, fill = blue!20}]
+
+\draw[->,thick,gray] (-1.5,0,0) -- (2.5,0,0); % Eje X
+\draw[->,thick,gray] (0,-1.5,0) -- (0,3.5,0); % Eje Y
+\draw[->,thick,gray] (0,0,-1.5) -- (0,0,1.5); % Eje Z
+
+\draw[cara] !{BP[0]} -- !{BP[1]} -- !{BP[2]} -- !{BP[3]} -- !{BP[4]} -- !{BP[5]} -- cycle;
+
+\draw[cara] !{BP[0]} -- !{C[0]} -- !{C[1]} -- !{BP[1]}  -- cycle;
+\draw[cara] !{BP[1]} -- !{C[1]} -- !{C[2]} -- !{BP[2]}  -- cycle;
+\draw[cara] !{BP[2]} -- !{C[2]} -- !{C[3]} -- !{BP[3]}  -- cycle;
+\draw[cara] !{BP[3]} -- !{C[3]} -- !{C[4]} -- !{BP[4]}  -- cycle;
+\draw[cara] !{BP[4]} -- !{C[4]} -- !{C[5]} -- !{BP[5]}  -- cycle;
+\draw[cara] !{BP[5]} -- !{C[5]} -- !{C[0]} -- !{BP[0]}  -- cycle;
+
+\draw[cara] !{C[0]} -- !{C[1]} -- !{C[2]} -- !{C[3]} -- !{C[4]} -- !{C[5]} -- cycle;
+
+\draw[dashed] (-0.171527754943673, -0.886777920259044, -0.326362780186830) -- (0.0162571041668937, 0.923172294747017, 0.586214584852305);
+\draw[fill = gray] (0,0,0) circle (0.5mm);
+
+\end{tikzpicture}
+\end{center}
+=>PYTHONTEX:SETTINGS#
+version=0.18
+outputdir=pythontex-files-Tarea2D3D
+workingdir=.
+workingdirset=false
+gobble=none
+rerun=default
+hashdependencies=default
+makestderr=false
+stderrfilename=full
+keeptemps=none
+pyfuture=default
+pyconfuture=none
+pygments=true
+pygglobal=:GLOBAL||
+fvextfile=-1
+pyconbanner=none
+pyconfilename=stdin
+depythontex=false
+pygfamily=py|python3|
+pygfamily=pycon|pycon|
+pygfamily=sympy|python3|
+pygfamily=sympycon|pycon|
+pygfamily=pylab|python3|
+pygfamily=pylabcon|pycon|
+pygfamily=sage|sage|

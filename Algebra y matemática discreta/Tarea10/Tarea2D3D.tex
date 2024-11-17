@@ -1,0 +1,152 @@
+\documentclass{amsart}
+\usepackage[utf8]{inputenc}
+\usepackage[usefamily=sage]{pythontex} 
+\usepackage{float}
+\usepackage{tikz}
+\usetikzlibrary{calc}
+\usepackage[most]{tcolorbox}
+\usepackage[margin = 2cm]{geometry}
+\usepackage{graphicx}
+\usetikzlibrary{3d}
+\usepackage{tikz-3dplot}
+
+\newtheorem{ejer}{Ejercicio}
+\def\r{\mathbb{R}}
+
+\title{Tarea de Geometría Vectorial 3D}
+\author{Manuel Bernal Hernandez, Grupo 2.1}
+
+\begin{document}
+
+\begin{sagecode}
+latex.matrix_delimiters("[", "]")
+\end{sagecode}
+
+\maketitle
+
+\begin{ejer}
+Sea $r \leq \r^3$ una recta vectorial dada en ecuaciones implícitas
+y sea $b$ un vector de $\r^3$. Dibuja un prisma con base hexagonal
+que tenga como uno de los vértices de la base el vector $b$. La altura
+estará situada sobre el eje $r$ y la distancia entre las bases será $3$. 
+Dibuja los centros de las bases y el eje de giro viendo que pasa por el origen 
+de coordenadas.
+
+\begin{tcolorbox}[title = Datos]
+\begin{sageblock}
+H = matrix(RR,[[-0.171527754943673,-0.886777920259044,-0.326362780186830],
+[0.0162571041668937,0.923172294747017,0.586214584852305]])
+Pol.<x,y,z> = PolynomialRing(RR)
+Ecuaciones = H*column_matrix(Pol,[x,y,z])
+b = vector(RR,[0.717434104560504,0.503600818995866,0.274834075678966])
+\end{sageblock}
+
+\begin{align*}
+r &\equiv \begin{cases} 
+  \sage{Ecuaciones[0,0]} = 0 \\
+  \sage{Ecuaciones[1,0]} = 0 \\
+  \end{cases} \\
+b &= \sage{column_matrix(b)}.
+\end{align*}
+\end{tcolorbox}
+
+Te debe dar un dibujo similar a éste, pero con los valores calculados por tí:
+
+\begin{center}
+  \tdplotsetmaincoords{70}{110}
+  \begin{tikzpicture}[scale = 3, tdplot_main_coords, cara/.style={thick, color = blue, fill opacity = 0.3, fill = blue!20},]
+    \draw[->,thick,gray] (-1.5,0,0) -- (2.5,0,0); % Eje X
+    \draw[->,thick,gray] (0,-1.5,0) -- (0,3.5,0); % Eje Y
+    \draw[->,thick,gray] (0,0,-1.5) -- (0,0,1.5); % Eje Z
+    \draw[cara] (0.717434104560504, 0.503600818995866, 0.274834075678966) -- (0.260986986832384, 0.295012074171375, 0.829887291884511) -- (-0.0382759901376177, -0.390829498657474, 0.830449577031793) -- (0.118908150620501, -0.868082326661832, 0.275958645973531) -- (0.575355268348621, -0.659493581837341, -0.279094570232013) -- (0.874618245318622, 0.0263479909915075, -0.279656855379295) --cycle;
+    \draw[cara] (-1.63694189424483, 1.52964788087894, -1.27569521557950) -- (-2.09338901197295, 1.32105913605445, -0.720641999373955) -- (-2.39265198894296, 0.635217563225603, -0.720079714226673) -- (-2.23546784818484, 0.157964735221246, -1.27457064528493) -- (-1.77902073045672, 0.366553480045737, -1.82962386149048) -- (-1.47975775348672, 1.05239505287458, -1.83018614663776) --cycle;
+    \draw[cara] (0.717434104560504, 0.503600818995866, 0.274834075678966) -- (-1.63694189424483, 1.52964788087894, -1.27569521557950) -- (-2.09338901197295, 1.32105913605445, -0.720641999373955) -- (0.260986986832384, 0.295012074171375, 0.829887291884511) -- cycle;
+    \draw[cara] (0.260986986832384, 0.295012074171375, 0.829887291884511) -- (-2.09338901197295, 1.32105913605445, -0.720641999373955) -- (-2.39265198894296, 0.635217563225603, -0.720079714226673) -- (-0.0382759901376177, -0.390829498657474, 0.830449577031793) -- cycle;
+    \draw[cara] (-0.0382759901376177, -0.390829498657474, 0.830449577031793) -- (-2.39265198894296, 0.635217563225603, -0.720079714226673) -- (-2.23546784818484, 0.157964735221246, -1.27457064528493) -- (0.118908150620501, -0.868082326661832, 0.275958645973531) -- cycle;
+    \draw[cara] (0.118908150620501, -0.868082326661832, 0.275958645973531) -- (-2.23546784818484, 0.157964735221246, -1.27457064528493) -- (-1.77902073045672, 0.366553480045737, -1.82962386149048) -- (0.575355268348621, -0.659493581837341, -0.279094570232013) -- cycle;
+    \draw[cara] (0.575355268348621, -0.659493581837341, -0.279094570232013) -- (-1.77902073045672, 0.366553480045737, -1.82962386149048) -- (-1.47975775348672, 1.05239505287458, -1.83018614663776) -- (0.874618245318622, 0.0263479909915075, -0.279656855379295) -- cycle;
+    \draw[cara] (0.874618245318622, 0.0263479909915075, -0.279656855379295) -- (-1.47975775348672, 1.05239505287458, -1.83018614663776) -- (-1.63694189424483, 1.52964788087894, -1.27569521557950) -- (0.717434104560504, 0.503600818995866, 0.274834075678966) -- cycle;
+    \draw[fill = white] (0.717434104560504, 0.503600818995866, 0.274834075678966) circle (0.5mm) node[above right] {$b = b_0$};
+    \draw[fill = white] (0.260986986832384, 0.295012074171375, 0.829887291884511) circle (0.5mm) node[above right] {$b_1$};
+    \draw[fill = white] (-0.0382759901376177, -0.390829498657474, 0.830449577031793) circle (0.5mm) node[above right] {$b_2$};
+    \draw[fill = white] (0.118908150620501, -0.868082326661832, 0.275958645973531) circle (0.5mm) node[below left] {$b_3$};
+    \draw[fill = white] (0.575355268348621, -0.659493581837341, -0.279094570232013) circle (0.5mm) node[below left] {$b_4$};
+    \draw[fill = white] (0.874618245318622, 0.0263479909915075, -0.279656855379295) circle (0.5mm) node[below left] {$b_5$};
+    \draw[fill = white] (-1.63694189424483, 1.52964788087894, -1.27569521557950) circle (0.5mm) node[above right] {$c = c_0$};
+    \draw[fill = white] (-2.09338901197295, 1.32105913605445, -0.720641999373955) circle (0.5mm) node[above right] {$c_1$};
+    \draw[fill = white] (-2.39265198894296, 0.635217563225603, -0.720079714226673) circle (0.5mm) node[above right] {$c_2$};
+    \draw[fill = white] (-2.23546784818484, 0.157964735221246, -1.27457064528493) circle (0.5mm) node[below left] {$c_3$};
+    \draw[fill = white] (-1.77902073045672, 0.366553480045737, -1.82962386149048) circle (0.5mm) node[below left] {$c_4$};
+    \draw[fill = white] (-1.47975775348672, 1.05239505287458, -1.83018614663776) circle (0.5mm) node[below left] {$c_5$};
+    \draw[dashed] (0.627256691385754, -0.273361130749475, 0.413094541239373) -- (-2.12982535833632, 0.928186938855103, -1.40264622347544);
+    \draw[fill = white] (0.418171127590502, -0.182240753832983, 0.275396360826249) circle (0.5mm);
+    \draw[fill = white] (-1.93620487121484, 0.843806308050093, -1.27513293043222) circle (0.5mm);
+    \draw[fill = gray] (0,0,0) circle (0.5mm);
+  \end{tikzpicture}
+\end{center}
+
+\end{ejer}
+
+{\it Solución:}
+
+% Inicio Tarea
+
+\begin{sageblock}
+
+H = matrix(RR,[[-0.171527754943673,-0.886777920259044,-0.326362780186830],
+               [0.0162571041668937,0.923172294747017 ,0.586214584852305 ]])
+Pol.<x,y,z> = PolynomialRing(RR)
+Ecuaciones = H*column_matrix(Pol,[x,y,z])
+b = vector(RR,[0.717434104560504,0.503600818995866,0.274834075678966])
+
+v1 = H.row(0)
+v2 = H.row(1)
+w1 = v1
+w3 = v1.cross_product(v2)
+w2 = w1.cross_product(w3)
+u1 = w1/norm(w1)
+u2 = w2/norm(w2)
+u3 = w3/norm(w3)
+pb = b-(b*u1)*u1-(b*u2)*u2
+c = b+3*u3
+a = 2*pi/6
+B = column_matrix([u1, u2, u3])
+GC = matrix(RR, [[cos(a), -sin(a), 0], [sin(a), cos(a), 0], [0, 0, 1]])
+G = B*GC*B^-1
+BP = [G^i*b for i in range(6)]
+pc = pb+3*u3
+C = [G^i*c for i in range(6)]
+
+\end{sageblock}
+
+\begin{sagesub}
+\begin{center}
+\tdplotsetmaincoords{70}{110}
+\begin{tikzpicture}[scale = 3, tdplot_main_coords, cara/.style={thick, color = blue, fill opacity = 0.3, fill = blue!20}]
+
+\draw[->,thick,gray] (-1.5,0,0) -- (2.5,0,0); % Eje X
+\draw[->,thick,gray] (0,-1.5,0) -- (0,3.5,0); % Eje Y
+\draw[->,thick,gray] (0,0,-1.5) -- (0,0,1.5); % Eje Z
+
+\draw[cara] !{BP[0]} -- !{BP[1]} -- !{BP[2]} -- !{BP[3]} -- !{BP[4]} -- !{BP[5]} -- cycle;
+
+\draw[cara] !{BP[0]} -- !{C[0]} -- !{C[1]} -- !{BP[1]}  -- cycle;
+\draw[cara] !{BP[1]} -- !{C[1]} -- !{C[2]} -- !{BP[2]}  -- cycle;
+\draw[cara] !{BP[2]} -- !{C[2]} -- !{C[3]} -- !{BP[3]}  -- cycle;
+\draw[cara] !{BP[3]} -- !{C[3]} -- !{C[4]} -- !{BP[4]}  -- cycle;
+\draw[cara] !{BP[4]} -- !{C[4]} -- !{C[5]} -- !{BP[5]}  -- cycle;
+\draw[cara] !{BP[5]} -- !{C[5]} -- !{C[0]} -- !{BP[0]}  -- cycle;
+
+\draw[cara] !{C[0]} -- !{C[1]} -- !{C[2]} -- !{C[3]} -- !{C[4]} -- !{C[5]} -- cycle;
+
+\draw[dashed] (-0.171527754943673, -0.886777920259044, -0.326362780186830) -- (0.0162571041668937, 0.923172294747017, 0.586214584852305);
+\draw[fill = gray] (0,0,0) circle (0.5mm);
+
+\end{tikzpicture}
+\end{center}
+\end{sagesub}
+% Fin Tarea
+
+\end{document}
+
+
