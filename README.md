@@ -1,1 +1,2 @@
 # Practicas
+FC, IP, AMD
