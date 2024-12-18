@@ -16,6 +16,6 @@ int main()
         cont = cont + 1; 
         cin >> EA; 
     } 
-    cout << endl << "El número de datos recogidos es: " << cont << endl; 
+    cout << endl << "El numero de datos recogidos es: " << cont << endl; 
     return 0; 
 }
