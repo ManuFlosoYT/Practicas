@@ -2,10 +2,8 @@
 peso <- c(72, 74, 72, 76, 72, 73)
 nota <- c(4, 5, 7, 8, 4, 5)
 genero <- rep(c("Mujer", "Hombre"), c(4, 2))
-
 consola <- scan("P1_Ej1.txt", what = character(), sep = ",", strip.white = TRUE)
 str(consola)
-
 tipos <- c("Linux", "Windows", "MacOS", "SunSolaris", "Unix", "Embedded", "Otro")
 freq <- c(138, 123, 6, 9, 9, 6, 9)
 SO <- rep(tipos, freq)
@@ -26,23 +24,18 @@ str(juegos)
 n_i.Genero <- table(Genero) # frecuencias absolutas
 f_i.Genero <- n_i.Genero / length(Genero) # frecuencias relativas
 tabla.Genero <- data.frame(n_i.Genero, f_i.Genero)
-
 n_i.Fecha <- table(Fecha) # frecuencias absolutas
 f_i.Fecha <- n_i.Fecha / length(Fecha) # frecuencias relativas
 tabla.Fecha <- data.frame(n_i.Fecha, f_i.Fecha)
-
 n_i.Plataforma <- table(Plataforma) # frecuencias absolutas
 f_i.Plataforma <- n_i.Plataforma / length(Plataforma) # frecuencias relativas
 tabla.Plataforma <- data.frame(n_i.Plataforma, f_i.Plataforma)
-
 barplot(n_i.Genero)
 barplot(n_i.Fecha)
 barplot(n_i.Plataforma)
-
 pie(f_i.Genero)
 pie(f_i.Fecha)
 pie(f_i.Plataforma)
-
 f_i.Genero[0:12] * 360
 f_i.Fecha[0:32] * 360
 f_i.Plataforma[0:19] * 360
