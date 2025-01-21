@@ -1,0 +1,30 @@
+#include <windows.h>
+#include <stdio.h>
+
+int main()
+{
+    char nombre[10];
+    static int _numero = (rand()%10)+1; //Numero entre 1 y 10
+    int numero;
+
+    //Activar la consola con caracteres Españoles
+    SetConsoleCP(1252);
+    SetConsoleOutputCP(1252);
+
+
+    printf("Hola Mundo!\n");
+    printf("¿Como te llamas?: ");
+
+    scanf("%s", nombre); //%s para cadena de cra
+    printf("Hola %s\n", nombre);
+
+    printf("Elije un numero aleatorio entre 1 y 10\n");
+    printf("El número es: ");
+    scanf("%d", &numero);
+
+
+
+    printf("\n Pulse una tecla para terminar");
+    getchar();
+    return 0;
+}
