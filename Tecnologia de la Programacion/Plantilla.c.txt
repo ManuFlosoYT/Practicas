@@ -1,0 +1,14 @@
+#include <windows.h>
+#include <stdio.h>
+
+int main()
+{
+    //Activar la consola con caracteres Españoles
+    SetConsoleCP(1252);
+    SetConsoleOutputCP(1252);
+
+    
+    printf("\n Pulse una tecla para terminar");
+    getchar();
+    return 0;
+}
