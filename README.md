@@ -1,11 +1,9 @@
 # Practicas
 
-1º Cuatrimestre 1: 
-    - Fundamentos de Computadores
-    - Introducción a la Programación
-    - Álgebra y Matemática Discreta
-    
-1º Cuatrimestre 2: 
-    - Tecnología de la Programación
-    - Estadística 
-    - Estructura y Tecnología de Computadores
+## Primero
+
+1º Cuatrimestre  | 2º Cuatrimestre
+------------- | -------------
+Fundamentos de Computadores | Tecnología de la Programación
+Introducción a la Programación | Estadística 
+Álgebra y Matemática Discreta | Estructura y Tecnología de Computadores
