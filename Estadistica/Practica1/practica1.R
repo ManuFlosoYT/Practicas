@@ -20,6 +20,7 @@ leng_txt <- scan("lenguajes.txt", what = character(), sep = "\n", strip.white = 
 juegos <- read.table("Juegos.dat")
 
 # Ejercicio 4
+attach(juegos)
 str(juegos)
 n_i.Genero <- table(Genero) # frecuencias absolutas
 f_i.Genero <- n_i.Genero / length(Genero) # frecuencias relativas
