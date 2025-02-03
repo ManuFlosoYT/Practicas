@@ -1,0 +1,7 @@
+# depslib dependency file v1.0
+1738574138 source:e:\repositorios\practicas\tecnologia de la programacion\practica3\practica3.c
+	<windows.h>
+	<stdio.h>
+	<stdlib.h>
+	<time.h>
+
