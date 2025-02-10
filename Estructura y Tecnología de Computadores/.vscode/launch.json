@@ -1,0 +1,39 @@
+{
+    // Use IntelliSense para saber los atributos posibles.
+    // Mantenga el puntero para ver las descripciones de los existentes atributos.
+    // Para más información, visite: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        
+        {
+            "type": "dashmips",
+            "request": "attach",
+            "name": "Dashmips (Attach)",
+            "registerFormat": "dec",
+            "host": "localhost",
+            "port": 2390,
+            "stopOnEntry": false
+        },
+        {
+            "type": "dashmips",
+            "request": "launch",
+            "name": "Dashmips (Run With Logging)",
+            "program": "${file}",
+            "registerFormat": "dec",
+            "cwd": "${workspaceFolder}",
+            "host": "localhost",
+            "port": 2390,
+            "dashmipsCommand": "python -m dashmips debug",
+            "dashmipsArgs": [
+                "-i",
+                "localhost",
+                "-p",
+                "2390",
+                "-l"
+            ],
+            "args": [],
+            "stopOnEntry": false
+        }
+
+    ]
+}
