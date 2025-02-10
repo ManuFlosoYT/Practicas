@@ -8,7 +8,7 @@ int main()
     SetConsoleOutputCP(1252);
 
     
-    printf("\n Pulse una tecla para terminar");
+    printf("\nPulse una tecla para terminar");
     getchar();
     return 0;
 }
