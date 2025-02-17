@@ -1,15 +1,34 @@
+/**
+ * @file Practica3.c
+ * @brief This program prompts the user to enter integers and real numbers within specified ranges,
+ *        and then generates random numbers within those ranges.
+ *
+ * The program includes functions for:
+ *   - Clearing the input buffer.
+ *   - Reading integers from the keyboard with error checking.
+ *   - Reading integers within a specified range.
+ *   - Generating random integers within a specified range.
+ *   - Pausing the program until a key is pressed.
+ *   - Reading real numbers from the keyboard with error checking.
+ *   - Generating random real numbers within a specified range.
+ *
+ * The main function prompts the user for integer inputs (n, m, r) and real number inputs (p, k),
+ * ensuring that the integers are within the range [n, m]. It then generates and displays a random
+ * integer between n and m, and a random real number between p and k.
+ */
+
 #include <windows.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
 
-//Vacía el buffer de entrada.
+//Vacï¿½a el buffer de entrada.
 void despejarEntrada(void)
 {
     while( getchar() != '\n' );
 }
 
-//Lee un número entero n desde teclado. Devuelve 1 si ha habido un error de lectura y 0 en caso contrario.
+//Lee un nï¿½mero entero n desde teclado. Devuelve 1 si ha habido un error de lectura y 0 en caso contrario.
 int leer_entero(int *n)
 {
     int resultado = scanf( "%d", n );
@@ -19,7 +38,7 @@ int leer_entero(int *n)
     return 1;
 }
 
-//Lee un número entero n desde teclado mayor o igual que a. Devuelve 1 si ha habido un error de lectura, 2 si el número es menor que a, y 0 si en otro caso.
+//Lee un nï¿½mero entero n desde teclado mayor o igual que a. Devuelve 1 si ha habido un error de lectura, 2 si el nï¿½mero es menor que a, y 0 si en otro caso.
 int leer_entero_mayorIgual(int *n, int a)
 {
     int dato;
@@ -33,7 +52,7 @@ int leer_entero_mayorIgual(int *n, int a)
     return 0;
 }
 
-//Lee un número entero n desde teclado en el rango [a,b]. Devuelve 1 si ha habido un error de lectura, 2 si el número es menor que a, 3 si el número es mayor que b, y 0 si ha habido éxito.
+//Lee un nï¿½mero entero n desde teclado en el rango [a,b]. Devuelve 1 si ha habido un error de lectura, 2 si el nï¿½mero es menor que a, 3 si el nï¿½mero es mayor que b, y 0 si ha habido ï¿½xito.
 int leer_entero_rango(int * n, int a, int b)
 {
     int dato;
@@ -48,7 +67,7 @@ int leer_entero_rango(int * n, int a, int b)
     return 0;
 }
 
-//Devuelve un número entero aleatorio entre a y b.
+//Devuelve un nï¿½mero entero aleatorio entre a y b.
 int entero_aleatorio_rango(int a, int b)
 {
     srand(time(NULL));
@@ -62,7 +81,7 @@ void pausa(void)
     getchar();
 }
 
-//Lee un número real n desde teclado. Devuelve 1 si ha habido un error de lectura y 0 en caso contrario.
+//Lee un nï¿½mero real n desde teclado. Devuelve 1 si ha habido un error de lectura y 0 en caso contrario.
 int leer_real(double *n)
 {
     int resultado = scanf("%lf", n);
@@ -72,7 +91,7 @@ int leer_real(double *n)
     return 0;
 }
 
-//Devuelve un número real aleatorio entre a y b.
+//Devuelve un nï¿½mero real aleatorio entre a y b.
 double real_aleatorio_rango(double a, double b)
 {
     srand(time(NULL));
@@ -81,7 +100,7 @@ double real_aleatorio_rango(double a, double b)
 
 int main()
 {
-    //Activar la consola con caracteres Españoles
+    //Activar la consola con caracteres Espaï¿½oles
     SetConsoleCP(1252);
     SetConsoleOutputCP(1252);
 

@@ -1,3 +1,15 @@
+/**
+ * @file Practica2.c
+ * @brief This program calculates the time it takes to travel from Earth to the Sun at a given speed.
+ *
+ * The program prompts the user to enter a speed in km/h, then calculates and displays the time
+ * it would take to travel the distance from Earth to the Sun at that speed, in years, months, days, hours, minutes, and seconds.
+ * It also displays the integer part of each time unit to provide a more human-readable format.
+ *
+ * @author [Your Name]
+ * @date [Current Date]
+ */
+
 #include <windows.h>
 #include <stdio.h>
 #include <math.h>
@@ -7,7 +19,7 @@
 static long double _distancia_sol = 149.6E6;
 int main()
 {
-    //Activar la consola con caracteres Españoles
+    //Activar la consola con caracteres Espaï¿½oles
     SetConsoleCP(1252);
     SetConsoleOutputCP(1252);
 
@@ -37,7 +49,7 @@ int main()
     minutos = horas * 60;
     segundos = minutos * 60;
 
-    printf("Años: %Lg\n", anos);
+    printf("Aï¿½os: %Lg\n", anos);
     printf("Meses: %Lg\n", meses);
     printf("Dias: %Lg\n", dias);
     printf("Horas: %Lg\n", horas);
@@ -51,7 +63,7 @@ int main()
     i_minutos = floorl( (minutos - floorl(minutos)) * 60);
     i_segundos = floorl( (segundos - floorl(segundos)) * 60);
 
-    printf("Ha tardado: %Lg años, %Lg meses, %Lg dias, %Lg horas, %Lg minutos, %Lg segundos\n", i_anos, i_meses, i_dias, i_horas, i_minutos, i_segundos);
+    printf("Ha tardado: %Lg aï¿½os, %Lg meses, %Lg dias, %Lg horas, %Lg minutos, %Lg segundos\n", i_anos, i_meses, i_dias, i_horas, i_minutos, i_segundos);
 
     printf("\n Pulse una tecla para terminar");
     getchar();

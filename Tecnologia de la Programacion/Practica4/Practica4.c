@@ -1,3 +1,70 @@
+/**
+ * @file Practica4.c
+ * @brief This program demonstrates several basic operations on arrays, matrices, and strings in C.
+ *
+ * The program includes functions for:
+ *   - Printing arrays and matrices.
+ *   - Checking if an element belongs to an array or a matrix.
+ *   - Comparing two strings for equality.
+ *
+ * The main function prompts the user to enter the size and elements of an array,
+ * then checks if a given element belongs to the array.
+ * It also prompts the user to enter the dimensions and elements of a matrix,
+ * then checks if a given element belongs to the matrix.
+ * Finally, it prompts the user to enter two strings and compares them for equality.
+ *
+ * @author [Your Name]
+ * @date [Date]
+ */
+
+/**
+ * @brief Prints the elements of an integer array.
+ *
+ * @param v The integer array to be printed.
+ * @param n The number of elements in the array.
+ */
+
+/**
+ * @brief Prints the elements of an integer matrix.
+ *
+ * @param f The number of rows in the matrix.
+ * @param c The number of columns in the matrix.
+ * @param m The integer matrix to be printed.
+ */
+
+/**
+ * @brief Checks if an integer belongs to an integer array.
+ *
+ * @param v The integer array to be searched.
+ * @param n The number of elements in the array.
+ * @param x The integer to search for.
+ * @return 1 if the integer belongs to the array, 0 otherwise.
+ */
+
+/**
+ * @brief Checks if an integer belongs to an integer matrix.
+ *
+ * @param f The number of rows in the matrix.
+ * @param c The number of columns in the matrix.
+ * @param m The integer matrix to be searched.
+ * @param x The integer to search for.
+ * @return 1 if the integer belongs to the matrix, 0 otherwise.
+ */
+
+/**
+ * @brief Checks if two strings are equal.
+ *
+ * @param c1 The first string.
+ * @param c2 The second string.
+ * @return 1 if the strings are equal, 0 otherwise.
+ */
+
+/**
+ * @brief The main function of the program.
+ *
+ * @return 0 if the program executes successfully.
+ */
+
 #include <windows.h>
 #include <stdio.h>
 

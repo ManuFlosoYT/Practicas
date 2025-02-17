@@ -1,3 +1,29 @@
+/**
+ * @file Practica5.c
+ * @brief This program demonstrates dynamic memory allocation and manipulation of arrays and matrices in C.
+ *
+ * The program includes functions for:
+ *   - Printing arrays and matrices.
+ *   - Checking if an element belongs to an array or a matrix.
+ *   - Comparing two strings for equality.
+ *
+ * The main function allows the user to:
+ *   - Input the size and elements of an array.
+ *   - Search for an element in the array.
+ *   - Reallocate the array to a new size and add new elements.
+ *   - Input the dimensions and elements of a matrix.
+ *   - Search for an element in the matrix.
+ *   - Reallocate the matrix to new dimensions and add new elements.
+ *   - Input two strings and compare them for equality.
+ *
+ * The program uses dynamic memory allocation with malloc, realloc, and free to manage the array and matrix.
+ * It also uses standard input/output functions for user interaction.
+ *
+ * @author [Your Name]
+ * @date [Date]
+ */
+
+
 #include <windows.h>
 #include <stdio.h>
 #include <stdlib.h>
