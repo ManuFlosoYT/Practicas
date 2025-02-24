@@ -26,9 +26,6 @@ int writeFile(char* nombreArchivo)
 
     if (archivo == NULL)
     {
-        fprintf(stderr, "Error al abrir el archivo %s\n", nombreArchivo);
-        fprintf(stderr, "Error %d, ", errno);
-        fprintf(stderr, "%s\n", strerror(errno));
         return -1;
     }
 
@@ -47,15 +44,12 @@ int contarChars(char* nombreArchivo)
 {
     FILE* archivo;
     char c;
-    int contador = -1; //Para que no cuente el EOF
+    int contador = 0;
 
     archivo = fopen(nombreArchivo, "r");
 
     if (archivo == NULL)
     {
-        fprintf(stderr, "Error al abrir el archivo %s\n", nombreArchivo);
-        fprintf(stderr, "Error %d, ", errno);
-        fprintf(stderr, "%s\n", strerror(errno));
         return -1;
     }
 
@@ -78,18 +72,16 @@ int contarPalabras(char* nombreArchivo)
     FILE* archivo;
     char c;
     int contador = 0;
-    int palabra = 0;
+    //int palabra = 0;
 
     archivo = fopen(nombreArchivo, "r");
 
     if (archivo == NULL)
     {
-        fprintf(stderr, "Error al abrir el archivo %s\n", nombreArchivo);
-        fprintf(stderr, "Error %d, ", errno);
-        fprintf(stderr, "%s\n", strerror(errno));
         return -1;
     }
 
+/*  
     c = getc(archivo);
     while( c != EOF )
     {
@@ -103,7 +95,15 @@ int contarPalabras(char* nombreArchivo)
             contador++;
         }
         c = getc(archivo);
+    } 
+*/
+
+    char palabra[256]; //Asume que la palabra no tendrá más de 255 caracteres
+    while (fscanf(archivo, "%99s", palabra) == 1) 
+    {
+        contador++;
     }
+
     
     fclose(archivo);
     return contador;
@@ -120,12 +120,18 @@ int main()
     
     if(writeFile(nombreArchivo) == -1)
     {
+        fprintf(stderr, "Error al abrir el archivo %s\n", nombreArchivo);
+        fprintf(stderr, "Error %d, ", errno);
+        fprintf(stderr, "%s\n", strerror(errno));
         return -1;
     }
 
     int caracteres = contarChars(nombreArchivo);
     if(caracteres == -1)
     {
+        fprintf(stderr, "Error al abrir el archivo %s\n", nombreArchivo);
+        fprintf(stderr, "Error %d, ", errno);
+        fprintf(stderr, "%s\n", strerror(errno));
         return -1;
     }
     else
@@ -136,6 +142,9 @@ int main()
     int palabras = contarPalabras(nombreArchivo);
     if(palabras == -1)
     {
+        fprintf(stderr, "Error al abrir el archivo %s\n", nombreArchivo);
+        fprintf(stderr, "Error %d, ", errno);
+        fprintf(stderr, "%s\n", strerror(errno));
         return -1;
     }
     else
