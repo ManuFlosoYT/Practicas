@@ -3,7 +3,7 @@
         {
             "type": "cppbuild",
             "label": "C/C++: gcc.exe compilar archivo activo",
-            "command": "C:\\Program Files\\CodeBlocks\\MinGW\\bin\\gcc.exe",
+            "command": "C:\\Program Files\\MinGW\\bin\\gcc.exe",
             "args": [
                 "-fdiagnostics-color=always",
                 "-g",
@@ -12,7 +12,7 @@
                 "${fileDirname}\\${fileBasenameNoExtension}.exe"
             ],
             "options": {
-                "cwd": "C:\\Program Files\\CodeBlocks\\MinGW\\bin"
+                "cwd": "C:\\Program Files\\MinGW\\bin"
             },
             "problemMatcher": [
                 "$gcc"
