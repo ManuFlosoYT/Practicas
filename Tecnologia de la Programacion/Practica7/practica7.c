@@ -129,6 +129,10 @@ int main()
     SetConsoleOutputCP(1252);
     srand(time(NULL));
 
+    int boleto;
+    printf( "Introduzca su numero de boleto: ");
+    scanf( "%d", &boleto );
+
     Bombo b1 = BomboCrea(TAM_B1);
     Bombo b2 = BomboCrea(TAM_B2);
 
@@ -246,13 +250,36 @@ int main()
         return EXIT_FAILURE;
     }
 
+    int ganador = 0;
+    int cantidad = 0;
     for (int i = 0; i < TAM_B2; i++)
     {
         fprintf(f, "Número: %d, Premio: %d\n", numero[i], premio[i]);
+
+        if( numero[i] == boleto )
+        {
+            ganador = 1;
+            cantidad = premio[i];
+        }
     }
     fclose(f);
 
+    if( ganador )
+    {
+        printf("Tu boleto ha sido premiado con %d euros\n", cantidad);
+    }
+    else
+    {
+        printf("Tu boleto no ha sido premiado\n");
+    }
+    
+
+
+
     BomboLibera(b1);
     BomboLibera(b2);
+
+    printf("\nPulse una tecla para terminar");
+    getchar();
     return 0;
 }
