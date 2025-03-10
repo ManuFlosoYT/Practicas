@@ -72,29 +72,23 @@ Estructura EstructuraConcatena(Estructura e1, Estructura e2)
 
 void EstructuraEliminaRepetidos(Estructura e) 
 {
-    Estructura actual = e->sig;
-    Estructura previo = e;
-    Estructura comparador = NULL;
-
-    while (actual != NULL) 
+    for(e = e->sig; e != NULL; e = e->sig)
     {
-        comparador = e->sig;
+        Estructura aux = e;
 
-        while (comparador != actual) 
+        while(aux->sig != NULL)
         {
-            if (actual->elem == comparador->elem) 
-            {
-                previo->sig = actual->sig;
-                free(actual);
-                actual = previo->sig;
-                break;
+            if(e->elem == aux->sig->elem)
+            { 
+                //Eliminar elemento repetido
+                Estructura temp = aux->sig;
+                aux->sig = temp->sig;
+                free(temp);
             }
-            comparador = comparador->sig;
-        }
-        if (comparador == actual) 
-        {
-            previo = actual;
-            actual = actual->sig;
+            else
+            {
+                aux = aux->sig;
+            }
         }
     }
 }
