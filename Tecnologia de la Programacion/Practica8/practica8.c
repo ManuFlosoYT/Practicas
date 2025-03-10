@@ -75,7 +75,6 @@ void EstructuraEliminaRepetidos(Estructura e)
     for(e = e->sig; e != NULL; e = e->sig)
     {
         Estructura aux = e;
-
         while(aux->sig != NULL)
         {
             if(e->elem == aux->sig->elem)
