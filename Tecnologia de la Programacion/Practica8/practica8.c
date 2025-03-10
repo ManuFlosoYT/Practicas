@@ -120,11 +120,12 @@ int main()
 
     PedirEntrada(&n, &a, &b);
     Estructura e1 = EstructuraCrea(n, a, b);
-    printf("Estructura 1:\n");
-    EstructuraImprime(e1);
 
     PedirEntrada(&n, &a, &b);
     Estructura e2 = EstructuraCrea(n, a, b);
+
+    printf("Estructura 1:\n");
+    EstructuraImprime(e1);
     printf("Estructura 2:\n");
     EstructuraImprime(e2);
 
