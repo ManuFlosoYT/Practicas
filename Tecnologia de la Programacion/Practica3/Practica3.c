@@ -101,8 +101,8 @@ double real_aleatorio_rango(double a, double b)
 int main()
 {
     //Activar la consola con caracteres Espa�oles
-    SetConsoleCP(1252);
-    SetConsoleOutputCP(1252);
+    SetConsoleCP(65001);
+    SetConsoleOutputCP(65001);
 
     int resultado, n, m, r, aleatorio;
     double p, k, aleatorioReal;

@@ -105,8 +105,8 @@ void EstructuraLibera(Estructura e)
 
 int main()
 {
-    SetConsoleCP(1252);
-    SetConsoleOutputCP(1252);
+    SetConsoleCP(65001);
+    SetConsoleOutputCP(65001);
     srand(time(NULL));
 
     int n, a, b;

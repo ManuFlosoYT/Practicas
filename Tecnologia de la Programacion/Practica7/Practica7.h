@@ -1,7 +1,7 @@
 #ifndef PRACTICA7_H_INCLUDED 
 #define PRACTICA7_H_INCLUDED 
 extern int error; 
-typedef struct BomboRep * Bombo; 
+typedef struct BomboRep* Bombo; 
 // Construye y devuelve un bombo vacío que puede contener un 
 // máximo de max bolas. Si max<2 devuelve NULL y asigna 
 // error=1. 
@@ -24,6 +24,6 @@ int BomboVacia(Bombo b);
 // Devuelve el mensaje de error asociado a un código de error 
 // del bombo b. 
 
-char * BomboMensajeError(Bombo b, int codigoError); 
+char* BomboMensajeError(Bombo b, int codigoError); 
 
 #endif

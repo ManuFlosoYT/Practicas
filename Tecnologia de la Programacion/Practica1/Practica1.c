@@ -23,8 +23,8 @@ int main()
     int contador = 0;
 
     //Activar la consola con caracteres Espa�oles
-    SetConsoleCP(1252);
-    SetConsoleOutputCP(1252);
+    SetConsoleCP(65001);
+    SetConsoleOutputCP(65001);
 
 
     printf("Hola Mundo!\n");

@@ -12,7 +12,7 @@ char mensajeError[100];
 
 struct BomboRep 
 {
-    int * bolas;
+    int* bolas;
     int max; // tamaño máximo del bombo
     int n;  // nº de bolas que tenemos actualmente
 };
@@ -100,7 +100,7 @@ int BomboVacia(Bombo b)
 
 // Devuelve el mensaje de error asociado a un código de error
 // del bombo b.
-char * BomboMensajeError(Bombo b, int codigoError) 
+char* BomboMensajeError(Bombo b, int codigoError) 
 {
     switch(codigoError) 
     {
@@ -125,8 +125,8 @@ char * BomboMensajeError(Bombo b, int codigoError)
 
 int main()
 {
-    SetConsoleCP(1252);
-    SetConsoleOutputCP(1252);
+    SetConsoleCP(65001);
+    SetConsoleOutputCP(65001);
     srand(time(NULL));
 
     int boleto;
