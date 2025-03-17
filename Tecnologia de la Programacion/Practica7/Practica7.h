@@ -1,3 +1,13 @@
+/**
+ * @file Practica7.h
+ * @brief This file defines the interface for a "Bombo" data structure, which simulates a lottery drum.
+ *
+ * The Bombo data structure allows for the creation, manipulation, and extraction of balls from a virtual drum.
+ * It provides functions for creating a Bombo, inserting balls, extracting balls, checking if the Bombo is empty,
+ * and freeing the Bombo's memory. Error handling is included, with specific error codes and messages.
+ */
+
+
 #ifndef PRACTICA7_H_INCLUDED 
 #define PRACTICA7_H_INCLUDED 
 extern int error; 

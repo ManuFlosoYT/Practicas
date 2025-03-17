@@ -1,3 +1,23 @@
+/**
+ * @file parcial1.c
+ * @brief This file contains the implementation of several functions for a menu-driven program.
+ *
+ * The program includes functionalities for:
+ *   - Generating a random number and guessing it.
+ *   - Calculating the travel time to the sun.
+ *   - Checking if a number is within a given range.
+ *   - Handling arrays, strings, dynamic arrays, and files.
+ *   - Simulating a lottery system with two 'Bombo' structures.
+ *   - Handling linked lists, including creation, printing, removing duplicates, concatenation, and freeing memory.
+ *
+ * The file includes functions for creating, manipulating, and freeing memory for linked lists and 'Bombo' structures.
+ * It also includes functions for reading user input, performing calculations, and displaying results.
+ *
+ * @author GitHub Copilot
+ * @date [Date]
+ */
+
+
 #include "parcial1.h"   // Incluir el fichero cabezera
 #include <windows.h>    // Incluir la librería de Windows para poder usar SetConsoleCP y SetConsoleOutputCP
 #include <stdio.h>      // Incluir la librería estándar de entrada y salida
