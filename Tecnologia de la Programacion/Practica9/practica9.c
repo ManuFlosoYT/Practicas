@@ -13,6 +13,7 @@
 #include <windows.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <time.h>
 #include "Cola.h"
 
 #define NUM_COLAS 5
@@ -21,6 +22,7 @@ int main()
 {
     SetConsoleCP(65001);
     SetConsoleOutputCP(65001);
+    srand(time(NULL));
 
     // Reservar memoria para las colas y crearlas
     Cola* consultorio = malloc(sizeof(Cola) * NUM_COLAS);
