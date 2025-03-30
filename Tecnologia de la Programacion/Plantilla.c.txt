@@ -4,8 +4,8 @@
 int main()
 {
     //Activar la consola con caracteres Españoles
-    SetConsoleCP(1252);
-    SetConsoleOutputCP(1252);
+    SetConsoleCP(65001);
+    SetConsoleOutputCP(65001);
 
     return 0;
 }

@@ -1,3 +1,87 @@
+/**
+ * @file practica8.c
+ * @brief This program demonstrates the use of linked lists in C.
+ *
+ * The program defines a structure called EstructuraRep, which represents a node in a linked list.
+ * It includes functions to create, print, concatenate, remove duplicates from, and free a linked list of this type.
+ * The main function takes user input to create two linked lists, concatenates them, removes duplicates, and then frees the memory.
+ */
+
+/**
+ * @typedef EstructuraRep* Estructura
+ * @brief Defines a pointer to the EstructuraRep structure as Estructura for easier use.
+ */
+
+/**
+ * @struct EstructuraRep
+ * @brief Represents a node in a linked list.
+ * @var EstructuraRep::elem The integer element stored in the node.
+ * @var EstructuraRep::sig A pointer to the next node in the list.
+ */
+
+/**
+ * @brief Creates a linked list of EstructuraRep nodes with random integer elements.
+ *
+ * @param n The number of nodes to create in the list.
+ * @param a The lower bound for the random integer values.
+ * @param b The upper bound for the random integer values.
+ * @return A pointer to the first node of the created linked list.
+ *
+ * @note The function allocates memory for each node and initializes the 'elem' field with a random integer between 'a' and 'b' (inclusive).
+ *       The first node created is a header node and does not contain any element.
+ */
+/**
+ * @brief Prints the elements of a linked list to the console.
+ *
+ * @param e A pointer to the first node of the linked list.
+ *
+ * @note The function iterates through the list and prints the 'elem' field of each node, starting from the second node (skipping the header node).
+ */
+/**
+ * @brief Prompts the user to enter three integers: n, a, and b.
+ *
+ * @param n A pointer to an integer where the user-provided value for 'n' will be stored.
+ * @param a A pointer to an integer where the user-provided value for 'a' will be stored.
+ * @param b A pointer to an integer where the user-provided value for 'b' will be stored.
+ *
+ * @note The function uses `scanf` to read the integers from the standard input.
+ *       It prompts the user to enter 'n' (a non-negative integer), 'a' (an integer), and 'b' (an integer greater than or equal to 'a').
+ */
+/**
+ * @brief Concatenates two linked lists into a new linked list.
+ *
+ * @param e1 A pointer to the first node of the first linked list.
+ * @param e2 A pointer to the first node of the second linked list.
+ * @return A pointer to the first node of the concatenated linked list.
+ *
+ * @note The function creates a new linked list by copying the elements from e1 and e2.
+ *       The first node created is a header node and does not contain any element.
+ */
+/**
+ * @brief Removes duplicate elements from a linked list.
+ *
+ * @param e A pointer to the first node of the linked list.
+ *
+ * @note The function iterates through the list and compares each element with the subsequent elements.
+ *       If a duplicate is found, it is removed from the list.
+ */
+/**
+ * @brief Frees the memory allocated for a linked list.
+ *
+ * @param e A pointer to the first node of the linked list.
+ *
+ * @note The function iterates through the list and frees each node.
+ */
+/**
+ * @brief Main function of the program.
+ *
+ * @return 0 if the program executes successfully.
+ *
+ * @note The function initializes the random number generator, takes user input to create two linked lists,
+ *       concatenates them, removes duplicates, prints the lists, and then frees the allocated memory.
+ */
+
+
 #include <stdlib.h>
 #include <stdio.h>
 #include <time.h>
@@ -105,8 +189,8 @@ void EstructuraLibera(Estructura e)
 
 int main()
 {
-    SetConsoleCP(1252);
-    SetConsoleOutputCP(1252);
+    SetConsoleCP(65001);
+    SetConsoleOutputCP(65001);
     srand(time(NULL));
 
     int n, a, b;

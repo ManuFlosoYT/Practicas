@@ -112,8 +112,8 @@ int contarPalabras(char* nombreArchivo)
 int main()
 {
     //Activar la consola con caracteres Españoles
-    SetConsoleCP(1252);
-    SetConsoleOutputCP(1252);
+    SetConsoleCP(65001);
+    SetConsoleOutputCP(65001);
 
     char* nombreArchivo = "archivo.txt";
     printf("Escriba el texto que desea guardar en el archivo %s [CTRL+Z RETURN] \n", nombreArchivo);

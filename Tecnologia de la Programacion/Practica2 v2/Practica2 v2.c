@@ -17,8 +17,8 @@ const int _distancia_tierra_luna = 384400;
 int main()
 {
     //Activar la consola con caracteres Espa�oles
-    SetConsoleCP(1252);
-    SetConsoleOutputCP(1252);
+    SetConsoleCP(65001);
+    SetConsoleOutputCP(65001);
 
     double velocidadT, velocidadL, distancia, horas, minutos, segundos;
     double i_segundos, i_minutos, i_horas;

@@ -1,3 +1,46 @@
+/**
+ * @file Practica7.c
+ * @brief This program simulates a lottery system using two "Bombo" data structures.
+ *
+ * The program initializes two "Bombo" structures, populates them with numbers,
+ * extracts numbers from both, and writes the extracted pairs to a file named "premios.txt".
+ * It then checks if a user-provided ticket number matches any of the extracted numbers
+ * and, if so, declares the ticket as a winner and displays the corresponding prize.
+ *
+ * The program uses the following data structures and functions:
+ *   - `Bombo`: An abstract data type representing a lottery drum.
+ *   - `BomboCrea`: Creates a new `Bombo` with a specified maximum capacity.
+ *   - `BomboInserta`: Inserts a number into a `Bombo`.
+ *   - `BomboExtrae`: Extracts a random number from a `Bombo`.
+ *   - `BomboLibera`: Frees the memory allocated for a `Bombo`.
+ *   - `BomboVacia`: Checks if a `Bombo` is empty.
+ *   - `BomboMensajeError`: Returns an error message associated with a `Bombo` error code.
+ *   - `large_rand`: Generates a large random number.
+ *
+ * The program defines two constants:
+ *   - `TAM_B1`: The maximum capacity of the first `Bombo` (100000).
+ *   - `TAM_B2`: The maximum capacity of the second `Bombo` (1807).
+ *
+ * Usage:
+ *   1. Compile the program.
+ *   2. Run the executable.
+ *   3. Enter your ticket number when prompted.
+ *   4. The program will simulate the lottery and display whether your ticket is a winner.
+ *   5. The extracted numbers and their corresponding prizes will be written to "premios.txt".
+ *
+ * Error Handling:
+ *   The program includes error handling for the following cases:
+ *     - Invalid `Bombo` creation (max < 2).
+ *     - `Bombo` is full when inserting a number.
+ *     - `Bombo` is empty when extracting a number.
+ *     - Failure to open the output file "premios.txt".
+ *   Error messages are printed to stderr.
+ *
+ * @author [Your Name]
+ * @date [Date]
+ */
+
+
 #include "Practica7.h"
 #include <stdlib.h>
 #include <stdio.h>
@@ -12,7 +55,7 @@ char mensajeError[100];
 
 struct BomboRep 
 {
-    int * bolas;
+    int* bolas;
     int max; // tamaño máximo del bombo
     int n;  // nº de bolas que tenemos actualmente
 };
@@ -100,7 +143,7 @@ int BomboVacia(Bombo b)
 
 // Devuelve el mensaje de error asociado a un código de error
 // del bombo b.
-char * BomboMensajeError(Bombo b, int codigoError) 
+char* BomboMensajeError(Bombo b, int codigoError) 
 {
     switch(codigoError) 
     {
@@ -125,8 +168,8 @@ char * BomboMensajeError(Bombo b, int codigoError)
 
 int main()
 {
-    SetConsoleCP(1252);
-    SetConsoleOutputCP(1252);
+    SetConsoleCP(65001);
+    SetConsoleOutputCP(65001);
     srand(time(NULL));
 
     int boleto;

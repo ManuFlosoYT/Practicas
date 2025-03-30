@@ -124,8 +124,8 @@ int CadenasIguales(char c1[], char c2[])
 int main()
 {
     //Activar la consola con caracteres Españoles
-    SetConsoleCP(1252);
-    SetConsoleOutputCP(1252);
+    SetConsoleCP(65001);
+    SetConsoleOutputCP(65001);
 
     int n;
     printf("Introduzca el tamaño del array como un entero mayor o igual que 0: ");
