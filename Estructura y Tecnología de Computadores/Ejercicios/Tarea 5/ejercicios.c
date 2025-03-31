@@ -56,11 +56,15 @@ int matB[4][3] = {
 };
 int matC[5][3];
 
-void multiplicar_matA_matB(void) {
-  for (int i = 0; i < 5; ++i) {
-    for (int j = 0; j < 3; ++j) {
+void multiplicar_matA_matB(void) 
+{
+  for (int i = 0; i < 5; ++i) 
+  {
+    for (int j = 0; j < 3; ++j) 
+	{
       int r = 0;
-      for (int k = 0; k < 4; ++k) {
+      for (int k = 0; k < 4; ++k) 
+	  {
         r = r + matA[i][k] * matB[k][j];
       }
       matC[i][j] = r;
