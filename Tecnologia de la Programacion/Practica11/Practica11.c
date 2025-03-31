@@ -1,0 +1,13 @@
+#include <windows.h>
+#include <stdio.h>
+
+int main()
+{
+    //Activar la consola con caracteres Españoles
+    SetConsoleCP(65001);
+    SetConsoleOutputCP(65001);
+
+    
+
+    return 0;
+}
