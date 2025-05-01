@@ -3,6 +3,7 @@
         "parcial1.h": "c",
         "windows.h": "c",
         "stdlib.h": "c",
-        "time.h": "c"
+        "time.h": "c",
+        "stdio.h": "c"
     }
 }
